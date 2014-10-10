@@ -13,6 +13,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
+    ngtemplates: 'grunt-angular-templates',
+    cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
     buildcontrol: 'grunt-build-control'
@@ -28,6 +30,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     yeoman: {
       // configurable paths
+      client: require('./bower.json').appPath || 'client',
       dist: 'dist'
     },
     express: {
@@ -76,16 +79,6 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
-      },
-      injectSass: {
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['injector:sass']
-      },
-      sass: {
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['sass', 'autoprefixer']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -215,6 +208,15 @@ module.exports = function (grunt) {
       }
     },
 
+    // Automatically inject Bower components into the app
+    wiredep: {
+      target: {
+        src: '<%= yeoman.client %>/index.html',
+        ignorePath: '<%= yeoman.client %>/',
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
+      }
+    },
+
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -340,6 +342,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
+            'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'index.html'
@@ -447,22 +450,6 @@ module.exports = function (grunt) {
       all: localConfig
     },
 
-    // Compiles Sass to CSS
-    sass: {
-      server: {
-        options: {
-          loadPath: [
-            '<%= yeoman.client %>/app',
-            '<%= yeoman.client %>/components'
-          ],
-          compass: false
-        },
-        files: {
-          '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'
-        }
-      }
-    },
-
     injector: {
       options: {
 
@@ -485,25 +472,6 @@ module.exports = function (grunt) {
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
             ]
-        }
-      },
-
-      // Inject component scss into app.scss
-      sass: {
-        options: {
-          transform: function(filePath) {
-            filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
-            return '@import \'' + filePath + '\';';
-          },
-          starttag: '// injector',
-          endtag: '// endinjector'
-        },
-        files: {
-          '<%= yeoman.client %>/app/app.scss': [
-            '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}',
-            '!<%= yeoman.client %>/app/app.{scss,sass}'
-          ]
         }
       },
 
@@ -545,7 +513,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'express-keepalive']);
+      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
     }
 
     if (target === 'debug') {
@@ -553,6 +521,8 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
+        'injector',
+        'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -562,9 +532,12 @@ module.exports = function (grunt) {
       'clean:server',
       'env:all',
       'concurrent:server',
+      'injector',
+      'wiredep',
       'autoprefixer',
       'express:dev',
       'wait',
+      'open',
       'watch'
     ]);
   });
@@ -588,7 +561,9 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:test',
+        'injector',
         'autoprefixer',
+        'karma'
       ]);
     }
 
@@ -598,6 +573,8 @@ module.exports = function (grunt) {
         'env:all',
         'env:test',
         'concurrent:test',
+        'injector',
+        'wiredep',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -613,10 +590,17 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'concurrent:dist',
+    'injector',
+    'wiredep',
     'useminPrepare',
     'autoprefixer',
+    'ngtemplates',
+    'concat',
     'ngAnnotate',
     'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
     'rev',
     'usemin'
   ]);
