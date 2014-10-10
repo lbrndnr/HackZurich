@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
+		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
+		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
+		494F50B519E88BE8003DCC1A /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B419E88BE8003DCC1A /* SecondViewController.m */; };
+		494F50B819E88BE8003DCC1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494F50B619E88BE8003DCC1A /* Main.storyboard */; };
+		494F50BA19E88BE8003DCC1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494F50B919E88BE8003DCC1A /* Images.xcassets */; };
+		494F50BD19E88BE8003DCC1A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494F50BB19E88BE8003DCC1A /* LaunchScreen.xib */; };
+		494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50C819E88BE8003DCC1A /* HackZurichTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		494F50C319E88BE8003DCC1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 494F509E19E88BE8003DCC1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 494F50A519E88BE8003DCC1A;
+			remoteInfo = HackZurich;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		494F50AD19E88BE8003DCC1A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		494F50AE19E88BE8003DCC1A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		494F50B019E88BE8003DCC1A /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		494F50B119E88BE8003DCC1A /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		494F50B319E88BE8003DCC1A /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		494F50B419E88BE8003DCC1A /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		494F50B719E88BE8003DCC1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		494F50B919E88BE8003DCC1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		494F50BC19E88BE8003DCC1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		494F50C219E88BE8003DCC1A /* HackZurichTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackZurichTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		494F50C719E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		494F50C819E88BE8003DCC1A /* HackZurichTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackZurichTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		494F50A319E88BE8003DCC1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		494F50BF19E88BE8003DCC1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		494F509D19E88BE8003DCC1A = {
+			isa = PBXGroup;
+			children = (
+				494F50A819E88BE8003DCC1A /* HackZurich */,
+				494F50C519E88BE8003DCC1A /* HackZurichTests */,
+				494F50A719E88BE8003DCC1A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		494F50A719E88BE8003DCC1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				494F50A619E88BE8003DCC1A /* HackZurich.app */,
+				494F50C219E88BE8003DCC1A /* HackZurichTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		494F50A819E88BE8003DCC1A /* HackZurich */ = {
+			isa = PBXGroup;
+			children = (
+				494F50AD19E88BE8003DCC1A /* AppDelegate.h */,
+				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
+				494F50B019E88BE8003DCC1A /* FirstViewController.h */,
+				494F50B119E88BE8003DCC1A /* FirstViewController.m */,
+				494F50B319E88BE8003DCC1A /* SecondViewController.h */,
+				494F50B419E88BE8003DCC1A /* SecondViewController.m */,
+				494F50B619E88BE8003DCC1A /* Main.storyboard */,
+				494F50B919E88BE8003DCC1A /* Images.xcassets */,
+				494F50BB19E88BE8003DCC1A /* LaunchScreen.xib */,
+				494F50A919E88BE8003DCC1A /* Supporting Files */,
+			);
+			path = HackZurich;
+			sourceTree = "<group>";
+		};
+		494F50A919E88BE8003DCC1A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				494F50AA19E88BE8003DCC1A /* Info.plist */,
+				494F50AB19E88BE8003DCC1A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		494F50C519E88BE8003DCC1A /* HackZurichTests */ = {
+			isa = PBXGroup;
+			children = (
+				494F50C819E88BE8003DCC1A /* HackZurichTests.m */,
+				494F50C619E88BE8003DCC1A /* Supporting Files */,
+			);
+			path = HackZurichTests;
+			sourceTree = "<group>";
+		};
+		494F50C619E88BE8003DCC1A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				494F50C719E88BE8003DCC1A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		494F50A519E88BE8003DCC1A /* HackZurich */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 494F50CC19E88BE8003DCC1A /* Build configuration list for PBXNativeTarget "HackZurich" */;
+			buildPhases = (
+				494F50A219E88BE8003DCC1A /* Sources */,
+				494F50A319E88BE8003DCC1A /* Frameworks */,
+				494F50A419E88BE8003DCC1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HackZurich;
+			productName = HackZurich;
+			productReference = 494F50A619E88BE8003DCC1A /* HackZurich.app */;
+			productType = "com.apple.product-type.application";
+		};
+		494F50C119E88BE8003DCC1A /* HackZurichTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 494F50CF19E88BE8003DCC1A /* Build configuration list for PBXNativeTarget "HackZurichTests" */;
+			buildPhases = (
+				494F50BE19E88BE8003DCC1A /* Sources */,
+				494F50BF19E88BE8003DCC1A /* Frameworks */,
+				494F50C019E88BE8003DCC1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				494F50C419E88BE8003DCC1A /* PBXTargetDependency */,
+			);
+			name = HackZurichTests;
+			productName = HackZurichTests;
+			productReference = 494F50C219E88BE8003DCC1A /* HackZurichTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		494F509E19E88BE8003DCC1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Laurin Brandner";
+				TargetAttributes = {
+					494F50A519E88BE8003DCC1A = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					494F50C119E88BE8003DCC1A = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 494F50A519E88BE8003DCC1A;
+					};
+				};
+			};
+			buildConfigurationList = 494F50A119E88BE8003DCC1A /* Build configuration list for PBXProject "HackZurich" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 494F509D19E88BE8003DCC1A;
+			productRefGroup = 494F50A719E88BE8003DCC1A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				494F50A519E88BE8003DCC1A /* HackZurich */,
+				494F50C119E88BE8003DCC1A /* HackZurichTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		494F50A419E88BE8003DCC1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				494F50B819E88BE8003DCC1A /* Main.storyboard in Resources */,
+				494F50BD19E88BE8003DCC1A /* LaunchScreen.xib in Resources */,
+				494F50BA19E88BE8003DCC1A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		494F50C019E88BE8003DCC1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		494F50A219E88BE8003DCC1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				494F50B519E88BE8003DCC1A /* SecondViewController.m in Sources */,
+				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,
+				494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */,
+				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		494F50BE19E88BE8003DCC1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		494F50C419E88BE8003DCC1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 494F50A519E88BE8003DCC1A /* HackZurich */;
+			targetProxy = 494F50C319E88BE8003DCC1A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		494F50B619E88BE8003DCC1A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				494F50B719E88BE8003DCC1A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		494F50BB19E88BE8003DCC1A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				494F50BC19E88BE8003DCC1A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		494F50CA19E88BE8003DCC1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		494F50CB19E88BE8003DCC1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		494F50CD19E88BE8003DCC1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HackZurich/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		494F50CE19E88BE8003DCC1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HackZurich/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		494F50D019E88BE8003DCC1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HackZurichTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HackZurich.app/HackZurich";
+			};
+			name = Debug;
+		};
+		494F50D119E88BE8003DCC1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HackZurichTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HackZurich.app/HackZurich";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		494F50A119E88BE8003DCC1A /* Build configuration list for PBXProject "HackZurich" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				494F50CA19E88BE8003DCC1A /* Debug */,
+				494F50CB19E88BE8003DCC1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		494F50CC19E88BE8003DCC1A /* Build configuration list for PBXNativeTarget "HackZurich" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				494F50CD19E88BE8003DCC1A /* Debug */,
+				494F50CE19E88BE8003DCC1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		494F50CF19E88BE8003DCC1A /* Build configuration list for PBXNativeTarget "HackZurichTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				494F50D019E88BE8003DCC1A /* Debug */,
+				494F50D119E88BE8003DCC1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 494F509E19E88BE8003DCC1A /* Project object */;
+}
