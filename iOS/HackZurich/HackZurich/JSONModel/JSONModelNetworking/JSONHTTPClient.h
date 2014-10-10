@@ -15,6 +15,7 @@
 // The MIT License in plain English: http://www.touch-code-magazine.com/JSONModel/MITLicense
 
 #import "JSONModel.h"
+#import <UIKit/UIKit.h>
 
 #pragma mark - definitions
 

@@ -7,6 +7,7 @@
 //
 
 #import "OutputFeedCreaterViewController.h"
+#import "Feed.h"
 
 @interface OutputFeedCreaterViewController ()
 
@@ -24,7 +25,10 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    self.availableInputFeeds = [NSMutableArray arrayWithObjects:@"haha", @"yolo", nil];
+    Feed* feed = [Feed new];
+    feed.url = @"http://BAZINGA.com";
+    
+    self.availableInputFeeds =
     self.selectedInputFeedIndices = [NSMutableIndexSet new];
     self.filters = [NSMutableArray arrayWithObjects:@"#tag", @"damn", nil];
     
