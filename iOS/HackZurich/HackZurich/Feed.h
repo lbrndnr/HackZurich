@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Feed : NSObject
+@interface Feed : Js
 
 @property (nonatomic) int id;
 @property (strong, nonatomic) NSString *url;
