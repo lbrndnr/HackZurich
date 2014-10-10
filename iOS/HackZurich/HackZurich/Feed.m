@@ -10,12 +10,4 @@
 
 @implementation Feed
 
--(void)createOnServer {
-    
-}
--(void)updateOnServer {
-    
-
-}
-
 @end
