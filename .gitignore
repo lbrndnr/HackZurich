@@ -1,0 +1,12 @@
+bower_components/
+/server/dist/
+.DS_Store
+.idea
+*.iml
+local.env.js
+node_modules/
+npm-debug.log
+public
+.sass-cache
+*.swp
+.tmp
