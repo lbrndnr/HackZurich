@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27F0B52819E88D6E00ADCEE1 /* OutputFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B52719E88D6E00ADCEE1 /* OutputFeed.m */; };
+		27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B52719E88D6E00ADCEE1 /* Feed.m */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
 		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
@@ -29,8 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		27F0B52619E88D6E00ADCEE1 /* OutputFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputFeed.h; sourceTree = "<group>"; };
-		27F0B52719E88D6E00ADCEE1 /* OutputFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputFeed.m; sourceTree = "<group>"; };
+		27F0B52619E88D6E00ADCEE1 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
+		27F0B52719E88D6E00ADCEE1 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,8 +69,8 @@
 		27F0B52319E88D1200ADCEE1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				27F0B52619E88D6E00ADCEE1 /* OutputFeed.h */,
-				27F0B52719E88D6E00ADCEE1 /* OutputFeed.m */,
+				27F0B52619E88D6E00ADCEE1 /* Feed.h */,
+				27F0B52719E88D6E00ADCEE1 /* Feed.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -241,7 +241,7 @@
 				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,
 				494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */,
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
-				27F0B52819E88D6E00ADCEE1 /* OutputFeed.m in Sources */,
+				27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OutputFeed : NSObject
+@interface Feed : NSObject
 
+@property (nonatomic) int id;
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) NSMutableArray *inputFeeds; //Of type InputFeed
 @property (strong, nonatomic) NSMutableArray *filters; //Of type Filter

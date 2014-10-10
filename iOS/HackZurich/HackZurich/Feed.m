@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Laurin Brandner. All rights reserved.
 //
 
-#import "OutputFeed.h"
+#import "Feed.h"
 
-@implementation OutputFeed
+@implementation Feed
 
 -(void)createOnServer {
     
