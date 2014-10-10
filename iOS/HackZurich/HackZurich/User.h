@@ -1,5 +1,5 @@
 //
-//  Filter.h
+//  User.h
 //  HackZurich
 //
 //  Created by Patrick Amrein on 11/10/14.
@@ -7,16 +7,10 @@
 //
 
 #import "JSONModel.h"
-#import "Rule.h"
 
-@class Feed;
+@interface User : JSONModel
 
-@interface Filter : JSONModel
 @property (strong, nonatomic) NSString *id;
-@property (strong, nonatomic) Feed *output;
-@property (strong, nonatomic) NSArray<Rule> *rules;
-@end
-
-@protocol Filter
-
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *auth;
 @end
