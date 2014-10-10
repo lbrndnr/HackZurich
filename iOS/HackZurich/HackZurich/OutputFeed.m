@@ -10,4 +10,12 @@
 
 @implementation OutputFeed
 
+-(void)createOnServer {
+    
+}
+-(void)updateOnServer {
+    
+
+}
+
 @end
