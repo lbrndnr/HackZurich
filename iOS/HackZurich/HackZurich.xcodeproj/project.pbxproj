@@ -19,6 +19,8 @@
 		27F0B54B19E8A35E00ADCEE1 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B54019E8A35E00ADCEE1 /* JSONKeyMapper.m */; };
 		27F0B54C19E8A35E00ADCEE1 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B54219E8A35E00ADCEE1 /* JSONValueTransformer.m */; };
 		27F0B54E19E8A39B00ADCEE1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F0B54D19E8A39B00ADCEE1 /* SystemConfiguration.framework */; };
+		27F0B55119E8A5AE00ADCEE1 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55019E8A5AE00ADCEE1 /* Filter.m */; };
+		27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55319E8A75600ADCEE1 /* Rule.m */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
 		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
@@ -63,6 +65,10 @@
 		27F0B54119E8A35E00ADCEE1 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		27F0B54219E8A35E00ADCEE1 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		27F0B54D19E8A39B00ADCEE1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		27F0B54F19E8A5AE00ADCEE1 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		27F0B55019E8A5AE00ADCEE1 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		27F0B55219E8A75600ADCEE1 /* Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rule.h; sourceTree = "<group>"; };
+		27F0B55319E8A75600ADCEE1 /* Rule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rule.m; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -99,13 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		27F0B52319E88D1200ADCEE1 /* ViewControllers */ = {
+		27F0B52319E88D1200ADCEE1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				27F0B52619E88D6E00ADCEE1 /* Feed.h */,
 				27F0B52719E88D6E00ADCEE1 /* Feed.m */,
+				27F0B54F19E8A5AE00ADCEE1 /* Filter.h */,
+				27F0B55019E8A5AE00ADCEE1 /* Filter.m */,
+				27F0B55219E8A75600ADCEE1 /* Rule.h */,
+				27F0B55319E8A75600ADCEE1 /* Rule.m */,
 			);
-			name = ViewControllers;
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 		27F0B52919E8A35E00ADCEE1 /* JSONModel */ = {
@@ -191,7 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				27F0B52919E8A35E00ADCEE1 /* JSONModel */,
-				27F0B52319E88D1200ADCEE1 /* ViewControllers */,
+				27F0B52319E88D1200ADCEE1 /* ViewModels */,
 				494F50AD19E88BE8003DCC1A /* AppDelegate.h */,
 				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
 				494F50B019E88BE8003DCC1A /* FirstViewController.h */,
@@ -336,6 +346,7 @@
 				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,
 				494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */,
 				27F0B54A19E8A35E00ADCEE1 /* JSONModel+networking.m in Sources */,
+				27F0B55119E8A5AE00ADCEE1 /* Filter.m in Sources */,
 				494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */,
 				27F0B54419E8A35E00ADCEE1 /* JSONModelArray.m in Sources */,
 				27F0B54919E8A35E00ADCEE1 /* JSONHTTPClient.m in Sources */,
@@ -346,6 +357,7 @@
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
 				27F0B54619E8A35E00ADCEE1 /* JSONModelError.m in Sources */,
 				27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */,
+				27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

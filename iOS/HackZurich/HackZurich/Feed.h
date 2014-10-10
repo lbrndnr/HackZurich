@@ -7,19 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONModel/JSONModelLib.h"
+#import "Filter.h"
 
-@interface Feed : Js
+@interface Feed : JSONModel
 
-@property (nonatomic) int id;
+@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic)NSString *name;
+@property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *url;
-@property (strong, nonatomic) NSMutableArray *inputFeeds; //Of type InputFeed
-@property (strong, nonatomic) NSMutableArray *filters; //Of type Filter
+
+@property (strong, nonatomic) NSArray<Filter, Optional>* filters;
+
 @property (nonatomic) BOOL isVisible;
-
-
-
--(void)createOnServer;
--(void)updateOnServer;
 
 
 @end
