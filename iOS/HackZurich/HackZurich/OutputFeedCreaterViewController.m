@@ -26,9 +26,10 @@
     [super viewDidLoad];
     
     Feed* feed = [Feed new];
+    feed.name = @"YOLO";
     feed.url = @"http://BAZINGA.com";
     
-    self.availableInputFeeds =
+    self.availableInputFeeds = [NSMutableArray arrayWithObject:feed];
     self.selectedInputFeedIndices = [NSMutableIndexSet new];
     self.filters = [NSMutableArray arrayWithObjects:@"#tag", @"damn", nil];
     
@@ -64,7 +65,9 @@
     
     if (indexPath.section == 0) {
         if (indexPath.row < self.availableInputFeeds.count) {
-            cell.textLabel.text = self.availableInputFeeds[indexPath.row];
+            Feed* feed = self.availableInputFeeds[indexPath.row];
+            
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.url];
             if ([self.selectedInputFeedIndices containsIndex:indexPath.row]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
@@ -126,8 +129,16 @@
             [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self dismissViewControllerAnimated:YES completion:nil];
                 
-                UITextField* textField = controller.textFields.firstObject;
-                [self.availableInputFeeds addObject:textField.text];
+                UITextField* nameTextField = controller.textFields.firstObject;
+                UITextField* descTextField = controller.textFields[1];
+                UITextField* URLTextField = controller.textFields[2];
+                
+                Feed* feed = [Feed new];
+                feed.name = nameTextField.text;
+                feed.desc = descTextField.text;
+                feed.url = URLTextField.text;
+                [self.availableInputFeeds addObject:feed];
+                [self.selectedInputFeedIndices addIndex:[self.availableInputFeeds indexOfObject:feed]];
                 
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
