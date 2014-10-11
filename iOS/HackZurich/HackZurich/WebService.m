@@ -103,6 +103,7 @@
  true if succeeded false otherwise
   the self.currentUser was not set if return value is false
  IMPORTANT: Send the auth-token in the User-INstance for every further request
+ 
  */
 -(BOOL) login:(NSString *)username withPassword:(NSString *)password  withCompletion:(void (^)(User *, NSString*))completion {
     
