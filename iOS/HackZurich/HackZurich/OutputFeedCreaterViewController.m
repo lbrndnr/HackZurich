@@ -61,7 +61,18 @@
     self.doneItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = self.doneItem;
     
-    self.availableInputFeeds = [NSMutableArray arrayWithArray:[WebService sharedService].feeds];
+    NSMutableArray* feeds = [NSMutableArray arrayWithArray:[WebService sharedService].feeds];
+    NSUInteger duplicateIndex = NSNotFound;
+    for (Feed* feed in feeds) {
+        if ([feed._id isEqualToString:self.feed._id]) {
+            duplicateIndex = [feeds indexOfObject:feed];
+            break;
+        }
+    }
+    if (duplicateIndex != NSNotFound) {
+        [feeds removeObjectAtIndex:duplicateIndex];
+    }
+    self.availableInputFeeds = feeds;
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
