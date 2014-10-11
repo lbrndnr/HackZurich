@@ -42,7 +42,7 @@
      string = [NSString stringWithFormat:@"%@/%@",BASE_URL,parameter];
     }
     else {
-        string = [NSString stringWithFormat:@"%@/%@?auth=%@",BASE_URL,parameter, self.currentUser.access_token];
+        string = [NSString stringWithFormat:@"%@/%@?access_token=%@",BASE_URL,parameter, self.currentUser.access_token];
     }
     return  string;
 }
