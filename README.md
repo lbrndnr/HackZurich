@@ -1,4 +1,6 @@
-# caltag: a simple yet powerful tool to create semantic time-feed networks
+<img src="http://hz14.the-admins.ch/gfx/caltag.png"/>
+
+#### a simple yet powerful tool to create semantic time-feed networks
 
 Time is money and while money may be abundant, time will always be a limited commodity.
 
