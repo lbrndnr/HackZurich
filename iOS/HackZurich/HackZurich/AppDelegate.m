@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "FirstViewController.h"
+#import "CalendarViewController.h"
 #import "FeedsViewController.h"
 #import "WebService.h"
 
@@ -36,10 +36,10 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
     
     UITabBarController* controller = [UITabBarController new];
     
-    UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[FirstViewController new]];
-    firstViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"First" image:nil selectedImage:nil];
+    UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[CalendarViewController new]];
+    firstViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Calendar", nil) image:nil selectedImage:nil];
     UINavigationController* secondViewController = [[UINavigationController alloc] initWithRootViewController:[FeedsViewController new]];
-    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Second" image:nil selectedImage:nil];
+    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Feeds", nil) image:nil selectedImage:nil];
     
     controller.viewControllers = @[firstViewController, secondViewController];
     
