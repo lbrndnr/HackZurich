@@ -7,14 +7,22 @@
 //
 
 #import "CalendarViewController.h"
+#import "CalendarTableViewCell.h"
 #import "FeedsVisiblityViewController.h"
 #import "XbICalendar.h"
+#import "WebService.h"
+
+NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewControllerSelectedCalendarUIDs";
 
 @interface CalendarViewController ()
 
+@property (nonatomic, strong) NSArray* selectedFeeds;
 @property (nonatomic, strong) NSArray* sectionDates;
 @property (nonatomic, strong) NSArray* events;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
 @property (nonatomic, weak) FeedsVisiblityViewController* visiblityViewController;
+
+-(void)reloadTableView;
 
 -(void)presentFeedVisibilityViewController:(id)sender;
 -(void)dismissFeedVisibilityViewController:(id)sender;
@@ -24,19 +32,68 @@
 @end
 @implementation CalendarViewController
 
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.dateFormatter = [NSDateFormatter new];
+        self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    }
+    
+    return self;
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Calendar", nil);
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Dini Muetter", nil) style:UIBarButtonItemStylePlain target:self action:@selector(presentFeedVisibilityViewController:)];
     
-    Class cellClass = [UITableViewCell class];
+    Class cellClass = [CalendarTableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+    
+    NSArray* availableFeeds = [WebService sharedService].feeds;
+    NSMutableArray* selectedFeeds = [NSMutableArray new];
+    NSArray* selectedFeedUIDs = [[NSUserDefaults standardUserDefaults] arrayForKey:CalendarViewControllerSelectedCalendarUIDsKey];
+    for (Feed* feed in availableFeeds) {
+        if ([selectedFeedUIDs containsObject:feed._id]) {
+            [selectedFeeds addObject:feed];
+        }
+    }
+    self.selectedFeeds = selectedFeeds;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self reloadTableView];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.events.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return ((NSArray*)self.events[section]).count;
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self.dateFormatter stringFromDate:self.sectionDates[section]];
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    XbICVEvent* event = ((NSArray*)self.events[indexPath.section])[indexPath.row];
+    CalendarTableViewCell* cell = (CalendarTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CalendarTableViewCell class]) forIndexPath:indexPath];
+    
+    cell.event = event;
+    
+    return cell;
+}
+
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+-(void)reloadTableView {
     NSURL* URL = [NSURL URLWithString:@"https://www.google.com/calendar/ical/uuvar5p1a250iuu4ntg1mebm5k%40group.calendar.google.com/public/basic.ics"];
     [self downloadCalenderDataWithURL:URL withCompletion:^(NSData* data) {
         NSString* content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -46,7 +103,7 @@
         NSMutableArray* newEvents = [NSMutableArray new];
         
         NSArray* allEvents = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
-        allEvents = [allEvents sortedArrayUsingSelector:@selector(dateStart)];
+        allEvents = [allEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(dateStart)) ascending:YES]]];
         
         NSInteger lastDay = 0;
         NSInteger lastMonth = 0;
@@ -54,11 +111,15 @@
         
         for (XbICVEvent* event in allEvents) {
             NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:event.dateStart];
-            NSInteger day = [components day];
-            NSInteger month = [components month];
-            NSInteger year = [components year];
+            NSInteger day = components.day;
+            NSInteger month = components.month;
+            NSInteger year = components.year;
             
             if (lastDay != day || lastMonth != month || lastYear != year) {
+                lastDay = day;
+                lastMonth = month;
+                lastYear = year;
+                
                 [newSectionDates addObject:event.dateStart];
                 [newEvents addObject:[NSMutableArray arrayWithObject:event]];
             }
@@ -73,25 +134,9 @@
     }];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.events.count;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return ((NSArray*)self.events[section]).count;
-}
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    XbICVEvent* event = ((NSArray*)self.events[indexPath.section])[indexPath.row];
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
-    
-    cell.textLabel.text = event.description;
-    
-    return cell;
-}
-
 -(void)presentFeedVisibilityViewController:(id)sender {
     FeedsVisiblityViewController* controller = [FeedsVisiblityViewController new];
+    controller.selectedFeeds = self.selectedFeeds;
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissFeedVisibilityViewController:)];
     self.visiblityViewController = controller;
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -100,6 +145,8 @@
 }
 
 -(void)dismissFeedVisibilityViewController:(id)sender {
+    self.selectedFeeds = self.visiblityViewController.selectedFeeds;
+    [self reloadTableView];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
