@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray* actions;
 
 -(void)showLoginViewController;
+-(void)updateFeedList;
 
 -(void)loginTextFieldDidChangeValue:(UITextField*)sender;
 
@@ -42,12 +43,14 @@
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
+    [self updateFeedList];
     [self showLoginViewController];
     
     return YES;
 }
 
 -(void)showLoginViewController {
+    return;
     if (![WebService sharedService].currentUser) {
         UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Login", nil) message:NSLocalizedString(@"Please login to your GENAU account", nil) preferredStyle:UIAlertControllerStyleAlert];
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -108,6 +111,10 @@
         
         [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
     }
+}
+
+-(void)updateFeedList {
+    [[WebService sharedService] getListFeedWithCompletion:nil];
 }
 
 -(void)loginTextFieldDidChangeValue:(UITextField *)sender {

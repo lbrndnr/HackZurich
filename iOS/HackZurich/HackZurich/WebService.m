@@ -182,15 +182,16 @@ true if succeeded false otherwise
 -(BOOL)getListFeedWithCompletion:(void(^)(NSArray<Feed> *)) completion {
     if(self.currentUser == nil) return NO;
     
-    if(completion) {
-        NSMutableURLRequest *request = [self createMutableRequestWithMethod:GET_FEEDS withOperation:@"GET" andDataAsString:@""];
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            completion(feeds.feeds);
-        }];
-        [task resume];
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:GET_FEEDS withOperation:@"GET" andDataAsString:@""];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+        self.feeds = feeds.feeds;
         
-    }
+        if (completion) {
+            completion(feeds.feeds);
+        }
+    }];
+    [task resume];
     
     
     return YES;

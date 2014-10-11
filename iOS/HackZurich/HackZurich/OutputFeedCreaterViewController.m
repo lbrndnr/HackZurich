@@ -61,7 +61,7 @@
     self.doneItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = self.doneItem;
     
-    self.availableInputFeeds = [NSMutableArray new];
+    self.availableInputFeeds = [NSMutableArray arrayWithArray:[WebService sharedService].feeds];
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
