@@ -284,7 +284,11 @@
 }
 
 -(void)done:(id)sender {
-//    [[WebService sharedService] createNewFeedWithName:<#(NSString *)#> withDescription:<#(NSString *)#> withFilters:<#(NSArray<Filter> *)#>]
+    [[WebService sharedService] createNewFeedWithName:self.feed.name withDescription:self.feed.description withFilters:self.feed.filter withCompletion:^(Feed* feed) {
+        if (feed) {
+            [[WebService sharedService] getListFeedWithCompletion:nil];
+        }
+    }];
 }
 
 -(void)textFieldDidChangeValue:(UITextField *)sender {
