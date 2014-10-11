@@ -69,13 +69,15 @@ PRE:
 
 /*
  Get feeds
+ NOTE: Getting the auth token from the currentUser property
+ 
  PRE:
-        Auth-Token: The auth token representing the current session
+        Completion Handler
  
  POST:
         NSArray<Feed> (List of feeds, mixed input and outputfeeds)
 */
--(BOOL)getListFeedWithAuthToken:(NSString *)token withCompletion:(void(^)(NSArray<Feed> *)) completion;
+-(BOOL)getListFeedWithCompletion:(void(^)(NSArray<Feed> *)) completion;
 
 
 /*
