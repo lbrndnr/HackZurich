@@ -6,7 +6,6 @@ bower_components/
 local.env.js
 node_modules/
 npm-debug.log
-public
 .sass-cache
 *.swp
 .tmp

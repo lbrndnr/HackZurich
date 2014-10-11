@@ -5,6 +5,7 @@
 'use strict';
 
 var errors = require('./components/errors');
+var express = require('express');
 
 module.exports = function(app) {
 
@@ -21,9 +22,11 @@ module.exports = function(app) {
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
+  app.use("/", express.static(__dirname + "/../public"));
+
   // All other routes should redirect to the index.html
-  app.route('/*')
-    .get(function(req, res) {
-      res.sendfile(app.get('appPath') + '/index.html');
-    });
+//  app.route('/*')
+//    .get(function(req, res) {
+//      res.sendfile(app.get('appPath') + '/index.html');
+//    });
 };
