@@ -9,6 +9,7 @@
 #import "OutputFeedCreaterViewController.h"
 #import "InputTableViewCell.h"
 #import "Filter.h"
+#import "WebService.h"
 
 #define NAME_SECTION 0
 #define DESC_SECTION 1
@@ -19,12 +20,17 @@
 
 @property (nonatomic, strong) Feed* feed;
 @property (nonatomic, strong) NSMutableArray* availableInputFeeds;
-@property (nonatomic, strong) NSMutableIndexSet* selectedInputFeedIndices;
 
 @property (nonatomic, weak) UIAlertAction* inputSensitiveAction;
 @property (nonatomic, strong) NSArray* requiredAlertViewTextFields;
 
+@property (nonatomic, strong) UIBarButtonItem* doneItem;
+
+-(void)textFieldDidChangeValue:(UITextField*)sender;
 -(void)alertTextFieldDidChangeValue:(UITextField*)sender;
+
+-(void)reloadDoneItemAvailabilty;
+-(void)done:(id)sender;
 
 @end
 @implementation OutputFeedCreaterViewController
@@ -36,7 +42,11 @@
 -(instancetype)initWithFeed:(Feed *)feed {
     self = [self initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        self.feed = feed ?: [Feed new];
+        self.feed = feed;
+        if (!self.feed) {
+            self.feed = [Feed new];
+            self.feed.filter = [Filter new];
+        }
     }
     
     return self;
@@ -45,12 +55,13 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    Feed* feed = [Feed new];
-    feed.name = @"YOLO";
-    feed.url = @"http://BAZINGA.com";
+    self.title = NSLocalizedString(@"New Feed", nil);
     
-    self.availableInputFeeds = [NSMutableArray arrayWithObject:feed];
-    self.selectedInputFeedIndices = [NSMutableIndexSet new];
+    self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+    self.doneItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem = self.doneItem;
+    
+    self.availableInputFeeds = [NSMutableArray new];
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
@@ -92,6 +103,7 @@
         cell.textField.placeholder = (indexPath.section == NAME_SECTION) ? NSLocalizedString(@"Feed", nil) : NSLocalizedString(@"Some more details", nil);
         cell.textField.delegate = self;
         cell.textField.tag = indexPath.section;
+        [cell.textField addTarget:self action:@selector(textFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
         
         return cell;
     }
@@ -106,7 +118,7 @@
             Feed* feed = self.availableInputFeeds[indexPath.row];
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.url];
-            if ([self.selectedInputFeedIndices containsIndex:indexPath.row]) {
+            if ([self.feed.filter.inputs containsObject:feed]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
         }
@@ -141,14 +153,17 @@
     if (indexPath.section == FEEDS_SECTION) {
         if (indexPath.row < self.availableInputFeeds.count) {
             UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-            if ([self.selectedInputFeedIndices containsIndex:indexPath.row]) {
-                [self.selectedInputFeedIndices removeIndex:indexPath.row];
+            NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
+            if ([self.feed.filter.inputs containsObject:self.availableInputFeeds[indexPath.row]]) {
+                [newInputFeeds removeObjectAtIndex:indexPath.row];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             else {
-                [self.selectedInputFeedIndices addIndex:indexPath.row];
+                [newInputFeeds addObject:self.availableInputFeeds[indexPath.row]];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
+            self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
+            [self reloadDoneItemAvailabilty];
         }
         else {
             UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add new input feed", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -183,11 +198,16 @@
                 feed.desc = descTextField.text;
                 feed.url = URLTextField.text;
                 [self.availableInputFeeds addObject:feed];
-                [self.selectedInputFeedIndices addIndex:[self.availableInputFeeds indexOfObject:feed]];
+                
+                NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
+                [newInputFeeds addObject:feed];
+                self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
                 
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView endUpdates];
+                
+                [self reloadDoneItemAvailabilty];
             }];
             addAction.enabled = NO;
             [controller addAction:addAction];
@@ -212,10 +232,6 @@
         
         UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];
-            
-            if (!self.feed.filter) {
-                self.feed.filter = [Filter new];
-            }
             
             UITextField* textField = controller.textFields.firstObject;
             NSString* text = textField.text;
@@ -260,6 +276,24 @@
     }
 }
 
+-(void)reloadDoneItemAvailabilty {
+    self.doneItem.enabled = (self.feed.name.length > 0) && (self.feed.filter.inputs.count > 0);
+}
+
+-(void)done:(id)sender {
+//    [[WebService sharedService] createNewFeedWithName:<#(NSString *)#> withDescription:<#(NSString *)#> withFilters:<#(NSArray<Filter> *)#>]
+}
+
+-(void)textFieldDidChangeValue:(UITextField *)sender {
+    if (sender.tag == NAME_SECTION) {
+        self.feed.name = sender.text;
+    }
+    else {
+        self.feed.desc = sender.text;
+    }
+    [self reloadDoneItemAvailabilty];
+}
+
 -(void)alertTextFieldDidChangeValue:(UITextField*)sender {
     BOOL full = YES;
     for (UITextField* textField in self.requiredAlertViewTextFields) {
@@ -273,16 +307,12 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.tag == NAME_SECTION) {
-        self.feed.name = textField.text;
-        
         InputTableViewCell* cell = (InputTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:DESC_SECTION]];
         [cell.textField becomeFirstResponder];
     }
     else {
-        self.feed.desc = textField.text;
         [textField resignFirstResponder];
     }
-    
     
     return YES;
 }
