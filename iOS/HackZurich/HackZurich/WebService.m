@@ -154,16 +154,28 @@ true if succeeded false otherwise
         __block Feed *feed = injFeed;
         
 
+    __block Feed *feed = [[Feed alloc] init];
+    
+    feed.name = name;
+    feed.desc = desc;
+    feed.filter = filter;
+    
+    
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
+    
+    NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
         
-        NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
+        NSMutableArray* feeds = self.feeds.mutableCopy ?: [NSMutableArray new];
+        [feeds addObject:feed];
+        self.feeds = (NSArray<Feed>*)feeds;
         
-        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+        if (completion) {
             completion(feed);
-        }];
-        
-        [task resume];
-    }
+        }
+    }];
+    
+    [task resume];
     
     return YES;
 }

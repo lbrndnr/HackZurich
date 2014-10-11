@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSArray* actions;
 
 -(void)showLoginViewController;
--(void)updateFeedList;
 
 -(void)loginTextFieldDidChangeValue:(UITextField*)sender;
 
@@ -27,7 +26,7 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [application registerForRemoteNotifications];
+    //[application registerForRemoteNotifications];
     
     UITabBarController* controller = [UITabBarController new];
     
@@ -43,7 +42,7 @@
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
-    [self updateFeedList];
+    [[WebService sharedService] getListFeedWithCompletion:nil];
     [self showLoginViewController];
     
     return YES;
@@ -111,10 +110,6 @@
         
         [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
     }
-}
-
--(void)updateFeedList {
-    [[WebService sharedService] getListFeedWithCompletion:nil];
 }
 
 -(void)loginTextFieldDidChangeValue:(UITextField *)sender {
