@@ -9,9 +9,14 @@
 #import "WebService.h"
 
 #define BASE_URL @"http://hz14.the-admins.ch"
+
+//Register and Login
 #define REGISTER_USER @"auth/local/register"
 #define LOGIN_USER @"auth/local/login"
+
+//Feed operations
 #define CREATE_FEED @"api/feed/"
+#define UPDATE_FEED @"api/feed/"
 #define GET_FEEDS @""
 
 @implementation WebService
@@ -137,7 +142,7 @@
  POST:
 true if succeeded false otherwise
  */
--(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(Filter *)filter withCompletion:(void(^)(Feed *)) completion {
+-(BOOL)createNewFeed:(Feed *) injFeed withCompletion:(void(^)(Feed *)) completion {
     if(self.currentUser == nil) {
         if(completion) {
             completion(nil);
@@ -146,11 +151,8 @@ true if succeeded false otherwise
         
     }
     if(completion) {
-        __block Feed *feed = [[Feed alloc] init];
+        __block Feed *feed = injFeed;
         
-        feed.name = name;
-        feed.desc = desc;
-        feed.filter = filter;
 
         
         NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
@@ -165,6 +167,44 @@ true if succeeded false otherwise
     
     return YES;
 }
+
+/*
+ Update Feed
+ PRE:
+ Id: Feed id which should be updated
+ Name: A name for the feed
+ Description: Describe the way your feed is acting on the input
+ Uri: Pointer to a online ressource of an ICS file
+ [OPTIONAL] Filter: The Filter rules including the included InputFeeds (DO NOT SET FOR INPUTFEED!!!)
+ 
+ */
+-(BOOL)updateFeed:(Feed *)injFeed withCompletion:(void(^)(Feed *)) completion {
+    if(self.currentUser == nil) {
+        if(completion) {
+            completion(nil);
+        }
+        return false;
+        
+    }
+    if(completion) {
+        __block Feed *feed = injFeed;
+        
+        
+        
+        NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"PUT" withPutParams:feed._id withOperation:UPDATE_FEED andDataAsString:[feed toJSONString]];
+        
+        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            completion(feed);
+        }];
+        
+        [task resume];
+    }
+    
+    return YES;
+    
+}
+
 
 
 /*
@@ -231,6 +271,34 @@ true if succeeded false otherwise
     
     return request;
 }
+
+-(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withPutParams:(NSString *) putparams withOperation:(NSString *)operation andDataAsString:(NSString *)data {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:operation]]];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:method];
+    
+    if([operation compare:@"PUT"] == NSOrderedSame) {
+        //We have a PUT request, so our string is a json string representing the object -> add to body; we also set the PUT parameter
+        
+        NSURL *url = [request URL];
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"?%@", putparams]];
+        [request setURL:url];
+        
+        [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    else  {
+       //Request has to be PUT
+        return nil;
+        
+    }
+    
+    
+    return request;
+}
+
+
 
 
 -(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation andData:(NSData *)data {

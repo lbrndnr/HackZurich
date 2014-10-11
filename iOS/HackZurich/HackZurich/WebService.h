@@ -64,8 +64,20 @@ PRE:
  POST:
  Null or generated Feed Object
  */
--(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(Filter *)filter withCompletion:(void(^)(Feed *)) completion;
+-(BOOL)createNewFeed:(Feed *) injFeed withCompletion:(void(^)(Feed *)) completion;
 
+
+/*
+ Update Feed
+PRE:
+    Id: Feed id which should be updated
+    Name: A name for the feed
+    Description: Describe the way your feed is acting on the input
+    Uri: Pointer to a online ressource of an ICS file
+    [OPTIONAL] Filter: The Filter rules including the included InputFeeds (DO NOT SET FOR INPUTFEED!!!)
+ 
+ */
+-(BOOL)updateFeed:(Feed *)injFeed withCompletion:(void(^)(Feed *)) completion;
 
 /*
  Get feeds
