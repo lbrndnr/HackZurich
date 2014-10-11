@@ -15,12 +15,12 @@
 #define LOGIN_USER @"auth/local/login"
 
 //Feed operations
-#define CREATE_FEED @"api/feed/"
-#define UPDATE_FEED @"api/feed/"
+#define CREATE_FEED @"api/feeds/"
+#define UPDATE_FEED @"api/feeds/"
 
 
 //Feedstream operations
-#define GET_FEEDS @""
+#define GET_FEEDS @"api/feeds/"
 #define UPDATE_FEEDSTREAM @""
 
 @implementation WebService
