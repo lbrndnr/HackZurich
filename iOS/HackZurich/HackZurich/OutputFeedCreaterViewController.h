@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Feed.h"
 
+NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification;
+
 @interface OutputFeedCreaterViewController : UITableViewController
 
 @property (nonatomic, readonly) BOOL editing;

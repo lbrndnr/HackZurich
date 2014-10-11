@@ -16,6 +16,8 @@
 #define FEEDS_SECTION 2
 #define FILTER_SECTION 3
 
+NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"OutputFeedCreaterViewControllerDidFinishEditing";
+
 @interface OutputFeedCreaterViewController () <UITextFieldDelegate>
 
 @property (nonatomic) BOOL editing;
@@ -292,6 +294,7 @@
         [[WebService sharedService] updateFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
                 [[WebService sharedService] getListFeedWithCompletion:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
             }
             else {
                 UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Feed could not be created.", nil) preferredStyle:UIAlertControllerStyleAlert];
@@ -304,6 +307,7 @@
         [[WebService sharedService] createNewFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
                 [[WebService sharedService] getListFeedWithCompletion:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
             }
             else {
                 UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Feed could not be created.", nil) preferredStyle:UIAlertControllerStyleAlert];

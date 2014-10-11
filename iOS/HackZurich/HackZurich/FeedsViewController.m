@@ -14,9 +14,23 @@
 
 -(void)presentOutputFeedCreatorViewController:(id)sender;
 -(void)dismissOutputFeedCreatorViewController:(id)sender;
+-(void)outputFeedCreatorDidFinishEditing:(NSNotification*)notification;
 
 @end
 @implementation FeedsViewController
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputFeedCreatorDidFinishEditing:) name:OutputFeedCreaterViewControllerDidFinishEditingNotification object:nil];
+    }
+    
+    return self;
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +68,10 @@
 
 -(void)dismissOutputFeedCreatorViewController:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)outputFeedCreatorDidFinishEditing:(NSNotification *)notification {
+    [self dismissOutputFeedCreatorViewController:nil];
 }
 
 @end
