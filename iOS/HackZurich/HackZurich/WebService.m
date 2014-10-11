@@ -236,9 +236,10 @@ true if succeeded false otherwise
     
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[feedstream toJSONString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if(completion) {
+        
             Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-
+        self.feeds = feeds.feeds;
+       if(completion) {
             completion(feeds);
         }
     }];
