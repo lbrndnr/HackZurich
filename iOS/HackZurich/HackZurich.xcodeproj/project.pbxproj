@@ -467,6 +467,7 @@
 		494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50C819E88BE8003DCC1A /* HackZurichTests.m */; };
 		494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */; };
 		494F510919E8AB3A003DCC1A /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F510819E8AB3A003DCC1A /* InputTableViewCell.m */; };
+		49F86E7D19E9A83C00D422DB /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -977,6 +978,8 @@
 		494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputFeedCreaterViewController.m; sourceTree = "<group>"; };
 		494F510719E8AB3A003DCC1A /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
 		494F510819E8AB3A003DCC1A /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
+		49F86E7B19E9A83C00D422DB /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
+		49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1732,6 +1735,8 @@
 				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
 				494F50B019E88BE8003DCC1A /* CalendarViewController.h */,
 				494F50B119E88BE8003DCC1A /* CalendarViewController.m */,
+				49F86E7B19E9A83C00D422DB /* CalendarTableViewCell.h */,
+				49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */,
 				49050C4419E98D2000BE3640 /* FeedsVisiblityViewController.h */,
 				49050C4519E98D2000BE3640 /* FeedsVisiblityViewController.m */,
 				494F50B319E88BE8003DCC1A /* FeedsViewController.h */,
@@ -2326,6 +2331,7 @@
 				27F0B54819E8A35E00ADCEE1 /* JSONAPI.m in Sources */,
 				27F7B0C119E97C1000251E2E /* XbICInvite.m in Sources */,
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
+				49F86E7D19E9A83C00D422DB /* CalendarTableViewCell.m in Sources */,
 				27F0B55719E8A98100ADCEE1 /* User.m in Sources */,
 				27F0B54619E8A35E00ADCEE1 /* JSONModelError.m in Sources */,
 				27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */,
