@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) XbICVEvent* event;
 
+//+(CGFloat)heightForEvent:(XbICVEvent*)event constraint:(CGSize)constraint;
+
 @end
