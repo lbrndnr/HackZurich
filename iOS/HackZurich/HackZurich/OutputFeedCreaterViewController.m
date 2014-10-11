@@ -67,18 +67,16 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     self.doneItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = self.doneItem;
     
-    NSMutableArray* feeds = [NSMutableArray arrayWithArray:[WebService sharedService].feeds];
-    NSUInteger duplicateIndex = NSNotFound;
-    for (Feed* feed in feeds) {
-        if ([feed._id isEqualToString:self.feed._id]) {
-            duplicateIndex = [feeds indexOfObject:feed];
-            break;
-        }
+    NSMutableSet* feeds = [NSMutableSet set];
+    for (Feed* feed in [WebService sharedService].feeds) {
+        [feeds addObject:feed];
+        [feeds addObjectsFromArray:feed.filter.inputs];
     }
-    if (duplicateIndex != NSNotFound) {
-        [feeds removeObjectAtIndex:duplicateIndex];
-    }
-    self.availableInputFeeds = feeds;
+    [feeds removeObject:self.feed];
+    
+    NSArray* sortedFeeds = feeds.allObjects;
+    sortedFeeds = [sortedFeeds sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(name)) ascending:YES]]];
+    self.availableInputFeeds = [NSMutableArray arrayWithArray:sortedFeeds];
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
@@ -118,6 +116,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
         InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
         cell.textLabel.text = (indexPath.section == NAME_SECTION) ? NSLocalizedString(@"Name:", nil) : NSLocalizedString(@"Description:", nil);
         cell.textField.placeholder = (indexPath.section == NAME_SECTION) ? NSLocalizedString(@"Feed", nil) : NSLocalizedString(@"Some more details", nil);
+        cell.textField.text = (indexPath.section == NAME_SECTION) ? self.feed.name : self.feed.desc;
         cell.textField.delegate = self;
         cell.textField.tag = indexPath.section;
         [cell.textField addTarget:self action:@selector(textFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
@@ -170,14 +169,21 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     if (indexPath.section == FEEDS_SECTION) {
         if (indexPath.row < self.availableInputFeeds.count) {
             UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+            Feed* selectedFeed = self.availableInputFeeds[indexPath.row];
+            
             NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
             if ([self.feed.filter.inputs containsObject:self.availableInputFeeds[indexPath.row]]) {
-                [newInputFeeds removeObjectAtIndex:indexPath.row];
+                [newInputFeeds removeObject:selectedFeed];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             else {
-                [newInputFeeds addObject:self.availableInputFeeds[indexPath.row]];
+                [newInputFeeds addObject:selectedFeed];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                [selectedFeed.filter.inputs enumerateObjectsUsingBlock:^(Feed* inputFeed, NSUInteger idx, BOOL *stop) {
+                    [newInputFeeds addObject:inputFeed];
+                    UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self.availableInputFeeds indexOfObject:inputFeed] inSection:FEEDS_SECTION]];
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                }];
             }
             self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
             [self reloadDoneItemAvailabilty];
@@ -290,6 +296,14 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 }
 
 -(void)done:(id)sender {
+    self.feed._id = @"YOLO";
+    NSMutableArray* feeds = [WebService sharedService].feeds.mutableCopy ?: [NSMutableArray new];
+    [feeds addObject:self.feed];
+    [WebService sharedService].feeds = (NSArray<Feed>*)feeds;
+    [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
+    return;
+    
+    
     if (self.editing) {
         [[WebService sharedService] updateFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {

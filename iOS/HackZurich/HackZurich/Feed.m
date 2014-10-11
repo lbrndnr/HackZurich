@@ -10,4 +10,16 @@
 
 @implementation Feed
 
+-(BOOL)isEqual:(Feed*)object {
+    if ([object isKindOfClass:[Feed class]]) {
+        return [self._id isEqualToString:object._id];
+    }
+    
+    return NO;
+}
+
+-(NSUInteger)hash {
+    return self._id.hash;
+}
+
 @end

@@ -55,8 +55,15 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     
     cell.textLabel.text = feed.name;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Feed* feed = [WebService sharedService].feeds[indexPath.row];
+    OutputFeedCreaterViewController* controller = [[OutputFeedCreaterViewController alloc] initWithFeed:feed];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(void)presentOutputFeedCreatorViewController:(id)sender {
@@ -68,6 +75,7 @@
 
 -(void)dismissOutputFeedCreatorViewController:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToViewController:self animated:YES];
 }
 
 -(void)outputFeedCreatorDidFinishEditing:(NSNotification *)notification {
