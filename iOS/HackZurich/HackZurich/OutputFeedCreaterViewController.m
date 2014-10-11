@@ -293,13 +293,6 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 }
 
 -(void)done:(id)sender {
-    self.feed._id = @"YOLO";
-    NSMutableArray* feeds = [WebService sharedService].feeds.mutableCopy ?: [NSMutableArray new];
-    [feeds addObject:self.feed];
-    [WebService sharedService].feeds = (NSArray<Feed>*)feeds;
-    [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
-    return;    
-    
     if (self.editing) {
         [[WebService sharedService] updateFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
