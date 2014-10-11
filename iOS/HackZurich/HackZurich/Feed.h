@@ -12,14 +12,18 @@
 
 @interface Feed : JSONModel
 
-@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic)NSString *name;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *url;
 
-@property (strong, nonatomic) NSArray<Filter, Optional>* filters;
+@property (strong, nonatomic) Filter<Optional>* filter;
 
 @property (nonatomic) BOOL isVisible;
 
+
+@end
+
+@protocol Feed
 
 @end
