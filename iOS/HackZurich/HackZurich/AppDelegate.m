@@ -8,8 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FirstViewController.h"
-#import "SecondViewController.h"
-#import "OutputFeedCreaterViewController.h"
+#import "FeedsViewController.h"
 #import "WebService.h"
 
 @interface AppDelegate ()
@@ -32,7 +31,7 @@
     
     UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[FirstViewController new]];
     firstViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"First" image:nil selectedImage:nil];
-    UINavigationController* secondViewController = [[UINavigationController alloc] initWithRootViewController:[OutputFeedCreaterViewController new]];
+    UINavigationController* secondViewController = [[UINavigationController alloc] initWithRootViewController:[FeedsViewController new]];
     secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Second" image:nil selectedImage:nil];
     
     controller.viewControllers = @[firstViewController, secondViewController];

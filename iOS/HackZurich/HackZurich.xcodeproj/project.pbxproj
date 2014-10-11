@@ -27,7 +27,7 @@
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
 		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
-		494F50B519E88BE8003DCC1A /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B419E88BE8003DCC1A /* SecondViewController.m */; };
+		494F50B519E88BE8003DCC1A /* FeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B419E88BE8003DCC1A /* FeedsViewController.m */; };
 		494F50BA19E88BE8003DCC1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494F50B919E88BE8003DCC1A /* Images.xcassets */; };
 		494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50C819E88BE8003DCC1A /* HackZurichTests.m */; };
 		494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */; };
@@ -86,8 +86,8 @@
 		494F50AE19E88BE8003DCC1A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		494F50B019E88BE8003DCC1A /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		494F50B119E88BE8003DCC1A /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		494F50B319E88BE8003DCC1A /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		494F50B419E88BE8003DCC1A /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		494F50B319E88BE8003DCC1A /* FeedsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedsViewController.h; sourceTree = "<group>"; };
+		494F50B419E88BE8003DCC1A /* FeedsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedsViewController.m; sourceTree = "<group>"; };
 		494F50B919E88BE8003DCC1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		494F50C219E88BE8003DCC1A /* HackZurichTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackZurichTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50C719E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -222,8 +222,8 @@
 				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
 				494F50B019E88BE8003DCC1A /* FirstViewController.h */,
 				494F50B119E88BE8003DCC1A /* FirstViewController.m */,
-				494F50B319E88BE8003DCC1A /* SecondViewController.h */,
-				494F50B419E88BE8003DCC1A /* SecondViewController.m */,
+				494F50B319E88BE8003DCC1A /* FeedsViewController.h */,
+				494F50B419E88BE8003DCC1A /* FeedsViewController.m */,
 				494F50D219E88D00003DCC1A /* OutputFeedCreaterViewController.h */,
 				494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */,
 				494F510719E8AB3A003DCC1A /* InputTableViewCell.h */,
@@ -368,7 +368,7 @@
 			files = (
 				494F510919E8AB3A003DCC1A /* InputTableViewCell.m in Sources */,
 				27F0B54319E8A35E00ADCEE1 /* JSONModel.m in Sources */,
-				494F50B519E88BE8003DCC1A /* SecondViewController.m in Sources */,
+				494F50B519E88BE8003DCC1A /* FeedsViewController.m in Sources */,
 				27F0B55A19E8AA3B00ADCEE1 /* WebService.m in Sources */,
 				27F0B54519E8A35E00ADCEE1 /* JSONModelClassProperty.m in Sources */,
 				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,

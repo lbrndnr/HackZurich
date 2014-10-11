@@ -293,12 +293,22 @@
             if (feed) {
                 [[WebService sharedService] getListFeedWithCompletion:nil];
             }
+            else {
+                UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Feed could not be created.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:controller animated:YES completion:nil];
+            }
         }];
     }
     else {
         [[WebService sharedService] createNewFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
                 [[WebService sharedService] getListFeedWithCompletion:nil];
+            }
+            else {
+                UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Feed could not be created.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:controller animated:YES completion:nil];
             }
         }];
     }
