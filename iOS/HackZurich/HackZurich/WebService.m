@@ -21,7 +21,7 @@
 
 //Feedstream operations
 #define GET_FEEDS @"api/feeds/"
-#define UPDATE_FEEDSTREAM @""
+#define UPDATE_FEEDSTREAM @"api/feeds/"
 
 @implementation WebService
 
