@@ -36,7 +36,7 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         self.textLabel.numberOfLines = 0;
-        self.detailTextLabel.textColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
+        self.detailTextLabel.textColor =[UIColor colorWithWhite:0.5f alpha:1.0f];
     }
     
     return self;

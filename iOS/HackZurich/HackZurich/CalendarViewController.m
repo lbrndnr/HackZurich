@@ -50,6 +50,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     
     Class cellClass = [CalendarTableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+    self.tableView.rowHeight = 64.0f;
     
     NSArray* availableFeeds = [WebService sharedService].feeds;
     NSMutableArray* selectedFeeds = [NSMutableArray new];
@@ -146,7 +147,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 -(void)dismissFeedVisibilityViewController:(id)sender {
     self.selectedFeeds = self.visiblityViewController.selectedFeeds;
-    [self reloadTableView];
+    //[self reloadTableView];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
