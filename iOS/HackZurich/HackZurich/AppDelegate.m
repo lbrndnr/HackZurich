@@ -39,9 +39,9 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
     UITabBarController* controller = [UITabBarController new];
     
     UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[CalendarViewController new]];
-    firstViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Calendar", nil) image:nil selectedImage:nil];
+    firstViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Calendar", nil) image:[UIImage imageNamed:@"calendar"] selectedImage:nil];
     UINavigationController* secondViewController = [[UINavigationController alloc] initWithRootViewController:[FeedsViewController new]];
-    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Feeds", nil) image:nil selectedImage:nil];
+    secondViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Feeds", nil) image:[UIImage imageNamed:@"feeds"] selectedImage:nil];
     
     controller.viewControllers = @[firstViewController, secondViewController];
     
