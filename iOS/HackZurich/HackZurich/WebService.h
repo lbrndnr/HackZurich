@@ -88,7 +88,7 @@ PRE:
     Boolean indicating status
  
  */
--(BOOL)updateFeedstream:(Feedstream *)feedstream withCompletion:(void (^)(Feedstream *)) completion;
+-(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion;
 
 /*
  Get Feedstream
