@@ -7,10 +7,16 @@
 //
 
 #import "OutputFeedCreaterViewController.h"
-#import "Feed.h"
+#import "InputTableViewCell.h"
 
-@interface OutputFeedCreaterViewController ()
+#define NAME_SECTION 0
+#define DESC_SECTION 1
+#define FEEDS_SECTION 2
+#define FILTER_SECTION 3
 
+@interface OutputFeedCreaterViewController () <UITextFieldDelegate>
+
+@property (nonatomic, strong) Feed* feed;
 @property (nonatomic, strong) NSMutableArray* availableInputFeeds;
 @property (nonatomic, strong) NSMutableIndexSet* selectedInputFeedIndices;
 @property (nonatomic, strong) NSMutableArray* filters;
@@ -19,7 +25,16 @@
 @implementation OutputFeedCreaterViewController
 
 -(instancetype)init {
-    return [self initWithStyle:UITableViewStyleGrouped];
+    return [self initWithFeed:nil];
+}
+
+-(instancetype)initWithFeed:(Feed *)feed {
+    self = [self initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        self.feed = feed;
+    }
+    
+    return self;
 }
 
 -(void)viewDidLoad {
@@ -35,35 +50,54 @@
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
+    
+    cellClass = [InputTableViewCell class];
+    [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == FEEDS_SECTION) {
         return self.availableInputFeeds.count+1;
     }
+    else if (section == FILTER_SECTION) {
+        return self.filters.count+1;
+    }
     
-    return self.filters.count+1;
+    return 1;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == FEEDS_SECTION) {
         return NSLocalizedString(@"Input Feeds", nil);
     }
+    else if (section == FILTER_SECTION) {
+        return NSLocalizedString(@"Filters", nil);
+    }
     
-    return NSLocalizedString(@"Filters", nil);
+    return nil;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section <= DESC_SECTION) {
+        InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
+        cell.textLabel.text = (indexPath.section == NAME_SECTION) ? NSLocalizedString(@"Name:", nil) : NSLocalizedString(@"Description:", nil);
+        cell.textField.placeholder = (indexPath.section == NAME_SECTION) ? NSLocalizedString(@"Feed", nil) : NSLocalizedString(@"Some more details", nil);
+        cell.textField.delegate = self;
+        cell.textField.tag = indexPath.section;
+        
+        return cell;
+    }
+    
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.textColor = [UIColor darkTextColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == FEEDS_SECTION) {
         if (indexPath.row < self.availableInputFeeds.count) {
             Feed* feed = self.availableInputFeeds[indexPath.row];
             
@@ -93,13 +127,13 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.section == 0) || (indexPath.section == 1 && indexPath.row == self.filters.count);
+    return (indexPath.section == FEEDS_SECTION) || (indexPath.section == FILTER_SECTION && indexPath.row == self.filters.count);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == FEEDS_SECTION) {
         if (indexPath.row < self.availableInputFeeds.count) {
             UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
             if ([self.selectedInputFeedIndices containsIndex:indexPath.row]) {
@@ -148,7 +182,7 @@
             [self presentViewController:controller animated:YES completion:nil];
         }
     }
-    else {
+    else if (indexPath.section == FILTER_SECTION) {
         UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add new Filter", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.placeholder = NSLocalizedString(@"#tag or substring", nil);
@@ -189,5 +223,20 @@
     }
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.tag == NAME_SECTION) {
+        self.feed.name = textField.text;
+        
+        InputTableViewCell* cell = (InputTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:DESC_SECTION]];
+        [cell.textField becomeFirstResponder];
+    }
+    else {
+        self.feed.desc = textField.text;
+        [textField resignFirstResponder];
+    }
+    
+    
+    return YES;
+}
 
 @end

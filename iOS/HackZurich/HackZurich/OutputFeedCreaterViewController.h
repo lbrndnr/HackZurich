@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Feed.h"
 
 @interface OutputFeedCreaterViewController : UITableViewController
+
+@property (nonatomic, readonly) Feed* feed;
+
+-(instancetype)initWithFeed:(Feed*)feed;
 
 @end
