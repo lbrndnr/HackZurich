@@ -11,6 +11,8 @@
 
 @interface FeedsVisiblityViewController ()
 
+@property (nonatomic, strong) NSArray* feeds;
+
 -(void)reloadSelection;
 
 @end
@@ -29,6 +31,14 @@
     
     self.title = NSLocalizedString(@"Visible Feeds", nil);
     
+    NSMutableArray* feeds = [NSMutableArray new];
+    for (Feed* feed in  [WebService sharedService].feeds) {
+        if (feed.filter) {
+            [feeds addObject:feed];
+        }
+    }
+    self.feeds = feeds;
+    
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
 }
@@ -44,11 +54,11 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [WebService sharedService].feeds.count;
+    return self.feeds.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Feed* feed = [WebService sharedService].feeds[indexPath.row];
+    Feed* feed = self.feeds[indexPath.row];
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     
     cell.textLabel.text = feed.name;
@@ -59,7 +69,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    Feed* feed = [WebService sharedService].feeds[indexPath.row];
+    Feed* feed = self.feeds[indexPath.row];
     
     NSMutableArray* newSelectedFeeds = self.selectedFeeds.mutableCopy ?: [NSMutableArray new];
     if ([newSelectedFeeds containsObject:feed]) {
@@ -73,7 +83,7 @@
 
 -(void)reloadSelection {
     for (NSUInteger r = 0; r < [self tableView:self.tableView numberOfRowsInSection:0]; r++) {
-        Feed* feed = [WebService sharedService].feeds[r];
+        Feed* feed = self.feeds[r];
         UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:r inSection:0]];
         cell.accessoryType = ([self.selectedFeeds containsObject:feed]) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     }

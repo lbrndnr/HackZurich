@@ -95,44 +95,55 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 }
 
 -(void)reloadTableView {
-    NSURL* URL = [NSURL URLWithString:@"https://www.google.com/calendar/ical/uuvar5p1a250iuu4ntg1mebm5k%40group.calendar.google.com/public/basic.ics"];
-    [self downloadCalenderDataWithURL:URL withCompletion:^(NSData* data) {
-        NSString* content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        XbICVCalendar * vCalendar =  [XbICVCalendar vCalendarFromString:content];
-        
-        NSMutableArray* newSectionDates = [NSMutableArray new];
-        NSMutableArray* newEvents = [NSMutableArray new];
-        
-        NSArray* allEvents = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
-        allEvents = [allEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(dateStart)) ascending:YES]]];
-        
-        NSInteger lastDay = 0;
-        NSInteger lastMonth = 0;
-        NSInteger lastYear = 0;
-        
-        for (XbICVEvent* event in allEvents) {
-            NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:event.dateStart];
-            NSInteger day = components.day;
-            NSInteger month = components.month;
-            NSInteger year = components.year;
+    __block NSInteger counter = self.selectedFeeds.count;
+    NSMutableArray* calendars = [NSMutableArray new];
+    for (Feed* feed in self.selectedFeeds) {
+        NSURL* URL = [NSURL URLWithString:feed.uri];
+        [self downloadCalenderDataWithURL:URL withCompletion:^(NSData* data) {
+            [calendars addObject:data];
+            counter--;
             
-            if (lastDay != day || lastMonth != month || lastYear != year) {
-                lastDay = day;
-                lastMonth = month;
-                lastYear = year;
+            if (counter <= 0) {
+                NSMutableArray* newSectionDates = [NSMutableArray new];
+                NSMutableArray* newEvents = [NSMutableArray new];
                 
-                [newSectionDates addObject:event.dateStart];
-                [newEvents addObject:[NSMutableArray arrayWithObject:event]];
+                NSMutableArray* allEvents = [NSMutableArray new];
+                for (NSData* calendarData in calendars) {
+                    NSString* content = [[NSString alloc] initWithData:calendarData encoding:NSUTF8StringEncoding];
+                    XbICVCalendar * vCalendar =  [XbICVCalendar vCalendarFromString:content];
+                    [allEvents addObjectsFromArray:[vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT]];
+                }
+                [allEvents sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(dateStart)) ascending:YES]]];
+                
+                NSInteger lastDay = 0;
+                NSInteger lastMonth = 0;
+                NSInteger lastYear = 0;
+                
+                for (XbICVEvent* event in allEvents) {
+                    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:event.dateStart];
+                    NSInteger day = components.day;
+                    NSInteger month = components.month;
+                    NSInteger year = components.year;
+                    
+                    if (lastDay != day || lastMonth != month || lastYear != year) {
+                        lastDay = day;
+                        lastMonth = month;
+                        lastYear = year;
+                        
+                        [newSectionDates addObject:event.dateStart];
+                        [newEvents addObject:[NSMutableArray arrayWithObject:event]];
+                    }
+                    else {
+                        [((NSMutableArray*)newEvents.lastObject) addObject:event];
+                    }
+                }
+                
+                self.sectionDates = newSectionDates;
+                self.events = newEvents;
+                [self.tableView reloadData];
             }
-            else {
-                [((NSMutableArray*)newEvents.lastObject) addObject:event];
-            }
-        }
-        
-        self.sectionDates = newSectionDates;
-        self.events = newEvents;
-        [self.tableView reloadData];
-    }];
+        }];
+    }
 }
 
 -(void)presentFeedVisibilityViewController:(id)sender {
