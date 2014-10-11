@@ -11,7 +11,7 @@
 #define BASE_URL @"https://hz14.the-admins.ch"
 #define REGISTER_USER @"auth/local/register"
 #define LOGIN_USER @"auth/local/login"
-#define CREATE_FEED @""
+#define CREATE_FEED @"api/feed/"
 
 @implementation WebService
 
@@ -152,7 +152,7 @@
  POST:
 true if succeeded false otherwise
  */
--(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(NSArray<Filter> *)filters withCompletion:(void(^)(Feed *)) completion {
+-(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(Filter *)filter withCompletion:(void(^)(Feed *)) completion {
     if(self.currentUser == nil) {
         if(completion) {
             completion(nil);
@@ -161,16 +161,23 @@ true if succeeded false otherwise
         
     }
     if(completion) {
-        __block Feed *feed = nil;
+        __block Feed *feed = [[Feed alloc] init];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:CREATE_FEED]]];
         [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setHTTPMethod:@"POST"];
+        
+        feed.name = name;
+        feed.desc = desc;
+        feed.filter = filter;
+        NSData *body = [[feed toJSONString] dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:body];
         
         [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(feed);
         }];
-        if(feed != nil) {
+        if(feed != nil && feed._id != nil) {
             return true;
         }
         else {
