@@ -19,6 +19,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 @property (nonatomic, strong) NSArray* selectedFeeds;
 @property (nonatomic, strong) NSArray* sectionDates;
 @property (nonatomic, strong) NSArray* events;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
 @property (nonatomic, weak) FeedsVisiblityViewController* visiblityViewController;
 
 -(void)reloadTableView;
@@ -30,6 +31,16 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 @end
 @implementation CalendarViewController
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.dateFormatter = [NSDateFormatter new];
+        self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    }
+    
+    return self;
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -65,6 +76,10 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     return ((NSArray*)self.events[section]).count;
 }
 
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self.dateFormatter stringFromDate:self.sectionDates[section]];
+}
+
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XbICVEvent* event = ((NSArray*)self.events[indexPath.section])[indexPath.row];
     CalendarTableViewCell* cell = (CalendarTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CalendarTableViewCell class]) forIndexPath:indexPath];
@@ -88,7 +103,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
         NSMutableArray* newEvents = [NSMutableArray new];
         
         NSArray* allEvents = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
-        allEvents = [allEvents sortedArrayUsingSelector:@selector(dateStart)];
+        allEvents = [allEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(dateStart)) ascending:YES]]];
         
         NSInteger lastDay = 0;
         NSInteger lastMonth = 0;
@@ -96,11 +111,15 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
         
         for (XbICVEvent* event in allEvents) {
             NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:event.dateStart];
-            NSInteger day = [components day];
-            NSInteger month = [components month];
-            NSInteger year = [components year];
+            NSInteger day = components.day;
+            NSInteger month = components.month;
+            NSInteger year = components.year;
             
             if (lastDay != day || lastMonth != month || lastYear != year) {
+                lastDay = day;
+                lastMonth = month;
+                lastYear = year;
+                
                 [newSectionDates addObject:event.dateStart];
                 [newEvents addObject:[NSMutableArray arrayWithObject:event]];
             }
