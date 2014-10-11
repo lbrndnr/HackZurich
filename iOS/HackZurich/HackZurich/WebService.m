@@ -153,13 +153,6 @@ true if succeeded false otherwise
     if(completion) {
         __block Feed *feed = injFeed;
         
-
-    __block Feed *feed = [[Feed alloc] init];
-    
-    feed.name = name;
-    feed.desc = desc;
-    feed.filter = filter;
-    
     
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
     
@@ -176,10 +169,12 @@ true if succeeded false otherwise
     }];
     
     [task resume];
+    }
     
     return YES;
-}
 
+
+}
 /*
  Update Feed
  PRE:
