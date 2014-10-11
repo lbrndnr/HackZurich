@@ -458,9 +458,10 @@
 		27F7B0C519E97C1000251E2E /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AED719E97C0F00251E2E /* XbICVEvent.m */; };
 		27F7B0C619E97C1000251E2E /* XbICZoneDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AED919E97C0F00251E2E /* XbICZoneDirectory.m */; };
 		27F7B0F219E97C1000251E2E /* XbICalendar.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AF1519E97C0F00251E2E /* XbICalendar.podspec */; };
+		49050C4619E98D2000BE3640 /* FeedsVisiblityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49050C4519E98D2000BE3640 /* FeedsVisiblityViewController.m */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
-		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
+		494F50B219E88BE8003DCC1A /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* CalendarViewController.m */; };
 		494F50B519E88BE8003DCC1A /* FeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B419E88BE8003DCC1A /* FeedsViewController.m */; };
 		494F50BA19E88BE8003DCC1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494F50B919E88BE8003DCC1A /* Images.xcassets */; };
 		494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50C819E88BE8003DCC1A /* HackZurichTests.m */; };
@@ -957,13 +958,15 @@
 		27F7AED819E97C0F00251E2E /* XbICZoneDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICZoneDirectory.h; sourceTree = "<group>"; };
 		27F7AED919E97C0F00251E2E /* XbICZoneDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICZoneDirectory.m; sourceTree = "<group>"; };
 		27F7AF1519E97C0F00251E2E /* XbICalendar.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XbICalendar.podspec; sourceTree = "<group>"; };
+		49050C4419E98D2000BE3640 /* FeedsVisiblityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsVisiblityViewController.h; sourceTree = "<group>"; };
+		49050C4519E98D2000BE3640 /* FeedsVisiblityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsVisiblityViewController.m; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		494F50AD19E88BE8003DCC1A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		494F50AE19E88BE8003DCC1A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		494F50B019E88BE8003DCC1A /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		494F50B119E88BE8003DCC1A /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		494F50B019E88BE8003DCC1A /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		494F50B119E88BE8003DCC1A /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		494F50B319E88BE8003DCC1A /* FeedsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedsViewController.h; sourceTree = "<group>"; };
 		494F50B419E88BE8003DCC1A /* FeedsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedsViewController.m; sourceTree = "<group>"; };
 		494F50B919E88BE8003DCC1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1727,8 +1730,10 @@
 				27F0B52319E88D1200ADCEE1 /* ViewModels */,
 				494F50AD19E88BE8003DCC1A /* AppDelegate.h */,
 				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
-				494F50B019E88BE8003DCC1A /* FirstViewController.h */,
-				494F50B119E88BE8003DCC1A /* FirstViewController.m */,
+				494F50B019E88BE8003DCC1A /* CalendarViewController.h */,
+				494F50B119E88BE8003DCC1A /* CalendarViewController.m */,
+				49050C4419E98D2000BE3640 /* FeedsVisiblityViewController.h */,
+				49050C4519E98D2000BE3640 /* FeedsVisiblityViewController.m */,
 				494F50B319E88BE8003DCC1A /* FeedsViewController.h */,
 				494F50B419E88BE8003DCC1A /* FeedsViewController.m */,
 				494F50D219E88D00003DCC1A /* OutputFeedCreaterViewController.h */,
@@ -2309,7 +2314,7 @@
 				27F0B54A19E8A35E00ADCEE1 /* JSONModel+networking.m in Sources */,
 				27F7B0BE19E97C1000251E2E /* README.md in Sources */,
 				27F0B55119E8A5AE00ADCEE1 /* Filter.m in Sources */,
-				494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */,
+				494F50B219E88BE8003DCC1A /* CalendarViewController.m in Sources */,
 				27F7B0BF19E97C1000251E2E /* XbICComponent.m in Sources */,
 				27F0B54419E8A35E00ADCEE1 /* JSONModelArray.m in Sources */,
 				27F7B0C519E97C1000251E2E /* XbICVEvent.m in Sources */,
@@ -2327,6 +2332,7 @@
 				27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */,
 				27F7B0C619E97C1000251E2E /* XbICZoneDirectory.m in Sources */,
 				27F7B0C419E97C1000251E2E /* XbICVCalendar.m in Sources */,
+				49050C4619E98D2000BE3640 /* FeedsVisiblityViewController.m in Sources */,
 				27F7B0C219E97C1000251E2E /* XbICPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
