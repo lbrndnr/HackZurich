@@ -72,7 +72,8 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     NSMutableSet* feeds = [NSMutableSet set];
     for (Feed* feed in [WebService sharedService].feeds) {
         [feeds addObject:feed];
-        [feeds addObjectsFromArray:feed.filter.inputs];
+        
+        //[feeds addObjectsFromArray:feed.filter.inputs];
     }
     [feeds removeObject:self.feed];
     
@@ -160,7 +161,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.uri];
-            if ([self.feed.filter.inputs containsObject:feed]) {
+            if ([self.feed.filter.inputs containsObject:feed._id]) { //changed to _id
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
         }
@@ -192,22 +193,22 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    //changed everywhere feed to feed._id
     if (indexPath.section == FEEDS_SECTION && self.feed.filter != nil) {
         if (indexPath.row < self.availableInputFeeds.count) {
             UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
             Feed* selectedFeed = self.availableInputFeeds[indexPath.row];
             
             NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
-            if ([self.feed.filter.inputs containsObject:self.availableInputFeeds[indexPath.row]]) {
-                [newInputFeeds removeObject:selectedFeed];
+            if ([self.feed.filter.inputs containsObject:((Feed *)self.availableInputFeeds[indexPath.row])._id]) {
+                [newInputFeeds removeObject:selectedFeed._id];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             else {
-                [newInputFeeds addObject:selectedFeed];
+                [newInputFeeds addObject:selectedFeed._id];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
-            self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
+            self.feed.filter.inputs = (NSArray *)newInputFeeds;
             [self reloadDoneItemAvailabilty];
         }
         else {
@@ -235,14 +236,17 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
                 UITextField* URLTextField = controller.textFields[2];
                 
                 Feed* feed = [Feed new];
+                
                 feed.name = nameTextField.text;
                 feed.desc = descTextField.text;
                 feed.uri = URLTextField.text;
+                feed._id = [NSString stringWithFormat:@"%@%@%@",feed.name,feed.desc,feed.uri];
                 [self.availableInputFeeds addObject:feed];
                 
+                
                 NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
-                [newInputFeeds addObject:feed];
-                self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
+                [newInputFeeds addObject:feed._id];
+                self.feed.filter.inputs = (NSArray *)newInputFeeds;
                 
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
