@@ -68,8 +68,8 @@
         [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [request setHTTPMethod:@"POST"];
         
-        NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
-        
+        NSDictionary* payload = @{@"email": username, @"password": password};
+        NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
         [request setHTTPBody:body];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -113,9 +113,8 @@
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:@"POST"];
     
-    NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
-    
-    
+    NSDictionary* payload = @{@"email": username, @"password": password};
+    NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
     [request setHTTPBody:body];
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
