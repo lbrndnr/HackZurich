@@ -21,6 +21,11 @@
 @property (nonatomic, strong) NSMutableArray* availableInputFeeds;
 @property (nonatomic, strong) NSMutableIndexSet* selectedInputFeedIndices;
 
+@property (nonatomic, weak) UIAlertAction* inputSensitiveAction;
+@property (nonatomic, strong) NSArray* requiredAlertViewTextFields;
+
+-(void)alertTextFieldDidChangeValue:(UITextField*)sender;
+
 @end
 @implementation OutputFeedCreaterViewController
 
@@ -147,8 +152,12 @@
         }
         else {
             UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add new input feed", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+            NSMutableArray* requiredTextFields = [NSMutableArray new];
+            
             [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.placeholder = NSLocalizedString(@"Name", nil);
+                [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
+                [requiredTextFields addObject:textField];
             }];
             [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.placeholder = NSLocalizedString(@"Description", nil);
@@ -156,11 +165,13 @@
             [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.placeholder = NSLocalizedString(@"URL", nil);
                 textField.keyboardType = UIKeyboardTypeURL;
+                [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
+                [requiredTextFields addObject:textField];
             }];
             [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }]];
-            [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self dismissViewControllerAnimated:YES completion:nil];
                 
                 UITextField* nameTextField = controller.textFields.firstObject;
@@ -177,7 +188,12 @@
                 [self.tableView beginUpdates];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView endUpdates];
-            }]];
+            }];
+            addAction.enabled = NO;
+            [controller addAction:addAction];
+            self.inputSensitiveAction = addAction;
+            
+            self.requiredAlertViewTextFields = requiredTextFields;
             
             [self presentViewController:controller animated:YES completion:nil];
         }
@@ -185,12 +201,16 @@
     else if (indexPath.section == FILTER_SECTION) {
         UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add new Filter", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.delegate = self;
             textField.placeholder = NSLocalizedString(@"#tag or substring", nil);
+            [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
+            self.requiredAlertViewTextFields = @[textField];
         }];
         [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
-        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];
             
             if (!self.feed.filter) {
@@ -211,7 +231,10 @@
             [self.tableView beginUpdates];
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.feed.filter.rules.count-1 inSection:FILTER_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
-        }]];
+        }];
+        addAction.enabled = NO;
+        [controller addAction:addAction];
+        self.inputSensitiveAction = addAction;
         
         [self presentViewController:controller animated:YES completion:nil];
     }
@@ -235,6 +258,17 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }
+}
+
+-(void)alertTextFieldDidChangeValue:(UITextField*)sender {
+    BOOL full = YES;
+    for (UITextField* textField in self.requiredAlertViewTextFields) {
+        if (!textField.hasText) {
+            full = NO;
+            break;
+        }
+    }
+    self.inputSensitiveAction.enabled = full;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
