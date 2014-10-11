@@ -27,14 +27,14 @@ var feeds = {
         "id":     "abc123",
         "name":   "Schools and bananas",
         "desc":   "Because 7 ate 9",
-        "uri":    "http://hz14.the-admins.ch/api/feeds/abc123",
+        "uri":    "http://hz14.the-admins.ch/ics/abc123",
         "filter": "tre547"
     },
     "nvb567": {
         "id":     "nvb567",
         "name":   "Important only",
         "desc":   "Just to make sure it actually werks",
-        "uri":    "http://hz14.the-admins.ch/api/feeds/nvb567",
+        "uri":    "http://hz14.the-admins.ch/ics/nvb567",
         "filter": "jhg980"
     }
 };
@@ -78,8 +78,6 @@ var filters = {
 
 exports.index = function(req, res) {
 
-    res.set('Content-Type', 'text/plain; charset=UTF-8');
-
     var processed = {};
 
     _.forEach(filters, function(filter) {
@@ -92,8 +90,7 @@ exports.index = function(req, res) {
 
     });
 
-    res.json(processed);
-
+    res.send(null);
 };
 
 /**
