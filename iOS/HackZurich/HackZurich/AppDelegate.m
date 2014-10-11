@@ -25,7 +25,7 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //[application registerForRemoteNotifications];
+    [application registerForRemoteNotifications];
     
     UITabBarController* controller = [UITabBarController new];
     
@@ -119,9 +119,12 @@
 
 - (void) application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [WebService sharedService].deviceToken =[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    NSString* token = [[[deviceToken.description stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                              stringByReplacingOccurrencesOfString: @" " withString: @""];
+    [WebService sharedService].deviceToken = token;
     
-   }
+}
 
 - (void) application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

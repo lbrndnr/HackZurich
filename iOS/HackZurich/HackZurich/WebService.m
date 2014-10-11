@@ -77,7 +77,7 @@
         NSDictionary* payload = @{@"email": username, @"password": password, @"device_token":self.deviceToken};
         NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
         
-        NSMutableURLRequest *request = [self createMutableRequestWithMethod:REGISTER_USER withOperation:@"POST" andData:body];
+        NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:REGISTER_USER andData:body];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
@@ -302,13 +302,13 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
     
-    if([operation compare:@"POST"] == NSOrderedSame) {
+    if([method compare:@"POST"] == NSOrderedSame) {
         //We have a post request, so our string is a json string representing the object -> add to body
         
         [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
-    else if ([operation compare:@"GET"] == NSOrderedSame) {
+    else if ([method compare:@"GET"] == NSOrderedSame) {
         //We have a get request, so concat the string to the url
         NSURL *url = [request URL];
         url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"?%@", data]];
@@ -326,7 +326,7 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
     
-    if([operation compare:@"PUT"] == NSOrderedSame) {
+    if([method compare:@"PUT"] == NSOrderedSame) {
         //We have a PUT request, so our string is a json string representing the object -> add to body; we also set the PUT parameter
         
         NSURL *url = [request URL];
@@ -355,13 +355,13 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
     
-    if([operation compare:@"POST"] == NSOrderedSame) {
+    if([method compare:@"POST"] == NSOrderedSame) {
         //We have a post request, so our string is a json string representing the object -> add to body
         
         [request setHTTPBody:data];
     }
     
-    else if ([operation compare:@"GET"] == NSOrderedSame) {
+    else if ([method compare:@"GET"] == NSOrderedSame) {
         //Cannot generate a NSMUtableURLREquest with an NSData object
         return nil;
     }
