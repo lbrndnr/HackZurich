@@ -15,7 +15,7 @@
 #define DESC_SECTION 1
 #define FEEDS_SECTION 2
 #define FILTER_SECTION 3
-#define URL_SECTION 4
+#define URL_SECTION 2
 
 NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"OutputFeedCreaterViewControllerDidFinishEditing";
 
@@ -89,34 +89,35 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if(self.feed.filter == nil) return 5;
+    if(self.feed.filter == nil) return 3;
     return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(self.feed.filter == nil && (section == FEEDS_SECTION || section == FILTER_SECTION)) return  0;
     if (section == FEEDS_SECTION) {
+        if(self.feed.filter == nil) {
+            return 1;
+        }
         return self.availableInputFeeds.count+1;
     }
     else if (section == FILTER_SECTION) {
         return self.feed.filter.rules.count+1;
     }
-    else if (section == URL_SECTION) {
-        return 1;
-    }
-    
+
     return 1;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == FEEDS_SECTION) {
-        return NSLocalizedString(@"Input Feeds", nil);
+        if (self.feed.filter) {
+            return NSLocalizedString(@"Input Feeds", nil);
+        }
+        else {
+            return  NSLocalizedString(@"URL", nil);
+        }
     }
     else if (section == FILTER_SECTION) {
         return NSLocalizedString(@"Filters", nil);
-    }
-    else if(section == URL_SECTION) {
-        return  NSLocalizedString(@"Url", nil);
     }
     
     return nil;
@@ -136,7 +137,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     }
     else if(indexPath.section == URL_SECTION && self.feed.filter == nil) {
         InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
-        cell.textLabel.text = NSLocalizedString(@"Url:", nil);
+        cell.textLabel.text = NSLocalizedString(@"URL:", nil);
         cell.textField.placeholder = NSLocalizedString(@"URL", nil);
         cell.textField.text = self.feed.uri;
         cell.textField.delegate = self;
