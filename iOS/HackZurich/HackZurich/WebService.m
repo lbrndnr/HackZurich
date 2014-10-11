@@ -187,6 +187,7 @@ true if succeeded false otherwise
         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(feeds.feeds);
+            self.feeds = feeds.feeds;
         }];
         [task resume];
         
