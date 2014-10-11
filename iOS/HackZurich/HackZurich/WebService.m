@@ -8,6 +8,11 @@
 
 #import "WebService.h"
 
+#define BASE_URL @"https://hz14.the-admins.ch"
+#define REGISTER_USER @"auth/local/register"
+#define LOGIN_USER @"auth/local/login"
+#define CREATE_FEED @""
+
 @implementation WebService
 
 +(WebService *) sharedService {
@@ -20,6 +25,17 @@
     return sharedService;
 }
 
+
+-(NSString *) getRequestWithOperation:(NSString *) parameter {
+    NSString *string = nil;
+    if(self.currentUser == nil) {
+     string = [NSString stringWithFormat:@"%@/%@",BASE_URL,parameter];
+    }
+    else {
+        string = [NSString stringWithFormat:@"%@/%@?auth=%@",BASE_URL,parameter, self.currentUser.auth];
+    }
+    return  string;
+}
 
 /*
  Register Function
@@ -35,7 +51,7 @@
  
  */
 
--(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token withCompletion:(void (^)(User *))completion {
+-(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User *))completion {
     if (self.deviceToken == nil) {
         if (completion) {
             completion(nil);
@@ -47,7 +63,15 @@
     
     if (completion) {
         __block User *user = nil;
-        NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
+        NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:REGISTER_USER]]];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setHTTPMethod:@"POST"];
+        
+        NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [request setHTTPBody:body];
+        
         [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(user);
@@ -77,7 +101,7 @@
   the self.currentUser was not set if return value is false
  IMPORTANT: Send the auth-token in the User-INstance for every further request
  */
--(BOOL) login:(NSString *)username withPassword:(NSString *)password andPushToken:(NSString *)token withCompletion:(void (^)(User *))completion {
+-(BOOL) login:(NSString *)username withPassword:(NSString *)password  withCompletion:(void (^)(User *))completion {
     
     if(self.deviceToken == nil) {
         if(completion) {
@@ -89,7 +113,16 @@
     
     if(completion) {
         __block User *user = nil;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:LOGIN_USER]]];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setHTTPMethod:@"POST"];
+        
+        NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        [request setHTTPBody:body];
+        
         [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(user);
@@ -129,7 +162,10 @@ true if succeeded false otherwise
     }
     if(completion) {
         __block Feed *feed = nil;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:CREATE_FEED]]];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        
         [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(feed);

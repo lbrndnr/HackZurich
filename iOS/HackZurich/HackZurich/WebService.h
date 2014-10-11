@@ -31,7 +31,7 @@ PRE:
  
 */
 
--(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token withCompletion:(void (^)(User*))completion;
+-(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User*))completion;
 
 /*
  Login Function
@@ -44,7 +44,7 @@ PRE:
  POST: null or a User Objective representing the user which is logged in
         IMPORTANT: Send the auth-token in the User-INstance for every further request
  */
--(BOOL)login:(NSString *)username withPassword:(NSString*)password andPushToken:(NSString *)token withCompletion:(void(^)(User *)) completion;
+-(BOOL)login:(NSString *)username withPassword:(NSString*)password  withCompletion:(void(^)(User *)) completion;
 
 
 
@@ -62,5 +62,16 @@ PRE:
  */
 -(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(NSArray<Filter> *)filters withCompletion:(void(^)(Feed *)) completion;
 
+
+/*
+ Get the request string (URL)
+ PRE:
+        parameter: the request operation
+
+ POST:
+        the url prepared
+ 
+ */
+-(NSString *) getRequestWithOperation:(NSString *) parameter;
 
 @end
