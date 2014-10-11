@@ -1,4 +1,4 @@
-//
+c//
 //  WebService.m
 //  HackZurich
 //
@@ -38,12 +38,9 @@
 
 -(NSString *) getRequestWithOperation:(NSString *) parameter {
     NSString *string = nil;
-    if(self.currentUser == nil) {
+
      string = [NSString stringWithFormat:@"%@/%@",BASE_URL,parameter];
-    }
-    else {
-        string = [NSString stringWithFormat:@"%@/%@?access_token=%@",BASE_URL,parameter, self.currentUser.access_token];
-    }
+
     return  string;
 }
 
@@ -284,14 +281,18 @@ true if succeeded false otherwise
 -(BOOL)getListFeedWithCompletion:(void(^)(NSArray<Feed> *)) completion {
     if(self.currentUser == nil) return NO;
     
-    NSMutableURLRequest *request = [self createMutableRequestWithMethod:GET_FEEDS withOperation:@"GET" andDataAsString:@""];
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"GET" withOperation:GET_FEEDS andDataAsString:@""];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            JSONModelError *error = nil;
+            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:&error];
             self.feeds = feeds.feeds;
             
             if (completion) {
                 completion(feeds.feeds);
+            }
+            else {
+                 NSLog(@"%@ --- %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding], error);
             }
         });
     }];
@@ -318,6 +319,8 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
     
+    [request addValue:[NSString stringWithFormat:@"Bearer %@", self.currentUser.access_token ] forHTTPHeaderField:@"Authorization"];
+    
     if([method compare:@"POST"] == NSOrderedSame) {
         //We have a post request, so our string is a json string representing the object -> add to body
         
@@ -327,7 +330,7 @@ true if succeeded false otherwise
     else if ([method compare:@"GET"] == NSOrderedSame) {
         //We have a get request, so concat the string to the url
         NSURL *url = [request URL];
-        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"?%@", data]];
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", data]];
         [request setURL:url];
         
     }
@@ -341,6 +344,8 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
+    
+        [request addValue:[NSString stringWithFormat:@"Bearer %@", self.currentUser.access_token ] forHTTPHeaderField:@"Authorization"];
     
     if([method compare:@"PUT"] == NSOrderedSame) {
         //We have a PUT request, so our string is a json string representing the object -> add to body; we also set the PUT parameter
@@ -370,6 +375,8 @@ true if succeeded false otherwise
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:method];
+    
+        [request addValue:[NSString stringWithFormat:@"Bearer %@", self.currentUser.access_token ] forHTTPHeaderField:@"Authorization"];
     
     if([method compare:@"POST"] == NSOrderedSame) {
         //We have a post request, so our string is a json string representing the object -> add to body
