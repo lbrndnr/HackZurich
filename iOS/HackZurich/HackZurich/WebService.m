@@ -17,7 +17,11 @@
 //Feed operations
 #define CREATE_FEED @"api/feed/"
 #define UPDATE_FEED @"api/feed/"
+
+
+//Feedstream operations
 #define GET_FEEDS @""
+#define UPDATE_FEEDSTREAM @""
 
 @implementation WebService
 
@@ -211,6 +215,40 @@ true if succeeded false otherwise
     return YES;
     
 }
+
+
+/*
+ Update Feedstream
+ PRE: Updated list of all feeds used (wanted) by the user
+ 
+ POST:
+ Boolean indicating status
+ 
+ */
+-(BOOL)updateFeedstream:(Feedstream *)feedstream withCompletion:(void (^)(Feedstream *)) completion {
+    if(self.currentUser == nil) {
+        if(completion) {
+            completion(nil);
+        }
+        return NO;
+        
+    }
+    
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[feedstream toJSONString]];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if(completion) {
+            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+
+            completion(feeds);
+        }
+    }];
+    
+    [task resume];
+    
+    return  YES;
+    
+}
+
 
 
 

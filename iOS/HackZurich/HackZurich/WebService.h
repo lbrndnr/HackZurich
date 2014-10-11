@@ -79,8 +79,19 @@ PRE:
  */
 -(BOOL)updateFeed:(Feed *)injFeed withCompletion:(void(^)(Feed *)) completion;
 
+
 /*
- Get feeds
+ Update Feedstream
+ PRE: Updated list of all feeds used (wanted) by the user
+ 
+ POST:
+    Boolean indicating status
+ 
+ */
+-(BOOL)updateFeedstream:(Feedstream *)feedstream withCompletion:(void (^)(Feedstream *)) completion;
+
+/*
+ Get Feedstream
  NOTE: Getting the auth token from the currentUser property
  
  PRE:
