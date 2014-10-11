@@ -119,7 +119,7 @@
     NSDictionary* payload = @{@"email": username, @"password": password};
     NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
     
-    NSMutableURLRequest *request = [self createMutableRequestWithMethod:LOGIN_USER withOperation:@"POST" andData:body];
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:LOGIN_USER andData:body];
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];

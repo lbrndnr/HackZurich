@@ -48,7 +48,6 @@
 }
 
 -(void)showLoginViewController {
-    return;
     if (![WebService sharedService].currentUser) {
         UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Login", nil) message:NSLocalizedString(@"Please login to your GENAU account", nil) preferredStyle:UIAlertControllerStyleAlert];
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
