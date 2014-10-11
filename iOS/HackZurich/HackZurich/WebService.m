@@ -168,17 +168,8 @@ true if succeeded false otherwise
             feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(feed);
         }];
-<<<<<<< HEAD
         
         [task resume];
-=======
-        if(feed != nil && feed._id != nil) {
-            return true;
-        }
-        else {
-            return true;
-        }
->>>>>>> 7ea5bfa02d321d0c95bb7ed944b93f44462451fb
     }
     
     return YES;
