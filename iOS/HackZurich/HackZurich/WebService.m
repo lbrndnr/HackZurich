@@ -359,6 +359,12 @@ true if succeeded false otherwise
         
     }
     
+    else if ([method compare:@"DELTE"] == NSOrderedSame) {
+        NSURL *url = [request URL];
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", data]];
+        [request setURL:url];
+    }
+    
     
     return request;
 }
