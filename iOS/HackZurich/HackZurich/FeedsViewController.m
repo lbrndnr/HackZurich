@@ -66,6 +66,26 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Feed* feed = [WebService sharedService].feeds[indexPath.row];
+        
+        NSMutableArray* newFeedes = [WebService sharedService].feeds.mutableCopy;
+        [newFeedes removeObjectAtIndex:indexPath.row];
+        [WebService sharedService].feeds = (NSArray<Feed>*)newFeedes;
+        
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+        
+        [[WebService sharedService] deleteFeed:feed withCompletion:nil];
+    }
+}
+
 -(void)presentOutputFeedCreatorViewController:(id)sender {
     OutputFeedCreaterViewController* controller = [OutputFeedCreaterViewController new];
     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissOutputFeedCreatorViewController:)];
