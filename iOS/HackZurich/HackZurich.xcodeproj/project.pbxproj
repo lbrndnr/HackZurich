@@ -22,6 +22,7 @@
 		27F0B55119E8A5AE00ADCEE1 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55019E8A5AE00ADCEE1 /* Filter.m */; };
 		27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55319E8A75600ADCEE1 /* Rule.m */; };
 		27F0B55719E8A98100ADCEE1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55619E8A98100ADCEE1 /* User.m */; };
+		27F0B55A19E8AA3B00ADCEE1 /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55919E8AA3B00ADCEE1 /* WebService.m */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
 		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
@@ -72,6 +73,8 @@
 		27F0B55319E8A75600ADCEE1 /* Rule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rule.m; sourceTree = "<group>"; };
 		27F0B55519E8A98100ADCEE1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		27F0B55619E8A98100ADCEE1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		27F0B55819E8AA3B00ADCEE1 /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebService.h; sourceTree = "<group>"; };
+		27F0B55919E8AA3B00ADCEE1 /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebService.m; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */,
 				494F50B919E88BE8003DCC1A /* Images.xcassets */,
 				494F50A919E88BE8003DCC1A /* Supporting Files */,
+				27F0B55819E8AA3B00ADCEE1 /* WebService.h */,
+				27F0B55919E8AA3B00ADCEE1 /* WebService.m */,
 			);
 			path = HackZurich;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 			files = (
 				27F0B54319E8A35E00ADCEE1 /* JSONModel.m in Sources */,
 				494F50B519E88BE8003DCC1A /* SecondViewController.m in Sources */,
+				27F0B55A19E8AA3B00ADCEE1 /* WebService.m in Sources */,
 				27F0B54519E8A35E00ADCEE1 /* JSONModelClassProperty.m in Sources */,
 				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,
 				494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */,

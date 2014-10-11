@@ -10,11 +10,14 @@
 #import "Rule.h"
 
 @class Feed;
+@protocol Feed;
+
 
 @interface Filter : JSONModel
-@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic) Feed *output;
 @property (strong, nonatomic) NSArray<Rule> *rules;
+@property (strong, nonatomic) NSArray<Feed> *inputs;
 @end
 
 @protocol Filter

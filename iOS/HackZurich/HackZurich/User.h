@@ -10,7 +10,7 @@
 
 @interface User : JSONModel
 
-@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *auth;
 @end
