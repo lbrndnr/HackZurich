@@ -62,19 +62,19 @@
  */
 
 -(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User *, NSString*))completion {
-    if (self.deviceToken == nil) {
-        if (completion) {
-            completion(nil, @"No device Token");
-        }
-        self.currentUser = nil;
-            return false;
-        
-    }
+//    if (self.deviceToken == nil) {
+//        if (completion) {
+//            completion(nil, @"No device Token");
+//        }
+//        self.currentUser = nil;
+//            return false;
+//        
+//    }
 
     if (completion) {
         __block User *user = nil;
         
-        NSDictionary* payload = @{@"email": username, @"password": password, @"device_token":self.deviceToken};
+        NSDictionary* payload = @{@"email": username, @"password": password, @"device_token":self.deviceToken == nil?@"":self.deviceToken};
         NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
         
         NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:REGISTER_USER andData:body];
@@ -108,18 +108,18 @@
  
  */
 -(BOOL) login:(NSString *)username withPassword:(NSString *)password  withCompletion:(void (^)(User *, NSString*))completion {
-    
-    if(self.deviceToken == nil) {
-        if(completion) {
-            completion(nil, @"No Device Token");
-        }
-        self.currentUser = nil;
-        return false;
-    }
+//    
+//    if(self.deviceToken == nil) {
+//        if(completion) {
+//            completion(nil, @"No Device Token");
+//        }
+//        self.currentUser = nil;
+//        return false;
+//    }
     
     __block User *user = nil;
     
-    NSDictionary* payload = @{@"email": username, @"password": password, @"device_token" : self.deviceToken};
+    NSDictionary* payload = @{@"email": username, @"password": password, @"device_token" : self.deviceToken==nil?@"":self.deviceToken};
     NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
     
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:LOGIN_USER andData:body];
