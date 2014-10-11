@@ -34,6 +34,8 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
+    UIColor* tintColor = [UIColor colorWithRed:49.0f/255.0f green:157.0f/255.0f blue:71.0f/255.0f alpha:1.0f];
+
     UITabBarController* controller = [UITabBarController new];
     
     UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[CalendarViewController new]];
@@ -45,6 +47,7 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.tintColor = tintColor;
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
