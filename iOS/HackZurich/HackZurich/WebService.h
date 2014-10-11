@@ -60,7 +60,7 @@ PRE:
  POST:
  Null or generated Feed Object
  */
--(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(NSArray<Filter> *)filters withCompletion:(void(^)(Feed *)) completion;
+-(BOOL)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(Filter *)filter withCompletion:(void(^)(Feed *)) completion;
 
 
 /*
