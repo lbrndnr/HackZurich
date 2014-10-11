@@ -250,7 +250,6 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
                     if(myFeed != nil) {
                         
                     
-                    
                     [self.availableInputFeeds addObject:newFeed];
                     
                     
