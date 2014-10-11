@@ -27,6 +27,12 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+  app.use(function(req, res, next) {
+    console.log("req.query:", req.query);
+    console.log("req.params:", req.params);
+    console.log("req.body:", req.body);
+    next();
+  });
   if ('production' === env) {
 //    app.use(express.static(path.join(config.root, 'public')));
 //    app.set('appPath', config.root + '/public');
@@ -37,7 +43,7 @@ module.exports = function(app) {
     app.use(require('connect-livereload')());
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'client')));
-    app.set('appPath', 'client');
+    //app.set('appPath', 'client');
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
