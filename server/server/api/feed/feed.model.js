@@ -5,9 +5,10 @@ var mongoose = require('mongoose'),
     Filter = mongoose.Filter;
 
 var FeedSchema = new Schema({
-  name: String,
+  name: {type: String, required:true},
+  user: {type: Schema.Types.ObjectId, ref: 'User', required:true},
   desc: String,
-  uri: String,
+  uri: {type: String, required:true},
   filter: {type: Schema.Types.ObjectId, ref: 'Filter'}
 });
 
