@@ -83,6 +83,7 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
                 if (user) {
                     controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"You've successfully signed up", nil) preferredStyle:UIAlertControllerStyleAlert];
                     [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+                    [[WebService sharedService] getListFeedWithCompletion:nil];
                 }
                 else {
                     controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -107,6 +108,7 @@ NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
                     
                     controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"You've successfully logged in", nil) preferredStyle:UIAlertControllerStyleAlert];
                     [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+                    [[WebService sharedService] getListFeedWithCompletion:nil];
                 }
                 else {
                     controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:error preferredStyle:UIAlertControllerStyleAlert];

@@ -80,8 +80,8 @@
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-                completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                 self.currentUser = user;
+                completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             });
         }];
         
@@ -125,10 +125,10 @@
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            self.currentUser = user;
             if (completion) {
                 completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             }
-            self.currentUser = user;
         });
     }];
     [task resume];
