@@ -13,8 +13,6 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
     buildcontrol: 'grunt-build-control'
@@ -30,7 +28,6 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     yeoman: {
       // configurable paths
-      client: require('./bower.json').appPath || 'client',
       dist: 'dist'
     },
     express: {
@@ -208,15 +205,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Automatically inject Bower components into the app
-    wiredep: {
-      target: {
-        src: '<%= yeoman.client %>/index.html',
-        ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
-      }
-    },
-
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -342,7 +330,6 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'index.html'
@@ -513,7 +500,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'express-keepalive']);
     }
 
     if (target === 'debug') {
@@ -521,8 +508,6 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        'injector',
-        'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -532,12 +517,9 @@ module.exports = function (grunt) {
       'clean:server',
       'env:all',
       'concurrent:server',
-      'injector',
-      'wiredep',
       'autoprefixer',
       'express:dev',
       'wait',
-      'open',
       'watch'
     ]);
   });
@@ -561,9 +543,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:test',
-        'injector',
         'autoprefixer',
-        'karma'
       ]);
     }
 
@@ -573,8 +553,6 @@ module.exports = function (grunt) {
         'env:all',
         'env:test',
         'concurrent:test',
-        'injector',
-        'wiredep',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -590,17 +568,10 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'concurrent:dist',
-    'injector',
-    'wiredep',
     'useminPrepare',
     'autoprefixer',
-    'ngtemplates',
-    'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
     'rev',
     'usemin'
   ]);
