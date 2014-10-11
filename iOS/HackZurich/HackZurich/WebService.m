@@ -243,8 +243,12 @@ true if succeeded false otherwise
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"DELETE" withOperation:DELETE_FEED andDataAsString:feed._id];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if(((NSHTTPURLResponse *)response).statusCode == 204)
+        if(((NSHTTPURLResponse *)response).statusCode == 204) {
             [self getListFeedWithCompletion:nil];
+        }
+        else {
+            
+        }
     }];
     
     [task resume];
