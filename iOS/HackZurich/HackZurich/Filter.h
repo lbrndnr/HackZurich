@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic) Feed *output;
 @property (strong, nonatomic) NSArray<Rule> *rules;
-@property (strong, nonatomic) NSArray<Feed> *inputs;
+@property (strong, nonatomic) NSArray *inputs;
 @end
 
 @protocol Filter
