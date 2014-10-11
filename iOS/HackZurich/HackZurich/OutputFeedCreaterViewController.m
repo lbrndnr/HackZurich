@@ -201,7 +201,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
             
             NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
             if ([self.feed.filter.inputs containsObject:((Feed *)self.availableInputFeeds[indexPath.row])._id]) {
-                [newInputFeeds removeObject:selectedFeed];
+                [newInputFeeds removeObject:selectedFeed._id];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             else {
@@ -236,13 +236,16 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
                 UITextField* URLTextField = controller.textFields[2];
                 
                 Feed* feed = [Feed new];
+                
                 feed.name = nameTextField.text;
                 feed.desc = descTextField.text;
                 feed.uri = URLTextField.text;
+                feed._id = [NSString stringWithFormat:@"%@%@%@",feed.name,feed.desc,feed.uri];
                 [self.availableInputFeeds addObject:feed];
                 
+                
                 NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
-                [newInputFeeds addObject:feed];
+                [newInputFeeds addObject:feed._id];
                 self.feed.filter.inputs = (NSArray *)newInputFeeds;
                 
                 [self.tableView beginUpdates];
