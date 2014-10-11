@@ -28,6 +28,9 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Visible Feeds", nil);
+    
+    Class cellClass = [UITableViewCell class];
+    [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -43,7 +46,6 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     
     cell.textLabel.text = feed.name;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
