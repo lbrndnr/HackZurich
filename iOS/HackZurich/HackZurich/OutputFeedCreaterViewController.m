@@ -8,6 +8,7 @@
 
 #import "OutputFeedCreaterViewController.h"
 #import "InputTableViewCell.h"
+#import "Filter.h"
 
 #define NAME_SECTION 0
 #define DESC_SECTION 1
@@ -19,7 +20,6 @@
 @property (nonatomic, strong) Feed* feed;
 @property (nonatomic, strong) NSMutableArray* availableInputFeeds;
 @property (nonatomic, strong) NSMutableIndexSet* selectedInputFeedIndices;
-@property (nonatomic, strong) NSMutableArray* filters;
 
 @end
 @implementation OutputFeedCreaterViewController
@@ -31,7 +31,7 @@
 -(instancetype)initWithFeed:(Feed *)feed {
     self = [self initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        self.feed = feed;
+        self.feed = feed ?: [Feed new];
     }
     
     return self;
@@ -46,7 +46,6 @@
     
     self.availableInputFeeds = [NSMutableArray arrayWithObject:feed];
     self.selectedInputFeedIndices = [NSMutableIndexSet new];
-    self.filters = [NSMutableArray arrayWithObjects:@"#tag", @"damn", nil];
     
     Class cellClass = [UITableViewCell class];
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
@@ -64,7 +63,7 @@
         return self.availableInputFeeds.count+1;
     }
     else if (section == FILTER_SECTION) {
-        return self.filters.count+1;
+        return self.feed.filter.rules.count+1;
     }
     
     return 1;
@@ -113,8 +112,9 @@
         }
     }
     else {
-        if (indexPath.row < self.filters.count) {
-            cell.textLabel.text = self.filters[indexPath.row];
+        if (indexPath.row < self.feed.filter.rules.count) {
+            Rule* rule = self.feed.filter.rules[indexPath.row];
+            cell.textLabel.text = rule.title;
         }
         else {
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -127,7 +127,7 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.section == FEEDS_SECTION) || (indexPath.section == FILTER_SECTION && indexPath.row == self.filters.count);
+    return (indexPath.section == FEEDS_SECTION) || (indexPath.section == FILTER_SECTION && indexPath.row == self.feed.filter.rules.count);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,7 +175,7 @@
                 [self.selectedInputFeedIndices addIndex:[self.availableInputFeeds indexOfObject:feed]];
                 
                 [self.tableView beginUpdates];
-                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView endUpdates];
             }]];
             
@@ -193,11 +193,23 @@
         [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];
             
+            if (!self.feed.filter) {
+                self.feed.filter = [Filter new];
+            }
+            
             UITextField* textField = controller.textFields.firstObject;
-            [self.filters addObject:textField.text];
+            NSString* text = textField.text;
+            BOOL tag = [text hasPrefix:@"#"];
+            Rule* newRule = [Rule new];
+            newRule.type = (tag) ? RuleTypeTag : RuleTypeSubstring;
+            newRule.text = (tag) ? [text substringFromIndex:1] : text;
+            
+            NSMutableArray* newRules = self.feed.filter.rules.mutableCopy ?: [NSMutableArray new];
+            [newRules addObject:newRule];
+            self.feed.filter.rules = (NSArray<Rule>*)newRules;
             
             [self.tableView beginUpdates];
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.filters.count-1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.feed.filter.rules.count-1 inSection:FILTER_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
         }]];
         
@@ -206,7 +218,7 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.section == 1 && indexPath.row != self.filters.count);
+    return (indexPath.section == FILTER_SECTION && indexPath.row != self.feed.filter.rules.count);
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -215,7 +227,9 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.filters removeObjectAtIndex:indexPath.row];
+        NSMutableArray* newRules = self.feed.filter.rules.mutableCopy;
+        [newRules removeObjectAtIndex:indexPath.row];
+        self.feed.filter.rules = (NSArray<Rule>*)newRules;
         
         [self.tableView beginUpdates];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

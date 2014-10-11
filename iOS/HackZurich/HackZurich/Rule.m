@@ -10,4 +10,12 @@
 
 @implementation Rule
 
+-(NSString<Ignore>*)title {
+    if (self.type == RuleTypeSubstring) {
+        return self.text;
+    }
+    
+    return [NSString stringWithFormat:@"#%@", self.text];
+}
+
 @end
