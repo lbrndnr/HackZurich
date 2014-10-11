@@ -8,7 +8,7 @@
 
 #import "WebService.h"
 
-#define BASE_URL @"https://hz14.the-admins.ch"
+#define BASE_URL @"http://hz14.the-admins.ch"
 #define REGISTER_USER @"auth/local/register"
 #define LOGIN_USER @"auth/local/login"
 #define CREATE_FEED @""
@@ -32,7 +32,7 @@
      string = [NSString stringWithFormat:@"%@/%@",BASE_URL,parameter];
     }
     else {
-        string = [NSString stringWithFormat:@"%@/%@?auth=%@",BASE_URL,parameter, self.currentUser.auth];
+        string = [NSString stringWithFormat:@"%@/%@?auth=%@",BASE_URL,parameter, self.currentUser.access_token];
     }
     return  string;
 }
@@ -51,16 +51,16 @@
  
  */
 
--(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User *))completion {
-    if (self.deviceToken == nil) {
-        if (completion) {
-            completion(nil);
-        }
-        self.currentUser = nil;
-            return false;
-        
-    }
-    
+-(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User *, NSString*))completion {
+//    if (self.deviceToken == nil) {
+//        if (completion) {
+//            completion(nil);
+//        }
+//        self.currentUser = nil;
+//            return false;
+//        
+//    }
+
     if (completion) {
         __block User *user = nil;
         NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:REGISTER_USER]]];
@@ -72,20 +72,16 @@
         
         [request setHTTPBody:body];
         
-        [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            completion(user);
+            completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             self.currentUser = user;
-            
         }];
-        if(user != nil) {
-        return  true;
-        }
-        else {
-            return false;
-        }
+        
+        [task resume];
     }
-    return  false;
+    
+    return  YES;
 }
 
 /*
@@ -101,42 +97,37 @@
   the self.currentUser was not set if return value is false
  IMPORTANT: Send the auth-token in the User-INstance for every further request
  */
--(BOOL) login:(NSString *)username withPassword:(NSString *)password  withCompletion:(void (^)(User *))completion {
+-(BOOL) login:(NSString *)username withPassword:(NSString *)password  withCompletion:(void (^)(User *, NSString*))completion {
     
-    if(self.deviceToken == nil) {
-        if(completion) {
-            completion(nil);
-        }
-        self.currentUser = nil;
-        return false;
-    }
+//    if(self.deviceToken == nil) {
+//        if(completion) {
+//            completion(nil);
+//        }
+//        self.currentUser = nil;
+//        return false;
+//    }
     
-    if(completion) {
-        __block User *user = nil;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:LOGIN_USER]]];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setHTTPMethod:@"POST"];
-        
-        NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
-        
-        
-        [request setHTTPBody:body];
-        
-        [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            completion(user);
-            self.currentUser = user;
-        }];
-        if(user != nil) {
-            return true;
+    __block User *user = nil;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:LOGIN_USER]]];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSData *body = [[NSString stringWithFormat:@"email=%@&password=%@&device_token=%@", username, password, self.deviceToken]dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    [request setHTTPBody:body];
+    
+    NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+        if (completion) {
+            completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         }
-        else {
-            return false;
-        }
-        
-    }
-    return  false;
+        self.currentUser = user;
+    }];
+    [task resume];
+
+    return YES;
 }
 
 
@@ -166,18 +157,15 @@ true if succeeded false otherwise
         [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
         
-        [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
             completion(feed);
         }];
-        if(feed != nil) {
-            return true;
-        }
-        else {
-            return true;
-        }
+        
+        [task resume];
     }
-    return  false;
+    
+    return YES;
 }
 
 

@@ -183,12 +183,8 @@
                 [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
                 [requiredTextFields addObject:textField];
             }];
-            [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }]];
+            [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
             UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-                
                 UITextField* nameTextField = controller.textFields.firstObject;
                 UITextField* descTextField = controller.textFields[1];
                 UITextField* URLTextField = controller.textFields[2];
@@ -226,13 +222,9 @@
             [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
             self.requiredAlertViewTextFields = @[textField];
         }];
-        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }]];
+        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
         
         UIAlertAction* addAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
             UITextField* textField = controller.textFields.firstObject;
             NSString* text = textField.text;
             BOOL tag = [text hasPrefix:@"#"];

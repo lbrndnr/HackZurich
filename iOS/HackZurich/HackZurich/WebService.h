@@ -31,7 +31,7 @@ PRE:
  
 */
 
--(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User*))completion;
+-(BOOL)registerUser:(NSString *)username withPassword:(NSString *)password withCompletion:(void (^)(User*, NSString*))completion;
 
 /*
  Login Function
@@ -44,7 +44,7 @@ PRE:
  POST: null or a User Objective representing the user which is logged in
         IMPORTANT: Send the auth-token in the User-INstance for every further request
  */
--(BOOL)login:(NSString *)username withPassword:(NSString*)password  withCompletion:(void(^)(User *)) completion;
+-(BOOL)login:(NSString *)username withPassword:(NSString*)password  withCompletion:(void(^)(User *, NSString*)) completion;
 
 
 

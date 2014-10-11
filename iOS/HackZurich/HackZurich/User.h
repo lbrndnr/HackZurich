@@ -12,5 +12,5 @@
 
 @property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *auth;
+@property (strong, nonatomic) NSString *access_token;
 @end
