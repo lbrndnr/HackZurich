@@ -15,6 +15,7 @@
 #define DESC_SECTION 1
 #define FEEDS_SECTION 2
 #define FILTER_SECTION 3
+#define URL_SECTION 4
 
 NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"OutputFeedCreaterViewControllerDidFinishEditing";
 
@@ -87,15 +88,20 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.feed.filter == nil) return 5;
     return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(self.feed.filter == nil && (section == FEEDS_SECTION || section == FILTER_SECTION)) return  0;
     if (section == FEEDS_SECTION) {
         return self.availableInputFeeds.count+1;
     }
     else if (section == FILTER_SECTION) {
         return self.feed.filter.rules.count+1;
+    }
+    else if (section == URL_SECTION) {
+        return 1;
     }
     
     return 1;
@@ -107,6 +113,9 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     }
     else if (section == FILTER_SECTION) {
         return NSLocalizedString(@"Filters", nil);
+    }
+    else if(section == URL_SECTION) {
+        return  NSLocalizedString(@"Url", nil);
     }
     
     return nil;
@@ -124,22 +133,38 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
         
         return cell;
     }
+    else if(indexPath.section == URL_SECTION && self.feed.filter == nil) {
+        InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([InputTableViewCell class]) forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"Url:", nil);
+        cell.textField.placeholder = NSLocalizedString(@"URL", nil);
+        cell.textField.text = self.feed.uri;
+        cell.textField.delegate = self;
+        cell.textField.tag = indexPath.section;
+        [cell.textField addTarget:self action:@selector(textFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
+        
+        return cell;
+    }
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.textColor = [UIColor darkTextColor];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    if (indexPath.section == FEEDS_SECTION) {
+    
+    
+    
+    if(self.feed.filter != nil) {
+    if (indexPath.section == FEEDS_SECTION ) {
         if (indexPath.row < self.availableInputFeeds.count) {
             Feed* feed = self.availableInputFeeds[indexPath.row];
+
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.uri];
             if ([self.feed.filter.inputs containsObject:feed]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
         }
-        else {
+        else{
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.text = NSLocalizedString(@"Add", nil);
             cell.textLabel.textColor = tableView.tintColor;
@@ -156,6 +181,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
             cell.textLabel.textColor = tableView.tintColor;
         }
     }
+    }
     
     return cell;
 }
@@ -167,7 +193,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == FEEDS_SECTION) {
+    if (indexPath.section == FEEDS_SECTION && self.feed.filter != nil) {
         if (indexPath.row < self.availableInputFeeds.count) {
             UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
             Feed* selectedFeed = self.availableInputFeeds[indexPath.row];
@@ -233,7 +259,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
             [self presentViewController:controller animated:YES completion:nil];
         }
     }
-    else if (indexPath.section == FILTER_SECTION) {
+    else if (indexPath.section == FILTER_SECTION && self.feed.filter != nil) {
         UIAlertController* controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Add new Filter", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.delegate = self;
@@ -289,7 +315,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
 }
 
 -(void)reloadDoneItemAvailabilty {
-    self.doneItem.enabled = (self.feed.name.length > 0) && (self.feed.filter.inputs.count > 0);
+    self.doneItem.enabled = ((self.feed.name.length > 0) && (self.feed.filter.inputs.count > 0)) || (self.feed.name.length> 0 && self.feed.filter == nil && self.feed.uri.length > 0);
 }
 
 -(void)done:(id)sender {
@@ -325,8 +351,11 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     if (sender.tag == NAME_SECTION) {
         self.feed.name = sender.text;
     }
-    else {
+    else  if (sender.tag == DESC_SECTION){
         self.feed.desc = sender.text;
+    }
+    else if (sender.tag == URL_SECTION) {
+        self.feed.uri = sender.text;
     }
     [self reloadDoneItemAvailabilty];
 }

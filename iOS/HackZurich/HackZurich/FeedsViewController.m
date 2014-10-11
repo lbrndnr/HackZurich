@@ -96,6 +96,7 @@
 -(void)dismissOutputFeedCreatorViewController:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popToViewController:self animated:YES];
+    [self.tableView reloadData];
 }
 
 -(void)outputFeedCreatorDidFinishEditing:(NSNotification *)notification {
