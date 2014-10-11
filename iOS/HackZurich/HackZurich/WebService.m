@@ -225,7 +225,7 @@ true if succeeded false otherwise
  Boolean indicating status
  
  */
--(BOOL)updateFeedstream:(Feedstream *)feedstream withCompletion:(void (^)(Feedstream *)) completion {
+-(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion {
     if(self.currentUser == nil) {
         if(completion) {
             completion(nil);
@@ -233,8 +233,9 @@ true if succeeded false otherwise
         return NO;
         
     }
-    
-    NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[feedstream toJSONString]];
+    Feedstream *stream = [Feedstream new];
+    stream.feeds = self.feeds;
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[stream toJSONString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
             Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
