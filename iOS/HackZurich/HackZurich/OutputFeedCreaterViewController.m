@@ -18,6 +18,7 @@
 
 @interface OutputFeedCreaterViewController () <UITextFieldDelegate>
 
+@property (nonatomic) BOOL editing;
 @property (nonatomic, strong) Feed* feed;
 @property (nonatomic, strong) NSMutableArray* availableInputFeeds;
 
@@ -46,6 +47,9 @@
         if (!self.feed) {
             self.feed = [Feed new];
             self.feed.filter = [Filter new];
+        }
+        else {
+            self.editing = YES;
         }
     }
     
@@ -284,11 +288,20 @@
 }
 
 -(void)done:(id)sender {
-    [[WebService sharedService] createNewFeedWithName:self.feed.name withDescription:self.feed.description withFilters:self.feed.filter withCompletion:^(Feed* feed) {
-        if (feed) {
-            [[WebService sharedService] getListFeedWithCompletion:nil];
-        }
-    }];
+    if (self.editing) {
+        [[WebService sharedService] updateFeed:self.feed withCompletion:^(Feed* feed) {
+            if (feed) {
+                [[WebService sharedService] getListFeedWithCompletion:nil];
+            }
+        }];
+    }
+    else {
+        [[WebService sharedService] createNewFeed:self.feed withCompletion:^(Feed* feed) {
+            if (feed) {
+                [[WebService sharedService] getListFeedWithCompletion:nil];
+            }
+        }];
+    }
 }
 
 -(void)textFieldDidChangeValue:(UITextField *)sender {

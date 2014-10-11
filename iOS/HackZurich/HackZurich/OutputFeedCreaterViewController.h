@@ -11,6 +11,7 @@
 
 @interface OutputFeedCreaterViewController : UITableViewController
 
+@property (nonatomic, readonly) BOOL editing;
 @property (nonatomic, readonly) Feed* feed;
 
 -(instancetype)initWithFeed:(Feed*)feed;

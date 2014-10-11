@@ -289,7 +289,7 @@ true if succeeded false otherwise
         //We have a PUT request, so our string is a json string representing the object -> add to body; we also set the PUT parameter
         
         NSURL *url = [request URL];
-        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"?%@", putparams]];
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"/%@", putparams]];
         [request setURL:url];
         
         [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
