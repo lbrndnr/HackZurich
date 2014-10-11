@@ -17,6 +17,7 @@
 //Feed operations
 #define CREATE_FEED @"api/feeds/"
 #define UPDATE_FEED @"api/feeds/"
+#define DELETE_FEED @"api/feeds/"
 
 
 //Feedstream operations
@@ -227,41 +228,64 @@ true if succeeded false otherwise
     
 }
 
-
 /*
- Update Feedstream
- PRE: Updated list of all feeds used (wanted) by the user
+ Delete Feed
+ PRE:
+ Fedd which should be deleted
  
- POST:
- Boolean indicating status
- 
+ POST
+ Boolean if success
  */
--(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion {
-    if(self.currentUser == nil) {
-        if(completion) {
-            completion(nil);
-        }
-        return NO;
-        
-    }
-    Feedstream *stream = [Feedstream new];
-    stream.feeds = self.feeds;
-    NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[stream toJSONString]];
+
+-(BOOL)deleteFeed:(Feed *)feed withCompletion:(void(^)(BOOL)) completion {
+    if(self.currentUser == nil) return NO;
+    
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"DELETE" withOperation:DELETE_FEED andDataAsString:feed._id];
+    
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            self.feeds = feeds.feeds;
-            if(completion) {
-                completion(feeds);
-            }
-        });
+        if(((NSHTTPURLResponse *)response).statusCode == 204)
+            [self getListFeedWithCompletion:nil];
     }];
     
     [task resume];
-    
     return  YES;
-    
 }
+
+
+///*
+// Update Feedstream
+// PRE: Updated list of all feeds used (wanted) by the user
+// 
+// POST:
+// Boolean indicating status
+// 
+// */
+//-(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion {
+//    if(self.currentUser == nil) {
+//        if(completion) {
+//            completion(nil);
+//        }
+//        return NO;
+//        
+//    }
+//    Feedstream *stream = [Feedstream new];
+//    stream.feeds = self.feeds;
+//    NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[stream toJSONString]];
+//    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+//            self.feeds = feeds.feeds;
+//            if(completion) {
+//                completion(feeds);
+//            }
+//        });
+//    }];
+//    
+//    [task resume];
+//    
+//    return  YES;
+//    
+//}
 
 
 

@@ -80,15 +80,15 @@ PRE:
 -(BOOL)updateFeed:(Feed *)injFeed withCompletion:(void(^)(Feed *)) completion;
 
 
-/*
- Update Feedstream
- PRE: Updated list of all feeds used (wanted) by the user
- 
- POST:
-    Boolean indicating status
- 
- */
--(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion;
+///*
+// Update Feedstream
+// PRE: Updated list of all feeds used (wanted) by the user
+// 
+// POST:
+//    Boolean indicating status
+// 
+// */
+//-(BOOL)updateFeedstreamWithCompletion:(void (^)(Feedstream *)) completion;
 
 /*
  Get Feedstream
@@ -102,6 +102,17 @@ PRE:
 */
 -(BOOL)getListFeedWithCompletion:(void(^)(NSArray<Feed> *)) completion;
 
+
+/*
+ Delete Feed
+ PRE:
+    Fedd which should be deleted
+ 
+ POST
+    Boolean if success
+ */
+
+-(BOOL)deleteFeed:(Feed *)feed withCompletion:(void(^)(BOOL)) completion;
 
 /*
  Get the request string (URL)

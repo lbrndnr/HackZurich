@@ -296,7 +296,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     if (self.editing) {
         [[WebService sharedService] updateFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
-                [[WebService sharedService] updateFeedstreamWithCompletion:nil];
+                [[WebService sharedService] getListFeedWithCompletion:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
             }
             else {
@@ -309,7 +309,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     else {
         [[WebService sharedService] createNewFeed:self.feed withCompletion:^(Feed* feed) {
             if (feed) {
-                [[WebService sharedService] updateFeedstreamWithCompletion:nil];
+                [[WebService sharedService] getListFeedWithCompletion:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:OutputFeedCreaterViewControllerDidFinishEditingNotification object:self];
             }
             else {
