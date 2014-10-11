@@ -81,6 +81,10 @@ exports.index = function(req, res) {
 
     _.forEach(filters, function(filter) {
 
+        if(typeof processed[filter.id]  !== 'undefined') {
+            return true; // continue
+        }
+
         processFilter(filter, processed);
 
     });
@@ -116,7 +120,9 @@ function processFilter(filter, processed) {
     p.requestParallel(uris).then(
         function(responses) {
             responses.forEach(function(response) {
-                console.log(p.extractEvents(response.body));
+                p.extractEvents(response.body).forEach(function(eventText) {
+
+                });
             });
         },
         function(error) {
