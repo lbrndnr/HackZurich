@@ -2,10 +2,12 @@
 
 var express = require('express');
 
-var controller = require('./thing.controller');
+var index = require('./thing.controller');
+var sync = require('./sync.controller');
 
 var router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', index.index);
+router.get('/sync', sync.index);
 
 module.exports = router;
