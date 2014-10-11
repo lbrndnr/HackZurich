@@ -1,7 +1,10 @@
 'use strict';
 
-var _ = require('lodash'),
-    p = require('../../components/feed_processor');
+var cachePath = '/tmp/caltag';
+
+var _  = require('lodash'),
+    fs = require('fs'),
+    fp = require('../../components/feed_processor');
 
 
 /* feeds collection, key is id */
@@ -22,7 +25,7 @@ var feeds = {
     },
     "abc123": {
         "id":     "abc123",
-        "name":   "Schools & Bananas",
+        "name":   "Schools and bananas",
         "desc":   "Because 7 ate 9",
         "uri":    "http://hz14.the-admins.ch/api/feeds/abc123",
         "filter": "tre547"
@@ -117,12 +120,30 @@ function processFilter(filter, processed) {
         return feeds[feedId].uri;
     });
 
-    p.requestParallel(uris).then(
+    fp.requestParallel(uris).then(
         function(responses) {
+
+            var keepEvents = [];
+
             responses.forEach(function(response) {
-                p.extractEvents(response.body).forEach(function(eventText) {
+
+                fp.extractEvents(response.body).forEach(function(eventText) {
+
+                    if(fp.filterEvent(eventText, filter.rules)) {
+                        keepEvents.push(eventText);
+                    }
 
                 });
+
+            });
+
+            var cacheTarget  = cachePath + '/' + filter.id + '.ical',
+                cacheContent = icalTemplate(feeds[filter.output], keepEvents);
+
+            fs.writeFile(cacheTarget, cacheContent, function(error) {
+                if(error !== null) {
+                    throw error;
+                }
             });
         },
         function(error) {
@@ -134,3 +155,38 @@ function processFilter(filter, processed) {
      processed[filter.id] = true;
 
 };
+
+/**
+ * TODO(twilde): encode feed name and desc correctly.
+ */
+function icalTemplate(outFeed, events) {
+    return [
+            'BEGIN:VCALENDAR',
+            'PRODID:-//caltag//caltag 1.0//EN',
+            'VERSION:2.0',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            'X-WR-CALNAME:' + outFeed.name,
+            'X-WR-TIMEZONE:Europe/Zurich',
+            'X-WR-CALDESC:' + outFeed.desc,
+            'BEGIN:VTIMEZONE',
+            'TZID:Europe/Zurich',
+            'X-LIC-LOCATION:Europe/Zurich',
+            'BEGIN:DAYLIGHT',
+            'TZOFFSETFROM:+0100',
+            'TZOFFSETTO:+0200',
+            'TZNAME:CEST',
+            'DTSTART:19700329T020000',
+            'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+            'END:DAYLIGHT',
+            'BEGIN:STANDARD',
+            'TZOFFSETFROM:+0200',
+            'TZOFFSETTO:+0100',
+            'TZNAME:CET',
+            'DTSTART:19701025T030000',
+            'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+            'END:STANDARD',
+            'END:VTIMEZONE',
+
+        ].join('\r\n') + events.join('') + 'END:VCALENDAR';
+}

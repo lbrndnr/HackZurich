@@ -30,6 +30,11 @@ module.exports.extractEvents = function(text) {
 
 };
 
+module.exports.filterEvent = function(text, rules) {
+
+    return filterEvent(text, rules);
+
+};
 
 function aggregateEvents(responses) {
 
@@ -93,10 +98,13 @@ function extractEvents(body) {
     return events;
 }
 
+/**
+ * returns true if the event should be kept, false otherwise
+ */
 function filterEvent(e, rules) {
 
     if(e.length === 0) {
-        return null;
+        return false;
     }
 
     var lines   = e.replace(/\r\n /g, '').split(/\r\n/),
@@ -117,7 +125,7 @@ function filterEvent(e, rules) {
     }
 
     if(rules.length === 0) {
-        return e;
+        return true;
     }
 
     for(var i = 0, l = rules.length; i < l; i++) {
@@ -125,16 +133,16 @@ function filterEvent(e, rules) {
         var rule = rules[i];
 
         if(rule.in_subject && applyRule(rule, subject)) {
-            return e;
+            return true;
         }
 
         if(rule.in_body && applyRule(rule, body)) {
-            return e;
+            return true;
         }
 
     }
 
-    return null;
+    return false;
 }
 
 function applyRule(rule, text) {
