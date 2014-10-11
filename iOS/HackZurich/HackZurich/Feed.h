@@ -19,7 +19,6 @@
 
 @property (strong, nonatomic) Filter<Optional>* filter;
 
-@property (nonatomic) BOOL isVisible;
 
 
 @end
