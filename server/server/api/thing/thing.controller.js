@@ -1,68 +1,191 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /things              ->  index
- * POST    /things              ->  create
- * GET     /things/:id          ->  show
- * PUT     /things/:id          ->  update
- * DELETE  /things/:id          ->  destroy
- */
-
 'use strict';
 
-var _ = require('lodash');
-var Thing = require('./thing.model');
+var request  = require('request'),
+    parallel = require('node-parallel'),
+    alphacal = 'https://www.google.com/calendar/ical/dfjsravtbrn7si9hrl7jcl0d40%40group.calendar.google.com/private-e63a1b6b8d8e732b921f12672ca5056a/basic.ics',
+    betacal  = 'https://www.google.com/calendar/ical/uuvar5p1a250iuu4ntg1mebm5k%40group.calendar.google.com/private-800ff40cbbf0430895b25a9bd06bedff/basic.ics',
+    rules    = [
+        {
+            type: 0, // # / text,
+            text: 'banana',
+            in_body: true,
+            in_subject: true
+        },
+        {
+            type: 1, // # / text,
+            text: 'school',
+            in_body: true,
+            in_subject: true
+        },
+    ];
 
-// Get list of things
 exports.index = function(req, res) {
-  Thing.find(function (err, things) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, things);
-  });
-};
 
-// Get a single thing
-exports.show = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    return res.json(thing);
-  });
-};
+    res.set('Content-Type', 'text/plain; charset=UTF-8');
 
-// Creates a new thing in the DB.
-exports.create = function(req, res) {
-  Thing.create(req.body, function(err, thing) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, thing);
-  });
-};
+    var waitgroup = requestParallel([alphacal, betacal]);
 
-// Updates an existing thing in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Thing.findById(req.params.id, function (err, thing) {
-    if (err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    var updated = _.merge(thing, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, thing);
+    waitgroup.done(function(error, results) {
+
+        if(typeof error !== 'undefined' && error !== null)  {
+            res.send(null);
+        }
+
+        var events = aggregateEvents(results);
+
+        res.send(events.join('\n\n\n'));
+
     });
-  });
 };
 
-// Deletes a thing from the DB.
-exports.destroy = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
-    thing.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
+function aggregateEvents(responses) {
+
+     var events = [];
+
+    responses.forEach(function(response) {
+
+        extractEvents(response.body).forEach(function(e) {
+
+            var filtered = filterEvent(e, rules);
+
+            if(filtered === null) {
+                return true; // continue
+            }
+
+            events.push(filtered);
+
+        });
+
     });
-  });
-};
 
-function handleError(res, err) {
-  return res.send(500, err);
+    return events;
+
+}
+
+function requestParallel(urls) {
+
+    var waitgroup = new parallel();
+
+    waitgroup.timeout(3000);
+
+    urls.forEach(function(url) {
+
+        waitgroup.add(function(done){
+
+            request(url, function(error, response, body) {
+
+                done(error, response);
+
+            });
+
+        });
+
+    });
+
+    return waitgroup;
+}
+
+function extractEvents(body) {
+
+    var events = [];
+
+    for(var e = nextEvent(body); body.length > 0; e = nextEvent(body)) {
+
+        events.push(e[1]);
+
+        body = e[2];
+    }
+
+    return events;
+}
+
+function filterEvent(e, rules) {
+
+    if(e.length === 0) {
+        return null;
+    }
+
+    var lines   = e.replace(/\r\n /g, '').split(/\r\n/),
+        subject = '',
+        body    = '';
+
+    for(var i = 0, l = lines.length; i < l; i++) {
+
+        var line = lines[i];
+
+        if(line.substr(0, 12) === 'DESCRIPTION:') {
+            subject = line.substr(12);
+        }
+
+        if(line.substr(0, 8) === 'SUMMARY:') {
+            body = line.substr(8);
+        }
+    }
+
+    if(rules.length === 0) {
+        return e;
+    }
+
+    for(var i = 0, l = rules.length; i < l; i++) {
+
+        var rule = rules[i];
+
+        if(rule.in_subject && applyRule(rule, subject)) {
+            return e;
+        }
+
+        if(rule.in_body && applyRule(rule, body)) {
+            return e;
+        }
+
+    }
+
+    return null;
+}
+
+function applyRule(rule, text) {
+
+    var lookup = rule.text;
+
+    if(rule.type === 0) {
+        lookup = '#' + lookup;
+    }
+
+    return (text.toLowerCase().indexOf(lookup.toLowerCase()) !== -1);
+
+}
+
+function nextEvent(body) {
+
+    var start = 'BEGIN:VEVENT',
+        end   = 'END:VEVENT\r\n';
+
+    var off = 0;
+
+    while(body.substr(off, start.length) !== start) {
+
+        off++;
+
+        if(off >= body.length) {
+            break;
+        }
+
+    }
+
+    var len = 0;
+
+    while(body.substr(off,len).substr(-end.length) !== end) {
+
+        len++;
+
+        if((off+len) >= body.length) {
+            break;
+        }
+    }
+
+    return [
+        body.substr(0, off),   // before event
+        body.substr(off, len), // event
+        body.substr(off+len)   // after event
+    ];
 }
