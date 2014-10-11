@@ -63,9 +63,10 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
     
     self.title = NSLocalizedString(@"New Feed", nil);
     
-    self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
-    self.doneItem.enabled = NO;
+    UIBarButtonSystemItem item = (self.editing) ? UIBarButtonSystemItemSave : UIBarButtonSystemItemDone;
+    self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:item target:self action:@selector(done:)];
     self.navigationItem.rightBarButtonItem = self.doneItem;
+    [self reloadDoneItemAvailabilty];
     
     NSMutableSet* feeds = [NSMutableSet set];
     for (Feed* feed in [WebService sharedService].feeds) {
@@ -242,6 +243,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
         [controller addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.delegate = self;
             textField.placeholder = NSLocalizedString(@"#tag or substring", nil);
+            textField.keyboardType = UIKeyboardTypeTwitter;
             [textField addTarget:self action:@selector(alertTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
             self.requiredAlertViewTextFields = @[textField];
         }];
