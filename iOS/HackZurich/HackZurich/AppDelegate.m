@@ -11,6 +11,8 @@
 #import "FeedsViewController.h"
 #import "WebService.h"
 
+NSString* const AppDelegateCurrentUserKey = @"AppDelegateCurrentUser";
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UITextField* usernameTextField;
@@ -25,6 +27,9 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    User* currentUser = [[User alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:AppDelegateCurrentUserKey] error:nil];
+    [WebService sharedService].currentUser = currentUser;
+    
     UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
@@ -67,6 +72,9 @@
         UIAlertAction* signupAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Sign Up", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             [[WebService sharedService] registerUser:self.usernameTextField.text withPassword:self.passwordTextField.text withCompletion:^(User* user, NSString* error) {
+                [[NSUserDefaults standardUserDefaults] setObject:user.toDictionary forKey:AppDelegateCurrentUserKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 UIAlertController* controller = nil;
                 if (user) {
@@ -91,6 +99,9 @@
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 UIAlertController* controller = nil;
                 if (user) {
+                    [[NSUserDefaults standardUserDefaults] setObject:user.toDictionary forKey:AppDelegateCurrentUserKey];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
                     controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"You've successfully logged in", nil) preferredStyle:UIAlertControllerStyleAlert];
                     [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
                 }

@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic)NSString *name;
 @property (strong, nonatomic) NSString *desc;
-@property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSString *uri;
 
 @property (strong, nonatomic) Filter<Optional>* filter;
 

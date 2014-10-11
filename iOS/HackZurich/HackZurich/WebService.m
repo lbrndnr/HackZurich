@@ -80,9 +80,11 @@
         NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:REGISTER_USER andData:body];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            self.currentUser = user;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+                completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                self.currentUser = user;
+            });
         }];
         
         [task resume];
@@ -123,11 +125,13 @@
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:LOGIN_USER andData:body];
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-        if (completion) {
-            completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        }
-        self.currentUser = user;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            if (completion) {
+                completion(user, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            }
+            self.currentUser = user;
+        });
     }];
     [task resume];
 
@@ -162,15 +166,22 @@ true if succeeded false otherwise
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-        
-        NSMutableArray* feeds = self.feeds.mutableCopy ?: [NSMutableArray new];
-        [feeds addObject:feed];
-        self.feeds = (NSArray<Feed>*)feeds;
-        
-        if (completion) {
-            completion(feed);
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            
+            NSMutableArray* feeds = self.feeds.mutableCopy ?: [NSMutableArray new];
+            if (feed) {
+                [feeds addObject:feed];
+            }
+            else {
+                NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            }
+            self.feeds = (NSArray<Feed>*)feeds;
+            
+            if (completion) {
+                completion(feed);
+            }
+        });
     }];
     
     [task resume];
@@ -206,8 +217,10 @@ true if succeeded false otherwise
         NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"PUT" withPutParams:feed._id withOperation:UPDATE_FEED andDataAsString:[feed toJSONString]];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-            completion(feed);
+           dispatch_async(dispatch_get_main_queue(), ^{
+               feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+               completion(feed);
+           });
         }];
         
         [task resume];
@@ -238,12 +251,13 @@ true if succeeded false otherwise
     stream.feeds = self.feeds;
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:UPDATE_FEEDSTREAM withOperation:@"POST" andDataAsString:[stream toJSONString]];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
             Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-        self.feeds = feeds.feeds;
-       if(completion) {
-            completion(feeds);
-        }
+            self.feeds = feeds.feeds;
+            if(completion) {
+                completion(feeds);
+            }
+        });
     }];
     
     [task resume];
@@ -272,12 +286,14 @@ true if succeeded false otherwise
     
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:GET_FEEDS withOperation:@"GET" andDataAsString:@""];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
-        self.feeds = feeds.feeds;
-        
-        if (completion) {
-            completion(feeds.feeds);
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            self.feeds = feeds.feeds;
+            
+            if (completion) {
+                completion(feeds.feeds);
+            }
+        });
     }];
     [task resume];
     

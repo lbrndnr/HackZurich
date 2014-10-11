@@ -134,7 +134,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
         if (indexPath.row < self.availableInputFeeds.count) {
             Feed* feed = self.availableInputFeeds[indexPath.row];
             
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.url];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", feed.name, feed.uri];
             if ([self.feed.filter.inputs containsObject:feed]) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
@@ -211,7 +211,7 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
                 Feed* feed = [Feed new];
                 feed.name = nameTextField.text;
                 feed.desc = descTextField.text;
-                feed.url = URLTextField.text;
+                feed.uri = URLTextField.text;
                 [self.availableInputFeeds addObject:feed];
                 
                 NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
