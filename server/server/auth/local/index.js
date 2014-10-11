@@ -16,14 +16,14 @@ var authenticate = function(req, res, next) {
     user.addToken(req.param('device_token'));
 
     var token = auth.signToken(user._id, user.role);
-    res.json({_id: user._id, email: user.email, auth: token});
+    res.json({_id: user._id, email: user.email, access_token: token});
 
   })(req, res, next);
 }
 
-router.get('/login', authenticate);
+router.post('/login', authenticate);
 
-router.get('/register', function(req, res, next) {
+router.post('/register', function(req, res, next) {
   var newUser = new User({email: req.param('email'), password:req.param('password')}); // todo password verifications
   newUser.register(function(err, user) {
     if(err) return res.json({error:err});
