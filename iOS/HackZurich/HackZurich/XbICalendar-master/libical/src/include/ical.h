@@ -1,3 +1,5 @@
+
+#import <Foundation/Foundation.h>
 #ifndef LIBICAL_ICAL_H
 #define LIBICAL_ICAL_H
 #ifdef __cplusplus

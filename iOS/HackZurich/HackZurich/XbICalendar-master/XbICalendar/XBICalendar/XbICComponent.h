@@ -3,6 +3,7 @@
 //
 
 #import "ical.h"
+#import <Foundation/Foundation.h>
 @class XbICProperty;
 
 @interface XbICComponent : NSObject

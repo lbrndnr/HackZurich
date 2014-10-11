@@ -6,7 +6,8 @@
 
 #define MAGIC magic
 
-
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "ical.h"
 
 #import "XbICComponent.h"

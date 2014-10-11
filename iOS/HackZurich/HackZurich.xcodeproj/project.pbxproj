@@ -457,49 +457,6 @@
 		27F7B0C419E97C1000251E2E /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AED519E97C0F00251E2E /* XbICVCalendar.m */; };
 		27F7B0C519E97C1000251E2E /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AED719E97C0F00251E2E /* XbICVEvent.m */; };
 		27F7B0C619E97C1000251E2E /* XbICZoneDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AED919E97C0F00251E2E /* XbICZoneDirectory.m */; };
-		27F7B0C719E97C1000251E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEDE19E97C0F00251E2E /* Main.storyboard */; };
-		27F7B0C819E97C1000251E2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEE119E97C0F00251E2E /* InfoPlist.strings */; };
-		27F7B0C919E97C1000251E2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEE319E97C0F00251E2E /* Images.xcassets */; };
-		27F7B0CA19E97C1000251E2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AEE419E97C0F00251E2E /* main.m */; };
-		27F7B0CB19E97C1000251E2E /* XbICalendar-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEE519E97C0F00251E2E /* XbICalendar-Info.plist */; };
-		27F7B0CC19E97C1000251E2E /* XbICAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AEE819E97C0F00251E2E /* XbICAppDelegate.m */; };
-		27F7B0CD19E97C1000251E2E /* XbICFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AEEA19E97C0F00251E2E /* XbICFileTableViewController.m */; };
-		27F7B0CE19E97C1000251E2E /* XbICViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AEEC19E97C0F00251E2E /* XbICViewController.m */; };
-		27F7B0CF19E97C1000251E2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEEE19E97C0F00251E2E /* InfoPlist.strings */; };
-		27F7B0D019E97C1000251E2E /* 2445.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF119E97C0F00251E2E /* 2445.ics */; };
-		27F7B0D119E97C1000251E2E /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF219E97C0F00251E2E /* 2446.ics */; };
-		27F7B0D219E97C1000251E2E /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF319E97C0F00251E2E /* calendar.ics */; };
-		27F7B0D319E97C1000251E2E /* classify.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF419E97C0F00251E2E /* classify.ics */; };
-		27F7B0D419E97C1000251E2E /* incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF519E97C0F00251E2E /* incoming.ics */; };
-		27F7B0D519E97C1000251E2E /* invite.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF619E97C0F00251E2E /* invite.ics */; };
-		27F7B0D619E97C1000251E2E /* large.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF719E97C0F00251E2E /* large.ics */; };
-		27F7B0D719E97C1000251E2E /* overlaps.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF819E97C0F00251E2E /* overlaps.ics */; };
-		27F7B0D819E97C1000251E2E /* process-calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEF919E97C0F00251E2E /* process-calendar.ics */; };
-		27F7B0D919E97C1000251E2E /* process-incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEFA19E97C0F00251E2E /* process-incoming.ics */; };
-		27F7B0DA19E97C1000251E2E /* restriction.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEFB19E97C0F00251E2E /* restriction.ics */; };
-		27F7B0DB19E97C1000251E2E /* smallcluster.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEFC19E97C0F00251E2E /* smallcluster.ics */; };
-		27F7B0DC19E97C1000251E2E /* spanlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEFD19E97C0F00251E2E /* spanlist.ics */; };
-		27F7B0DD19E97C1000251E2E /* stresstest.ics in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AEFE19E97C0F00251E2E /* stresstest.ics */; };
-		27F7B0DE19E97C1000251E2E /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AEFF19E97C0F00251E2E /* XbICalendar2445Tests.m */; };
-		27F7B0DF19E97C1000251E2E /* XbICalendar2445Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0019E97C0F00251E2E /* XbICalendar2445Tests.swift */; };
-		27F7B0E019E97C1000251E2E /* XbICalendar2446Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0119E97C0F00251E2E /* XbICalendar2446Tests.m */; };
-		27F7B0E119E97C1000251E2E /* XbICalendarCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0219E97C0F00251E2E /* XbICalendarCalendarTests.m */; };
-		27F7B0E219E97C1000251E2E /* XbICalendarClassifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0319E97C0F00251E2E /* XbICalendarClassifyTests.m */; };
-		27F7B0E319E97C1000251E2E /* XbICalendarIcsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0519E97C0F00251E2E /* XbICalendarIcsTest.m */; };
-		27F7B0E419E97C1000251E2E /* XbICalendarIncomingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0619E97C0F00251E2E /* XbICalendarIncomingTests.m */; };
-		27F7B0E519E97C1000251E2E /* XbICalendarInMemoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0719E97C0F00251E2E /* XbICalendarInMemoryTests.m */; };
-		27F7B0E619E97C1000251E2E /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0819E97C0F00251E2E /* XbICalendarInviteTests.m */; };
-		27F7B0E719E97C1000251E2E /* XbICalendarInviteWriteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0919E97C0F00251E2E /* XbICalendarInviteWriteTests.m */; };
-		27F7B0E819E97C1000251E2E /* XbICalendarLargeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0A19E97C0F00251E2E /* XbICalendarLargeTests.m */; };
-		27F7B0E919E97C1000251E2E /* XbICalendarOverlapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0B19E97C0F00251E2E /* XbICalendarOverlapTests.m */; };
-		27F7B0EA19E97C1000251E2E /* XbICalendarProcessCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0C19E97C0F00251E2E /* XbICalendarProcessCalendarTests.m */; };
-		27F7B0EB19E97C1000251E2E /* XbICalendarProcessIncomingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0D19E97C0F00251E2E /* XbICalendarProcessIncomingTests.m */; };
-		27F7B0EC19E97C1000251E2E /* XbICalendarRestrictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0E19E97C0F00251E2E /* XbICalendarRestrictionTests.m */; };
-		27F7B0ED19E97C1000251E2E /* XbICalendarSmallClusterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF0F19E97C0F00251E2E /* XbICalendarSmallClusterTests.m */; };
-		27F7B0EE19E97C1000251E2E /* XbICalendarSpanListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF1019E97C0F00251E2E /* XbICalendarSpanListTests.m */; };
-		27F7B0EF19E97C1000251E2E /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF1119E97C0F00251E2E /* XbICalendarStressTestTests.m */; };
-		27F7B0F019E97C1000251E2E /* XbICalendarTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AF1219E97C0F00251E2E /* XbICalendarTests-Info.plist */; };
-		27F7B0F119E97C1000251E2E /* XbICInviteResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F7AF1419E97C0F00251E2E /* XbICInviteResponseTests.m */; };
 		27F7B0F219E97C1000251E2E /* XbICalendar.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 27F7AF1519E97C0F00251E2E /* XbICalendar.podspec */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
@@ -512,20 +469,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		27F7B0F519E97C1000251E2E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27F7AEDA19E97C0F00251E2E /* XbICalendar.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F12F48EC19332EA4003631C5;
-			remoteInfo = XbICalendar;
-		};
-		27F7B0F719E97C1000251E2E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27F7AEDA19E97C0F00251E2E /* XbICalendar.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F12F490D19332EA5003631C5;
-			remoteInfo = XbICalendarTests;
-		};
 		494F50C319E88BE8003DCC1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 494F509E19E88BE8003DCC1A /* Project object */;
@@ -1013,57 +956,6 @@
 		27F7AED719E97C0F00251E2E /* XbICVEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVEvent.m; sourceTree = "<group>"; };
 		27F7AED819E97C0F00251E2E /* XbICZoneDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICZoneDirectory.h; sourceTree = "<group>"; };
 		27F7AED919E97C0F00251E2E /* XbICZoneDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICZoneDirectory.m; sourceTree = "<group>"; };
-		27F7AEDA19E97C0F00251E2E /* XbICalendar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = XbICalendar.xcodeproj; sourceTree = "<group>"; };
-		27F7AEDF19E97C0F00251E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		27F7AEE019E97C0F00251E2E /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
-		27F7AEE219E97C0F00251E2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		27F7AEE319E97C0F00251E2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		27F7AEE419E97C0F00251E2E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		27F7AEE519E97C0F00251E2E /* XbICalendar-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XbICalendar-Info.plist"; sourceTree = "<group>"; };
-		27F7AEE619E97C0F00251E2E /* XbICalendar-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XbICalendar-Prefix.pch"; sourceTree = "<group>"; };
-		27F7AEE719E97C0F00251E2E /* XbICAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICAppDelegate.h; sourceTree = "<group>"; };
-		27F7AEE819E97C0F00251E2E /* XbICAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICAppDelegate.m; sourceTree = "<group>"; };
-		27F7AEE919E97C0F00251E2E /* XbICFileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileTableViewController.h; sourceTree = "<group>"; };
-		27F7AEEA19E97C0F00251E2E /* XbICFileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFileTableViewController.m; sourceTree = "<group>"; };
-		27F7AEEB19E97C0F00251E2E /* XbICViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICViewController.h; sourceTree = "<group>"; };
-		27F7AEEC19E97C0F00251E2E /* XbICViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICViewController.m; sourceTree = "<group>"; };
-		27F7AEEF19E97C0F00251E2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		27F7AEF119E97C0F00251E2E /* 2445.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2445.ics; sourceTree = "<group>"; };
-		27F7AEF219E97C0F00251E2E /* 2446.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2446.ics; sourceTree = "<group>"; };
-		27F7AEF319E97C0F00251E2E /* calendar.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar.ics; sourceTree = "<group>"; };
-		27F7AEF419E97C0F00251E2E /* classify.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classify.ics; sourceTree = "<group>"; };
-		27F7AEF519E97C0F00251E2E /* incoming.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = incoming.ics; sourceTree = "<group>"; };
-		27F7AEF619E97C0F00251E2E /* invite.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = invite.ics; sourceTree = "<group>"; };
-		27F7AEF719E97C0F00251E2E /* large.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = large.ics; sourceTree = "<group>"; };
-		27F7AEF819E97C0F00251E2E /* overlaps.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = overlaps.ics; sourceTree = "<group>"; };
-		27F7AEF919E97C0F00251E2E /* process-calendar.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "process-calendar.ics"; sourceTree = "<group>"; };
-		27F7AEFA19E97C0F00251E2E /* process-incoming.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "process-incoming.ics"; sourceTree = "<group>"; };
-		27F7AEFB19E97C0F00251E2E /* restriction.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = restriction.ics; sourceTree = "<group>"; };
-		27F7AEFC19E97C0F00251E2E /* smallcluster.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = smallcluster.ics; sourceTree = "<group>"; };
-		27F7AEFD19E97C0F00251E2E /* spanlist.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spanlist.ics; sourceTree = "<group>"; };
-		27F7AEFE19E97C0F00251E2E /* stresstest.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stresstest.ics; sourceTree = "<group>"; };
-		27F7AEFF19E97C0F00251E2E /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
-		27F7AF0019E97C0F00251E2E /* XbICalendar2445Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XbICalendar2445Tests.swift; sourceTree = "<group>"; };
-		27F7AF0119E97C0F00251E2E /* XbICalendar2446Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2446Tests.m; sourceTree = "<group>"; };
-		27F7AF0219E97C0F00251E2E /* XbICalendarCalendarTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarCalendarTests.m; sourceTree = "<group>"; };
-		27F7AF0319E97C0F00251E2E /* XbICalendarClassifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarClassifyTests.m; sourceTree = "<group>"; };
-		27F7AF0419E97C0F00251E2E /* XbICalendarIcsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICalendarIcsTest.h; sourceTree = "<group>"; };
-		27F7AF0519E97C0F00251E2E /* XbICalendarIcsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIcsTest.m; sourceTree = "<group>"; };
-		27F7AF0619E97C0F00251E2E /* XbICalendarIncomingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIncomingTests.m; sourceTree = "<group>"; };
-		27F7AF0719E97C0F00251E2E /* XbICalendarInMemoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInMemoryTests.m; sourceTree = "<group>"; };
-		27F7AF0819E97C0F00251E2E /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
-		27F7AF0919E97C0F00251E2E /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
-		27F7AF0A19E97C0F00251E2E /* XbICalendarLargeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarLargeTests.m; sourceTree = "<group>"; };
-		27F7AF0B19E97C0F00251E2E /* XbICalendarOverlapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarOverlapTests.m; sourceTree = "<group>"; };
-		27F7AF0C19E97C0F00251E2E /* XbICalendarProcessCalendarTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarProcessCalendarTests.m; sourceTree = "<group>"; };
-		27F7AF0D19E97C0F00251E2E /* XbICalendarProcessIncomingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarProcessIncomingTests.m; sourceTree = "<group>"; };
-		27F7AF0E19E97C0F00251E2E /* XbICalendarRestrictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarRestrictionTests.m; sourceTree = "<group>"; };
-		27F7AF0F19E97C0F00251E2E /* XbICalendarSmallClusterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarSmallClusterTests.m; sourceTree = "<group>"; };
-		27F7AF1019E97C0F00251E2E /* XbICalendarSpanListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarSpanListTests.m; sourceTree = "<group>"; };
-		27F7AF1119E97C0F00251E2E /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
-		27F7AF1219E97C0F00251E2E /* XbICalendarTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XbICalendarTests-Info.plist"; sourceTree = "<group>"; };
-		27F7AF1319E97C0F00251E2E /* XbICalendarTestsBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICalendarTestsBridge.h; sourceTree = "<group>"; };
-		27F7AF1419E97C0F00251E2E /* XbICInviteResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICInviteResponseTests.m; sourceTree = "<group>"; };
 		27F7AF1519E97C0F00251E2E /* XbICalendar.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XbICalendar.podspec; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1780,9 +1672,6 @@
 			isa = PBXGroup;
 			children = (
 				27F7AEC819E97C0F00251E2E /* XBICalendar */,
-				27F7AEDA19E97C0F00251E2E /* XbICalendar.xcodeproj */,
-				27F7AEDD19E97C0F00251E2E /* XbICalendarExample */,
-				27F7AEED19E97C0F00251E2E /* XbICalendarTests */,
 			);
 			path = XbICalendar;
 			sourceTree = "<group>";
@@ -1809,87 +1698,6 @@
 				27F7AED919E97C0F00251E2E /* XbICZoneDirectory.m */,
 			);
 			path = XBICalendar;
-			sourceTree = "<group>";
-		};
-		27F7AEDB19E97C0F00251E2E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				27F7B0F619E97C1000251E2E /* XbICalendar.app */,
-				27F7B0F819E97C1000251E2E /* XbICalendarTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		27F7AEDD19E97C0F00251E2E /* XbICalendarExample */ = {
-			isa = PBXGroup;
-			children = (
-				27F7AEDE19E97C0F00251E2E /* Main.storyboard */,
-				27F7AEE019E97C0F00251E2E /* Bridge.h */,
-				27F7AEE119E97C0F00251E2E /* InfoPlist.strings */,
-				27F7AEE319E97C0F00251E2E /* Images.xcassets */,
-				27F7AEE419E97C0F00251E2E /* main.m */,
-				27F7AEE519E97C0F00251E2E /* XbICalendar-Info.plist */,
-				27F7AEE619E97C0F00251E2E /* XbICalendar-Prefix.pch */,
-				27F7AEE719E97C0F00251E2E /* XbICAppDelegate.h */,
-				27F7AEE819E97C0F00251E2E /* XbICAppDelegate.m */,
-				27F7AEE919E97C0F00251E2E /* XbICFileTableViewController.h */,
-				27F7AEEA19E97C0F00251E2E /* XbICFileTableViewController.m */,
-				27F7AEEB19E97C0F00251E2E /* XbICViewController.h */,
-				27F7AEEC19E97C0F00251E2E /* XbICViewController.m */,
-			);
-			path = XbICalendarExample;
-			sourceTree = "<group>";
-		};
-		27F7AEED19E97C0F00251E2E /* XbICalendarTests */ = {
-			isa = PBXGroup;
-			children = (
-				27F7AEEE19E97C0F00251E2E /* InfoPlist.strings */,
-				27F7AEF019E97C0F00251E2E /* TestData */,
-				27F7AEFF19E97C0F00251E2E /* XbICalendar2445Tests.m */,
-				27F7AF0019E97C0F00251E2E /* XbICalendar2445Tests.swift */,
-				27F7AF0119E97C0F00251E2E /* XbICalendar2446Tests.m */,
-				27F7AF0219E97C0F00251E2E /* XbICalendarCalendarTests.m */,
-				27F7AF0319E97C0F00251E2E /* XbICalendarClassifyTests.m */,
-				27F7AF0419E97C0F00251E2E /* XbICalendarIcsTest.h */,
-				27F7AF0519E97C0F00251E2E /* XbICalendarIcsTest.m */,
-				27F7AF0619E97C0F00251E2E /* XbICalendarIncomingTests.m */,
-				27F7AF0719E97C0F00251E2E /* XbICalendarInMemoryTests.m */,
-				27F7AF0819E97C0F00251E2E /* XbICalendarInviteTests.m */,
-				27F7AF0919E97C0F00251E2E /* XbICalendarInviteWriteTests.m */,
-				27F7AF0A19E97C0F00251E2E /* XbICalendarLargeTests.m */,
-				27F7AF0B19E97C0F00251E2E /* XbICalendarOverlapTests.m */,
-				27F7AF0C19E97C0F00251E2E /* XbICalendarProcessCalendarTests.m */,
-				27F7AF0D19E97C0F00251E2E /* XbICalendarProcessIncomingTests.m */,
-				27F7AF0E19E97C0F00251E2E /* XbICalendarRestrictionTests.m */,
-				27F7AF0F19E97C0F00251E2E /* XbICalendarSmallClusterTests.m */,
-				27F7AF1019E97C0F00251E2E /* XbICalendarSpanListTests.m */,
-				27F7AF1119E97C0F00251E2E /* XbICalendarStressTestTests.m */,
-				27F7AF1219E97C0F00251E2E /* XbICalendarTests-Info.plist */,
-				27F7AF1319E97C0F00251E2E /* XbICalendarTestsBridge.h */,
-				27F7AF1419E97C0F00251E2E /* XbICInviteResponseTests.m */,
-			);
-			path = XbICalendarTests;
-			sourceTree = "<group>";
-		};
-		27F7AEF019E97C0F00251E2E /* TestData */ = {
-			isa = PBXGroup;
-			children = (
-				27F7AEF119E97C0F00251E2E /* 2445.ics */,
-				27F7AEF219E97C0F00251E2E /* 2446.ics */,
-				27F7AEF319E97C0F00251E2E /* calendar.ics */,
-				27F7AEF419E97C0F00251E2E /* classify.ics */,
-				27F7AEF519E97C0F00251E2E /* incoming.ics */,
-				27F7AEF619E97C0F00251E2E /* invite.ics */,
-				27F7AEF719E97C0F00251E2E /* large.ics */,
-				27F7AEF819E97C0F00251E2E /* overlaps.ics */,
-				27F7AEF919E97C0F00251E2E /* process-calendar.ics */,
-				27F7AEFA19E97C0F00251E2E /* process-incoming.ics */,
-				27F7AEFB19E97C0F00251E2E /* restriction.ics */,
-				27F7AEFC19E97C0F00251E2E /* smallcluster.ics */,
-				27F7AEFD19E97C0F00251E2E /* spanlist.ics */,
-				27F7AEFE19E97C0F00251E2E /* stresstest.ics */,
-			);
-			path = TestData;
 			sourceTree = "<group>";
 		};
 		494F509D19E88BE8003DCC1A = {
@@ -2034,12 +1842,6 @@
 			mainGroup = 494F509D19E88BE8003DCC1A;
 			productRefGroup = 494F50A719E88BE8003DCC1A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 27F7AEDB19E97C0F00251E2E /* Products */;
-					ProjectRef = 27F7AEDA19E97C0F00251E2E /* XbICalendar.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				494F50A519E88BE8003DCC1A /* HackZurich */,
@@ -2047,23 +1849,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		27F7B0F619E97C1000251E2E /* XbICalendar.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = XbICalendar.app;
-			remoteRef = 27F7B0F519E97C1000251E2E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		27F7B0F819E97C1000251E2E /* XbICalendarTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XbICalendarTests.xctest;
-			remoteRef = 27F7B0F719E97C1000251E2E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		494F50A419E88BE8003DCC1A /* Resources */ = {
@@ -2109,7 +1894,6 @@
 				27F7AFAC19E97C0F00251E2E /* Montserrat.ics in Resources */,
 				27F7B01819E97C1000251E2E /* Makassar.ics in Resources */,
 				27F7AF7319E97C0F00251E2E /* Cuiaba.ics in Resources */,
-				27F7B0D319E97C1000251E2E /* classify.ics in Resources */,
 				27F7B07919E97C1000251E2E /* Simferopol.ics in Resources */,
 				27F7B06019E97C1000251E2E /* Isle_of_Man.ics in Resources */,
 				27F7B08119E97C1000251E2E /* Vatican.ics in Resources */,
@@ -2136,7 +1920,6 @@
 				27F7AF1F19E97C0F00251E2E /* Bamako.ics in Resources */,
 				27F7B08B19E97C1000251E2E /* Christmas.ics in Resources */,
 				27F7AF3B19E97C0F00251E2E /* Luanda.ics in Resources */,
-				27F7B0C919E97C1000251E2E /* Images.xcassets in Resources */,
 				27F7AFD619E97C1000251E2E /* Toronto.ics in Resources */,
 				27F7B00D19E97C1000251E2E /* Karachi.ics in Resources */,
 				27F7AF9019E97C0F00251E2E /* Vevay.ics in Resources */,
@@ -2170,7 +1953,6 @@
 				27F7AFB819E97C0F00251E2E /* Paramaribo.ics in Resources */,
 				27F7B05C19E97C1000251E2E /* Dublin.ics in Resources */,
 				27F7AF5619E97C0F00251E2E /* Jujuy.ics in Resources */,
-				27F7B0D219E97C1000251E2E /* calendar.ics in Resources */,
 				27F7B0B219E97C1000251E2E /* Ponape.ics in Resources */,
 				27F7B01719E97C1000251E2E /* Magadan.ics in Resources */,
 				27F7B05819E97C1000251E2E /* Bucharest.ics in Resources */,
@@ -2183,7 +1965,6 @@
 				27F7AFE219E97C1000251E2E /* McMurdo.ics in Resources */,
 				27F7AF4319E97C0F00251E2E /* Monrovia.ics in Resources */,
 				27F7B0B119E97C1000251E2E /* Pohnpei.ics in Resources */,
-				27F7B0D819E97C1000251E2E /* process-calendar.ics in Resources */,
 				27F7AF5A19E97C0F00251E2E /* San_Juan.ics in Resources */,
 				27F7AF2419E97C0F00251E2E /* Brazzaville.ics in Resources */,
 				27F7AFE519E97C1000251E2E /* South_Pole.ics in Resources */,
@@ -2195,7 +1976,6 @@
 				27F7AFA319E97C0F00251E2E /* Menominee.ics in Resources */,
 				27F7AF6A19E97C0F00251E2E /* Campo_Grande.ics in Resources */,
 				27F7AFD219E97C0F00251E2E /* Tegucigalpa.ics in Resources */,
-				27F7B0C819E97C1000251E2E /* InfoPlist.strings in Resources */,
 				27F7B03819E97C1000251E2E /* Yekaterinburg.ics in Resources */,
 				27F7B00A19E97C1000251E2E /* Jerusalem.ics in Resources */,
 				27F7B09319E97C1000251E2E /* Reunion.ics in Resources */,
@@ -2213,7 +1993,6 @@
 				27F7AFCA19E97C0F00251E2E /* Sitka.ics in Resources */,
 				27F7B07719E97C1000251E2E /* San_Marino.ics in Resources */,
 				27F7AF7619E97C0F00251E2E /* Dawson.ics in Resources */,
-				27F7B0DC19E97C1000251E2E /* spanlist.ics in Resources */,
 				27F7AFDB19E97C1000251E2E /* Yakutat.ics in Resources */,
 				27F7AF8019E97C0F00251E2E /* Godthab.ics in Resources */,
 				27F7B03B19E97C1000251E2E /* Bermuda.ics in Resources */,
@@ -2252,7 +2031,6 @@
 				27F7AFA519E97C0F00251E2E /* Metlakatla.ics in Resources */,
 				27F7AF2919E97C0F00251E2E /* Conakry.ics in Resources */,
 				27F7B05F19E97C1000251E2E /* Helsinki.ics in Resources */,
-				27F7B0C719E97C1000251E2E /* Main.storyboard in Resources */,
 				27F7AFCB19E97C0F00251E2E /* St_Barthelemy.ics in Resources */,
 				27F7B09919E97C1000251E2E /* Efate.ics in Resources */,
 				27F7AF4219E97C0F00251E2E /* Mogadishu.ics in Resources */,
@@ -2266,8 +2044,6 @@
 				27F7AF2719E97C0F00251E2E /* Casablanca.ics in Resources */,
 				27F7AF9819E97C0F00251E2E /* Monticello.ics in Resources */,
 				27F7AF8B19E97C0F00251E2E /* Indianapolis.ics in Resources */,
-				27F7B0D919E97C1000251E2E /* process-incoming.ics in Resources */,
-				27F7B0D519E97C1000251E2E /* invite.ics in Resources */,
 				27F7B0A619E97C1000251E2E /* Kwajalein.ics in Resources */,
 				27F7B00E19E97C1000251E2E /* Kashgar.ics in Resources */,
 				27F7B01B19E97C1000251E2E /* Nicosia.ics in Resources */,
@@ -2284,13 +2060,11 @@
 				27F7AF4F19E97C0F00251E2E /* Anchorage.ics in Resources */,
 				27F7B07D19E97C1000251E2E /* Tallinn.ics in Resources */,
 				27F7B04519E97C1000251E2E /* Adelaide.ics in Resources */,
-				27F7B0F019E97C1000251E2E /* XbICalendarTests-Info.plist in Resources */,
 				27F7B01119E97C1000251E2E /* Kolkata.ics in Resources */,
 				27F7B02F19E97C1000251E2E /* Tbilisi.ics in Resources */,
 				27F7B07519E97C1000251E2E /* Rome.ics in Resources */,
 				27F7AF3219E97C0F00251E2E /* Johannesburg.ics in Resources */,
 				27F7AF7C19E97C0F00251E2E /* Eirunepe.ics in Resources */,
-				27F7B0DA19E97C1000251E2E /* restriction.ics in Resources */,
 				27F7B02719E97C1000251E2E /* Saigon.ics in Resources */,
 				27F7B0F219E97C1000251E2E /* XbICalendar.podspec in Resources */,
 				27F7AFDC19E97C1000251E2E /* Yellowknife.ics in Resources */,
@@ -2301,7 +2075,6 @@
 				27F7AF9319E97C0F00251E2E /* Inuvik.ics in Resources */,
 				27F7AFDF19E97C1000251E2E /* DumontDUrville.ics in Resources */,
 				27F7AF9B19E97C0F00251E2E /* Los_Angeles.ics in Resources */,
-				27F7B0D119E97C1000251E2E /* 2446.ics in Resources */,
 				27F7B05E19E97C1000251E2E /* Guernsey.ics in Resources */,
 				27F7AFB719E97C0F00251E2E /* Pangnirtung.ics in Resources */,
 				27F7AF6619E97C0F00251E2E /* Boa_Vista.ics in Resources */,
@@ -2316,7 +2089,6 @@
 				27F7B04719E97C1000251E2E /* Broken_Hill.ics in Resources */,
 				27F7B02419E97C1000251E2E /* Qyzylorda.ics in Resources */,
 				27F7AF5419E97C0F00251E2E /* Catamarca.ics in Resources */,
-				27F7B0D019E97C1000251E2E /* 2445.ics in Resources */,
 				27F7AF5919E97C0F00251E2E /* Rio_Gallegos.ics in Resources */,
 				27F7AFE719E97C1000251E2E /* Vostok.ics in Resources */,
 				27F7B04E19E97C1000251E2E /* Melbourne.ics in Resources */,
@@ -2354,7 +2126,6 @@
 				27F7AFA919E97C0F00251E2E /* Monterrey.ics in Resources */,
 				27F7B02919E97C1000251E2E /* Samarkand.ics in Resources */,
 				27F7AFD719E97C1000251E2E /* Tortola.ics in Resources */,
-				27F7B0D719E97C1000251E2E /* overlaps.ics in Resources */,
 				27F7B01319E97C1000251E2E /* Kuala_Lumpur.ics in Resources */,
 				27F7AF6C19E97C0F00251E2E /* Caracas.ics in Resources */,
 				27F7B08819E97C1000251E2E /* Zurich.ics in Resources */,
@@ -2362,7 +2133,6 @@
 				27F7AFC219E97C0F00251E2E /* Resolute.ics in Resources */,
 				27F7AFFB19E97C1000251E2E /* Damascus.ics in Resources */,
 				27F7AFC419E97C0F00251E2E /* Santa_Isabel.ics in Resources */,
-				27F7B0D619E97C1000251E2E /* large.ics in Resources */,
 				27F7AFD419E97C1000251E2E /* Thunder_Bay.ics in Resources */,
 				27F7B06519E97C1000251E2E /* Lisbon.ics in Resources */,
 				27F7AF1A19E97C0F00251E2E /* Abidjan.ics in Resources */,
@@ -2378,7 +2148,6 @@
 				27F7AF4D19E97C0F00251E2E /* Windhoek.ics in Resources */,
 				27F7B06819E97C1000251E2E /* Luxembourg.ics in Resources */,
 				27F7AFD519E97C1000251E2E /* Tijuana.ics in Resources */,
-				27F7B0DB19E97C1000251E2E /* smallcluster.ics in Resources */,
 				27F7B06319E97C1000251E2E /* Kaliningrad.ics in Resources */,
 				27F7AF8419E97C0F00251E2E /* Guadeloupe.ics in Resources */,
 				27F7B09B19E97C1000251E2E /* Fakaofo.ics in Resources */,
@@ -2412,7 +2181,6 @@
 				27F7B06219E97C1000251E2E /* Jersey.ics in Resources */,
 				27F7B06919E97C1000251E2E /* Madrid.ics in Resources */,
 				27F7B05619E97C1000251E2E /* Bratislava.ics in Resources */,
-				27F7B0CF19E97C1000251E2E /* InfoPlist.strings in Resources */,
 				27F7AF6019E97C0F00251E2E /* Bahia.ics in Resources */,
 				27F7AFCD19E97C0F00251E2E /* St_Kitts.ics in Resources */,
 				27F7B03919E97C1000251E2E /* Yerevan.ics in Resources */,
@@ -2442,7 +2210,6 @@
 				27F7AF8C19E97C0F00251E2E /* Knox.ics in Resources */,
 				27F7AF2619E97C0F00251E2E /* Cairo.ics in Resources */,
 				27F7B03E19E97C1000251E2E /* Faroe.ics in Resources */,
-				27F7B0DD19E97C1000251E2E /* stresstest.ics in Resources */,
 				27F7B0A019E97C1000251E2E /* Guadalcanal.ics in Resources */,
 				27F7AF4419E97C0F00251E2E /* Nairobi.ics in Resources */,
 				27F7B09419E97C1000251E2E /* Apia.ics in Resources */,
@@ -2482,7 +2249,6 @@
 				27F7B09A19E97C1000251E2E /* Enderbury.ics in Resources */,
 				27F7B08F19E97C1000251E2E /* Mahe.ics in Resources */,
 				27F7B06F19E97C1000251E2E /* Nicosia.ics in Resources */,
-				27F7B0D419E97C1000251E2E /* incoming.ics in Resources */,
 				27F7AF2819E97C0F00251E2E /* Ceuta.ics in Resources */,
 				27F7AF9419E97C0F00251E2E /* Iqaluit.ics in Resources */,
 				27F7AFEB19E97C1000251E2E /* Amman.ics in Resources */,
@@ -2513,7 +2279,6 @@
 				27F7AF6119E97C0F00251E2E /* Bahia_Banderas.ics in Resources */,
 				27F7AFBF19E97C0F00251E2E /* Rankin_Inlet.ics in Resources */,
 				27F7B07219E97C1000251E2E /* Podgorica.ics in Resources */,
-				27F7B0CB19E97C1000251E2E /* XbICalendar-Info.plist in Resources */,
 				27F7B0A119E97C1000251E2E /* Guam.ics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2533,31 +2298,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				494F510919E8AB3A003DCC1A /* InputTableViewCell.m in Sources */,
-				27F7B0CD19E97C1000251E2E /* XbICFileTableViewController.m in Sources */,
 				27F0B54319E8A35E00ADCEE1 /* JSONModel.m in Sources */,
 				27F7B0C019E97C1000251E2E /* XbICFile.m in Sources */,
 				494F50B519E88BE8003DCC1A /* FeedsViewController.m in Sources */,
 				27F7B0C319E97C1000251E2E /* XbICProperty.m in Sources */,
 				27F0B55A19E8AA3B00ADCEE1 /* WebService.m in Sources */,
-				27F7B0CA19E97C1000251E2E /* main.m in Sources */,
-				27F7B0E119E97C1000251E2E /* XbICalendarCalendarTests.m in Sources */,
-				27F7B0E519E97C1000251E2E /* XbICalendarInMemoryTests.m in Sources */,
-				27F7B0E619E97C1000251E2E /* XbICalendarInviteTests.m in Sources */,
-				27F7B0DE19E97C1000251E2E /* XbICalendar2445Tests.m in Sources */,
-				27F7B0CC19E97C1000251E2E /* XbICAppDelegate.m in Sources */,
 				27F0B54519E8A35E00ADCEE1 /* JSONModelClassProperty.m in Sources */,
 				494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */,
-				27F7B0EA19E97C1000251E2E /* XbICalendarProcessCalendarTests.m in Sources */,
-				27F7B0E419E97C1000251E2E /* XbICalendarIncomingTests.m in Sources */,
-				27F7B0DF19E97C1000251E2E /* XbICalendar2445Tests.swift in Sources */,
 				494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */,
 				27F0B54A19E8A35E00ADCEE1 /* JSONModel+networking.m in Sources */,
-				27F7B0EB19E97C1000251E2E /* XbICalendarProcessIncomingTests.m in Sources */,
 				27F7B0BE19E97C1000251E2E /* README.md in Sources */,
 				27F0B55119E8A5AE00ADCEE1 /* Filter.m in Sources */,
 				494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */,
 				27F7B0BF19E97C1000251E2E /* XbICComponent.m in Sources */,
-				27F7B0E719E97C1000251E2E /* XbICalendarInviteWriteTests.m in Sources */,
 				27F0B54419E8A35E00ADCEE1 /* JSONModelArray.m in Sources */,
 				27F7B0C519E97C1000251E2E /* XbICVEvent.m in Sources */,
 				27F0B54919E8A35E00ADCEE1 /* JSONHTTPClient.m in Sources */,
@@ -2565,26 +2318,15 @@
 				27F0B54719E8A35E00ADCEE1 /* NSArray+JSONModel.m in Sources */,
 				27F0B54C19E8A35E00ADCEE1 /* JSONValueTransformer.m in Sources */,
 				27F0B55D19E93E0300ADCEE1 /* Feedstream.m in Sources */,
-				27F7B0F119E97C1000251E2E /* XbICInviteResponseTests.m in Sources */,
-				27F7B0E219E97C1000251E2E /* XbICalendarClassifyTests.m in Sources */,
 				27F0B54819E8A35E00ADCEE1 /* JSONAPI.m in Sources */,
-				27F7B0E319E97C1000251E2E /* XbICalendarIcsTest.m in Sources */,
-				27F7B0EC19E97C1000251E2E /* XbICalendarRestrictionTests.m in Sources */,
-				27F7B0E019E97C1000251E2E /* XbICalendar2446Tests.m in Sources */,
 				27F7B0C119E97C1000251E2E /* XbICInvite.m in Sources */,
-				27F7B0EE19E97C1000251E2E /* XbICalendarSpanListTests.m in Sources */,
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
-				27F7B0EF19E97C1000251E2E /* XbICalendarStressTestTests.m in Sources */,
 				27F0B55719E8A98100ADCEE1 /* User.m in Sources */,
 				27F0B54619E8A35E00ADCEE1 /* JSONModelError.m in Sources */,
-				27F7B0E819E97C1000251E2E /* XbICalendarLargeTests.m in Sources */,
 				27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */,
 				27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */,
-				27F7B0ED19E97C1000251E2E /* XbICalendarSmallClusterTests.m in Sources */,
 				27F7B0C619E97C1000251E2E /* XbICZoneDirectory.m in Sources */,
 				27F7B0C419E97C1000251E2E /* XbICVCalendar.m in Sources */,
-				27F7B0E919E97C1000251E2E /* XbICalendarOverlapTests.m in Sources */,
-				27F7B0CE19E97C1000251E2E /* XbICViewController.m in Sources */,
 				27F7B0C219E97C1000251E2E /* XbICPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2606,33 +2348,6 @@
 			targetProxy = 494F50C319E88BE8003DCC1A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		27F7AEDE19E97C0F00251E2E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27F7AEDF19E97C0F00251E2E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		27F7AEE119E97C0F00251E2E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27F7AEE219E97C0F00251E2E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		27F7AEEE19E97C0F00251E2E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27F7AEEF19E97C0F00251E2E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		494F50CA19E88BE8003DCC1A /* Debug */ = {
