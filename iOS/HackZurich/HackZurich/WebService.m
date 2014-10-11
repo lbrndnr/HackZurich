@@ -63,14 +63,11 @@
 
     if (completion) {
         __block User *user = nil;
-        NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:REGISTER_USER]]];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setHTTPMethod:@"POST"];
         
         NSDictionary* payload = @{@"email": username, @"password": password};
         NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
-        [request setHTTPBody:body];
+        
+        NSMutableURLRequest *request = [self createMutableRequestWithMethod:REGISTER_USER withOperation:@"POST" andData:body];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
@@ -108,14 +105,11 @@
 //    }
     
     __block User *user = nil;
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:LOGIN_USER]]];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPMethod:@"POST"];
     
     NSDictionary* payload = @{@"email": username, @"password": password};
     NSData *body = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
-    [request setHTTPBody:body];
+    
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:LOGIN_USER withOperation:@"POST" andData:body];
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         user = [[User alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
@@ -152,16 +146,13 @@ true if succeeded false otherwise
     }
     if(completion) {
         __block Feed *feed = [[Feed alloc] init];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:CREATE_FEED]]];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setHTTPMethod:@"POST"];
         
         feed.name = name;
         feed.desc = desc;
         feed.filter = filter;
-        NSData *body = [[feed toJSONString] dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:body];
+
+        
+        NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"POST" withOperation:CREATE_FEED andDataAsString:[feed toJSONString]];
         
         NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             feed = [[Feed alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
@@ -174,6 +165,84 @@ true if succeeded false otherwise
     return YES;
 }
 
+
+/*
+ Get feeds
+ PRE:
+ Auth-Token: The auth token representing the current session
+ 
+ POST:
+ NSArray<Feed> (List of feeds, mixed input and outputfeeds)
+ */
+
+-(BOOL)getListFeedWithAuthToken:(NSString *)token withCompletion:(void(^)(NSArray<Feed> *)) completion {
+    if(self.currentUser == nil) return NO;
+    
+    if(completion) {
+        
+        
+    }
+    
+    
+    return YES;
+}
+
+/*
+ Create a MutableURLRequest with given method and given data as string
+ PRE
+ Method: representing the REST-Method for the HTTP Request
+ Data: Either a string concated to the url (GET) or a Json-Object (POST)
+ 
+ POST
+ The created MutableURLREquest
+ 
+ */
+
+-(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation andDataAsString:(NSString *)data {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:operation]]];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:method];
+    
+    if([operation compare:@"POST"] == NSOrderedSame) {
+        //We have a post request, so our string is a json string representing the object -> add to body
+        
+        [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    else if ([operation compare:@"GET"] == NSOrderedSame) {
+        //We have a get request, so concat the string to the url
+        NSURL *url = [request URL];
+        url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"?%@", data]];
+        [request setURL:url];
+        
+    }
+    
+    
+    return request;
+}
+
+
+-(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation andData:(NSData *)data {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self getRequestWithOperation:operation]]];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:method];
+    
+    if([operation compare:@"POST"] == NSOrderedSame) {
+        //We have a post request, so our string is a json string representing the object -> add to body
+        
+        [request setHTTPBody:data];
+    }
+    
+    else if ([operation compare:@"GET"] == NSOrderedSame) {
+        //Cannot generate a NSMUtableURLREquest with an NSData object
+        return nil;
+    }
+    
+    
+    return request;
+}
 
 
 @end

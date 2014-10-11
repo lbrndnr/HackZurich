@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) NSString *deviceToken;
 @property (strong, nonatomic) User *currentUser;
+@property (strong, nonatomic) NSArray<Feed> *feeds;
 
 //WebService Implementations
 
@@ -64,6 +65,17 @@ PRE:
 
 
 /*
+ Get feeds
+ PRE:
+        Auth-Token: The auth token representing the current session
+ 
+ POST:
+        NSArray<Feed> (List of feeds, mixed input and outputfeeds)
+*/
+-(BOOL)getListFeedWithAuthToken:(NSString *)token withCompletion:(void(^)(NSArray<Feed> *)) completion;
+
+
+/*
  Get the request string (URL)
  PRE:
         parameter: the request operation
@@ -73,5 +85,22 @@ PRE:
  
  */
 -(NSString *) getRequestWithOperation:(NSString *) parameter;
+
+/*
+ Create a MutableURLRequest with given method and given data as string
+ PRE
+        Method: representing the REST-Method for the HTTP Request
+        Data: Either a string concated to the url (GET) or a Json-Object (POST)
+ 
+ POST
+        The created MutableURLREquest
+ 
+ */
+
+-(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation  andDataAsString:(NSString *)data;
+
+//same as above but with NSData,a allready serialized json object
+
+-(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation  andData:(NSData *)data;
 
 @end
