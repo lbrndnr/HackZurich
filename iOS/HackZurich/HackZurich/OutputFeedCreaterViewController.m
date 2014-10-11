@@ -236,24 +236,36 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
                 UITextField* descTextField = controller.textFields[1];
                 UITextField* URLTextField = controller.textFields[2];
                 
+                __block Feed *newFeed = nil;
+                
                 Feed* feed = [Feed new];
                 
                 feed.name = nameTextField.text;
                 feed.desc = descTextField.text;
                 feed.uri = URLTextField.text;
-                feed._id = [NSString stringWithFormat:@"%@%@%@",feed.name,feed.desc,feed.uri];
-                [self.availableInputFeeds addObject:feed];
+               // feed._id = [NSString stringWithFormat:@"%@%@%@",feed.name,feed.desc,feed.uri];
+                
+                [[WebService sharedService] createNewFeed:feed withCompletion:^(Feed *myFeed) {
+                    newFeed = myFeed;
+                    if(myFeed != nil) {
+                        
+                    
+                    [self.availableInputFeeds addObject:newFeed];
+                    
+                    
+                    NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
+                    [newInputFeeds addObject:newFeed._id];
+                    self.feed.filter.inputs = (NSArray *)newInputFeeds;
+                    
+                    [self.tableView beginUpdates];
+                    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView endUpdates];
+                    
+                    [self reloadDoneItemAvailabilty];
+                    }
+                }];
                 
                 
-                NSMutableArray* newInputFeeds = self.feed.filter.inputs.mutableCopy ?: [NSMutableArray new];
-                [newInputFeeds addObject:feed._id];
-                self.feed.filter.inputs = (NSArray *)newInputFeeds;
-                
-                [self.tableView beginUpdates];
-                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.availableInputFeeds.count-1 inSection:FEEDS_SECTION]] withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView endUpdates];
-                
-                [self reloadDoneItemAvailabilty];
             }];
             addAction.enabled = NO;
             [controller addAction:addAction];
