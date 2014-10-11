@@ -14,6 +14,8 @@
 
 +(WebService *) sharedService;
 
+@property (strong, nonatomic) NSString *deviceToken;
+
 //WebService Implementations
 
 /*
@@ -61,15 +63,29 @@ PRE:
  Create New Input Feed
  IMPORTANT NO FILTER FOR INPUTFEED
  PRE:
- Name: A name for the feed
- Description: Describe the way your feed is acting on the input
- Uri: Pointer to a online ressource of an ICS file
- [OPTIONAL] Filter: The Filter rules including the included InputFeeds (DO NOT SET FOR INPUTFEED!!!)
+        Name: A name for the feed
+        Description: Describe the way your feed is acting on the input
+        Uri: Pointer to a online ressource of an ICS file
+        [OPTIONAL] Filter: The Filter rules including the included InputFeeds (DO NOT SET FOR INPUTFEED!!!)
  
  POST:
  Null or generated Feed Object
  */
 -(Feed *)createNewFeedWithName:(NSString *) name withDescription:(NSString *)desc withFilters:(NSArray<Filter> *)filters;
+
+
+/*
+ Create NewFilter
+ PRE:
+        Output: A reference to the Feed which uses this Filter
+        Rules: Array of Rule Objects representing each either a string or a tag
+        Inputs: An Input array of feed objects (pointing to a ICS online ressource)
+ 
+ POST:
+        Null or generated Filter Object
+ 
+ */
+-(Filter *)createNewFilterWithBaseFeed:(Feed *) feed filteringForRules:(NSArray<Rule> *)rules includingFeeds:(NSArray<Feed>*) inputFeeds;
 
 
 @end

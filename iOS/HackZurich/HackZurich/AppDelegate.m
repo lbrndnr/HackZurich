@@ -10,6 +10,7 @@
 #import "FirstViewController.h"
 #import "SecondViewController.h"
 #import "OutputFeedCreaterViewController.h"
+#import "WebService.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [application registerForRemoteNotifications];
+    
     UITabBarController* controller = [UITabBarController new];
     
     UINavigationController* firstViewController = [[UINavigationController alloc] initWithRootViewController:[FirstViewController new]];
@@ -33,5 +36,24 @@
     
     return YES;
 }
+
+
+- (void) application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [WebService sharedService].deviceToken =[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    
+   }
+
+- (void) application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [WebService sharedService].deviceToken = nil;
+    NSLog(@"Registering device failed: %@", error);
+}
+
+
+- (void) application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    
+    }
 
 @end
