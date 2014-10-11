@@ -124,6 +124,8 @@ function processFilter(filter, processed) {
 
             responses.forEach(function(response) {
 
+                // TODO(twilde): check response's status code
+
                 fp.extractEvents(response.body).forEach(function(eventText) {
 
                     if(fp.filterEvent(eventText, filter.rules)) {
