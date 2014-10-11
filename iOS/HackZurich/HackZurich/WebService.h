@@ -14,6 +14,8 @@
 
 +(WebService *) sharedService;
 
+@property (strong, nonatomic) NSString *deviceToken;
+
 //WebService Implementations
 
 /*
