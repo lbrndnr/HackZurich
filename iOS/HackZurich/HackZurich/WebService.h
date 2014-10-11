@@ -30,7 +30,7 @@ PRE:
  
 */
 
--(User *)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token;
+-(void)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token withCompletion:(void (^)(User*))completion;
 
 /*
  Login Function

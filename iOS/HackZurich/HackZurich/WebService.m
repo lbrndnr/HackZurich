@@ -33,11 +33,16 @@
  
  */
 
--(User *)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token {
-    if (self.deviceToken == nil) return nil;
+-(void)registerUser:(NSString *)username withPassword:(NSString *)password andDeviceToken:(NSString *)token withCompletion:(void (^)(User *))completion {
+    if (self.deviceToken == nil) {
+        if (completion) {
+            completion(nil);
+        }
+    }
     
-    
-    return  nil;
+    if (completion) {
+        completion(nil);
+    }
 }
 
 /*
