@@ -180,11 +180,6 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
             else {
                 [newInputFeeds addObject:selectedFeed];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                [selectedFeed.filter.inputs enumerateObjectsUsingBlock:^(Feed* inputFeed, NSUInteger idx, BOOL *stop) {
-                    [newInputFeeds addObject:inputFeed];
-                    UITableViewCell* cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[self.availableInputFeeds indexOfObject:inputFeed] inSection:FEEDS_SECTION]];
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                }];
             }
             self.feed.filter.inputs = (NSArray<Feed> *)newInputFeeds;
             [self reloadDoneItemAvailabilty];
