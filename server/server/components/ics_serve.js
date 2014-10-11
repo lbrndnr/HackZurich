@@ -23,7 +23,7 @@ function serve(req, res, next) {
     fs.readFile(cacheTarget, function(error, data) {
 
         if(error !== null) {
-            throw error;
+            return res.status(404).send(null); // = not found
         }
 
         res.attachment(cacheTarget).send(data);
