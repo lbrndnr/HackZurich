@@ -61,29 +61,6 @@
             [textField addTarget:self action:@selector(loginTextFieldDidChangeValue:) forControlEvents:UIControlEventEditingChanged];
             self.passwordTextField = textField;
         }];
-        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-        }]];
-        UIAlertAction* loginAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Login", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-            [[WebService sharedService] login:self.usernameTextField.text withPassword:self.passwordTextField.text withCompletion:^(User* user, NSString* error) {
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                UIAlertController* controller = nil;
-                if (user) {
-                    controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"You've successfully logged in", nil) preferredStyle:UIAlertControllerStyleAlert];
-                    [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
-                }
-                else {
-                    controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:error preferredStyle:UIAlertControllerStyleAlert];
-                    [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        [self showLoginViewController];
-                    }]];
-                }
-                [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
-            }];
-        }];
-        loginAction.enabled = NO;
-        [controller addAction:loginAction];
         
         UIAlertAction* signupAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Sign Up", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -105,6 +82,28 @@
         }];
         signupAction.enabled = NO;
         [controller addAction:signupAction];
+        
+        UIAlertAction* loginAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Login", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            [[WebService sharedService] login:self.usernameTextField.text withPassword:self.passwordTextField.text withCompletion:^(User* user, NSString* error) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                UIAlertController* controller = nil;
+                if (user) {
+                    controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"You've successfully logged in", nil) preferredStyle:UIAlertControllerStyleAlert];
+                    [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+                }
+                else {
+                    controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:error preferredStyle:UIAlertControllerStyleAlert];
+                    [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        [self showLoginViewController];
+                    }]];
+                }
+                [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
+            }];
+        }];
+        loginAction.enabled = NO;
+        [controller addAction:loginAction];
+        
         self.actions = @[loginAction, signupAction];
         
         [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
