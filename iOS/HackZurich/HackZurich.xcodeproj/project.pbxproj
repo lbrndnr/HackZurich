@@ -23,6 +23,7 @@
 		27F0B55419E8A75600ADCEE1 /* Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55319E8A75600ADCEE1 /* Rule.m */; };
 		27F0B55719E8A98100ADCEE1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55619E8A98100ADCEE1 /* User.m */; };
 		27F0B55A19E8AA3B00ADCEE1 /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55919E8AA3B00ADCEE1 /* WebService.m */; };
+		27F0B55D19E93E0300ADCEE1 /* Feedstream.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0B55C19E93E0300ADCEE1 /* Feedstream.m */; };
 		494F50AC19E88BE8003DCC1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AB19E88BE8003DCC1A /* main.m */; };
 		494F50AF19E88BE8003DCC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50AE19E88BE8003DCC1A /* AppDelegate.m */; };
 		494F50B219E88BE8003DCC1A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50B119E88BE8003DCC1A /* FirstViewController.m */; };
@@ -76,6 +77,8 @@
 		27F0B55619E8A98100ADCEE1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		27F0B55819E8AA3B00ADCEE1 /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebService.h; sourceTree = "<group>"; };
 		27F0B55919E8AA3B00ADCEE1 /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebService.m; sourceTree = "<group>"; };
+		27F0B55B19E93E0300ADCEE1 /* Feedstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedstream.h; sourceTree = "<group>"; };
+		27F0B55C19E93E0300ADCEE1 /* Feedstream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedstream.m; sourceTree = "<group>"; };
 		494F50A619E88BE8003DCC1A /* HackZurich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackZurich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494F50AA19E88BE8003DCC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494F50AB19E88BE8003DCC1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 				27F0B55319E8A75600ADCEE1 /* Rule.m */,
 				27F0B55519E8A98100ADCEE1 /* User.h */,
 				27F0B55619E8A98100ADCEE1 /* User.m */,
+				27F0B55B19E93E0300ADCEE1 /* Feedstream.h */,
+				27F0B55C19E93E0300ADCEE1 /* Feedstream.m */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				27F0B54B19E8A35E00ADCEE1 /* JSONKeyMapper.m in Sources */,
 				27F0B54719E8A35E00ADCEE1 /* NSArray+JSONModel.m in Sources */,
 				27F0B54C19E8A35E00ADCEE1 /* JSONValueTransformer.m in Sources */,
+				27F0B55D19E93E0300ADCEE1 /* Feedstream.m in Sources */,
 				27F0B54819E8A35E00ADCEE1 /* JSONAPI.m in Sources */,
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
 				27F0B55719E8A98100ADCEE1 /* User.m in Sources */,

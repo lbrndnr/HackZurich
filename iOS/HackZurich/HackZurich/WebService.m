@@ -12,6 +12,7 @@
 #define REGISTER_USER @"auth/local/register"
 #define LOGIN_USER @"auth/local/login"
 #define CREATE_FEED @"api/feed/"
+#define GET_FEEDS @""
 
 @implementation WebService
 
@@ -179,7 +180,12 @@ true if succeeded false otherwise
     if(self.currentUser == nil) return NO;
     
     if(completion) {
-        
+        NSMutableURLRequest *request = [self createMutableRequestWithMethod:GET_FEEDS withOperation:@"GET" andDataAsString:@""];
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            Feedstream *feeds = [[Feedstream alloc] initWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] error:nil];
+            completion(feeds.feeds);
+        }];
+        [task resume];
         
     }
     

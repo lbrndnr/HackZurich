@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
-#import "Feed.h"
+#import "Feedstream.h"
+
+@class Feed;
+@protocol Feed;
 
 @interface WebService : NSObject
 
