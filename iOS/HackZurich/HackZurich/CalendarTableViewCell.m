@@ -16,7 +16,7 @@
 //@property (nonatomic, strong) UILabel* personLabel;
 
 -(NSString*)stringForTimePeriodFromDate:(NSDate*)fromDate untilDate:(NSDate*)untilDate;
--(NSAttributedString*)attributedStringForDescription:(NSString*)description;
+-(NSAttributedString*)attributedStringForDescription:(NSString*)description textColor:(UIColor*)color;
 
 +(NSDateFormatter*)dateFormatter;
 
@@ -27,8 +27,15 @@
     if (![_event isEqual:event]) {
         _event = event;
         
-        self.textLabel.attributedText = [self attributedStringForDescription:[_event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "] ?: event.summary];
         self.detailTextLabel.text = [self stringForTimePeriodFromDate:_event.dateStart untilDate:_event.dateEnd];
+        
+        UIColor* textColor = [UIColor lightGrayColor];
+        if ([[NSDate date] compare:event.dateStart] == NSOrderedAscending) {
+            textColor = [UIColor darkGrayColor];
+        }
+        
+        self.detailTextLabel.textColor = textColor;
+        self.textLabel.attributedText = [self attributedStringForDescription:[_event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "] ?: event.summary textColor:textColor];
     }
 }
 
@@ -42,17 +49,17 @@
     return self;
 }
 
--(NSAttributedString*)attributedStringForDescription:(NSString *)description {
+-(NSAttributedString*)attributedStringForDescription:(NSString *)description textColor:(UIColor *)color {
     if (!description) {
         return nil;
     }
     
-    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:description];
+    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:description attributes:@{NSForegroundColorAttributeName: color}];
     NSDictionary* attributes = @{NSForegroundColorAttributeName: [self.tintColor colorWithAlphaComponent:0.7f]};
     NSArray* words = [description componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     for (NSString* word in words) {
         if ([word hasPrefix:@"#"]) {
-            [attributedString addAttributes:attributes range:[description rangeOfString:word]];
+            [attributedString setAttributes:attributes range:[description rangeOfString:word]];
         }
     }
     
