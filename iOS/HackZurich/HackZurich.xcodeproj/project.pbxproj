@@ -467,6 +467,9 @@
 		494F50C919E88BE8003DCC1A /* HackZurichTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50C819E88BE8003DCC1A /* HackZurichTests.m */; };
 		494F50D419E88D00003DCC1A /* OutputFeedCreaterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */; };
 		494F510919E8AB3A003DCC1A /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F510819E8AB3A003DCC1A /* InputTableViewCell.m */; };
+		4976CF5019E9EBE500EFF772 /* CalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4976CF4F19E9EBE500EFF772 /* CalendarDetailViewController.m */; };
+		4976CF5219E9ECCB00EFF772 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4976CF5119E9ECCB00EFF772 /* MapKit.framework */; };
+		4976CF5419E9FB4100EFF772 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4976CF5319E9FB4100EFF772 /* CoreLocation.framework */; };
 		49F86E7D19E9A83C00D422DB /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -978,6 +981,10 @@
 		494F50D319E88D00003DCC1A /* OutputFeedCreaterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputFeedCreaterViewController.m; sourceTree = "<group>"; };
 		494F510719E8AB3A003DCC1A /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
 		494F510819E8AB3A003DCC1A /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
+		4976CF4E19E9EBE500EFF772 /* CalendarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDetailViewController.h; sourceTree = "<group>"; };
+		4976CF4F19E9EBE500EFF772 /* CalendarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDetailViewController.m; sourceTree = "<group>"; };
+		4976CF5119E9ECCB00EFF772 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4976CF5319E9FB4100EFF772 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		49F86E7B19E9A83C00D422DB /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -987,6 +994,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4976CF5419E9FB4100EFF772 /* CoreLocation.framework in Frameworks */,
+				4976CF5219E9ECCB00EFF772 /* MapKit.framework in Frameworks */,
 				27F7AF1719E97C0F00251E2E /* libical.a in Frameworks */,
 				27F0B54E19E8A39B00ADCEE1 /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -1709,6 +1718,8 @@
 		494F509D19E88BE8003DCC1A = {
 			isa = PBXGroup;
 			children = (
+				4976CF5319E9FB4100EFF772 /* CoreLocation.framework */,
+				4976CF5119E9ECCB00EFF772 /* MapKit.framework */,
 				27F0B54D19E8A39B00ADCEE1 /* SystemConfiguration.framework */,
 				494F50A819E88BE8003DCC1A /* HackZurich */,
 				494F50C519E88BE8003DCC1A /* HackZurichTests */,
@@ -1735,6 +1746,8 @@
 				494F50AE19E88BE8003DCC1A /* AppDelegate.m */,
 				494F50B019E88BE8003DCC1A /* CalendarViewController.h */,
 				494F50B119E88BE8003DCC1A /* CalendarViewController.m */,
+				4976CF4E19E9EBE500EFF772 /* CalendarDetailViewController.h */,
+				4976CF4F19E9EBE500EFF772 /* CalendarDetailViewController.m */,
 				49F86E7B19E9A83C00D422DB /* CalendarTableViewCell.h */,
 				49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */,
 				49050C4419E98D2000BE3640 /* FeedsVisiblityViewController.h */,
@@ -2332,6 +2345,7 @@
 				27F7B0C119E97C1000251E2E /* XbICInvite.m in Sources */,
 				494F50AC19E88BE8003DCC1A /* main.m in Sources */,
 				49F86E7D19E9A83C00D422DB /* CalendarTableViewCell.m in Sources */,
+				4976CF5019E9EBE500EFF772 /* CalendarDetailViewController.m in Sources */,
 				27F0B55719E8A98100ADCEE1 /* User.m in Sources */,
 				27F0B54619E8A35E00ADCEE1 /* JSONModelError.m in Sources */,
 				27F0B52819E88D6E00ADCEE1 /* Feed.m in Sources */,
