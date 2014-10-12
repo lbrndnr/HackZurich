@@ -53,20 +53,22 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     [self.tableView registerClass:cellClass forCellReuseIdentifier:NSStringFromClass(cellClass)];
     self.tableView.rowHeight = 64.0f;
     
-    NSArray* availableFeeds = [WebService sharedService].feeds;
-    NSMutableArray* selectedFeeds = [NSMutableArray new];
-    NSArray* selectedFeedUIDs = [[NSUserDefaults standardUserDefaults] arrayForKey:CalendarViewControllerSelectedCalendarUIDsKey];
-    for (Feed* feed in availableFeeds) {
-        if ([selectedFeedUIDs containsObject:feed._id]) {
-            [selectedFeeds addObject:feed];
-        }
-    }
-    self.selectedFeeds = selectedFeeds;
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor colorWithRed:52.0f/255.0f green:131.0f/255.0f blue:67.0f/255.0f alpha:1.0f];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self  action:@selector(reloadTableView) forControlEvents:UIControlEventValueChanged];
+    
+    [[WebService sharedService] getListFeedWithCompletion:^(NSArray<Feed> *feeds) {
+        NSMutableArray* selectedFeeds = [NSMutableArray new];
+        NSArray* selectedFeedUIDs = [[NSUserDefaults standardUserDefaults] arrayForKey:CalendarViewControllerSelectedCalendarUIDsKey];
+        for (Feed* feed in feeds) {
+            if ([selectedFeedUIDs containsObject:feed._id]) {
+                [selectedFeeds addObject:feed];
+            }
+        }
+        self.selectedFeeds = selectedFeeds;
+        [self reloadTableView];
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -98,6 +100,11 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 }
 
 -(void)reloadTableView {
+    if (self.selectedFeeds.count == 0) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
+    
     [self.refreshControl beginRefreshing];
     
     __block NSInteger counter = self.selectedFeeds.count;
@@ -170,6 +177,15 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 -(void)dismissFeedVisibilityViewController:(id)sender {
     self.selectedFeeds = self.visiblityViewController.selectedFeeds;
+    
+    NSMutableArray* IDs = [NSMutableArray new];
+    for (Feed* feed in self.selectedFeeds) {
+        [IDs addObject:feed._id];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:IDs forKey:CalendarViewControllerSelectedCalendarUIDsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         [self reloadTableView];
     }];
