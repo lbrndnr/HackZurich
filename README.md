@@ -18,4 +18,4 @@ We believe a calendar should be simple and semantic, read like a book: top to bo
 
 Turn your traditional shared calendar into a meaningful data feed for yourself or whomever you want. Stay up-to-date with your interests and filter out the fuzz.
 
-<img src="https://hostr.co/file/tqopuPT2EzIQ/banner.png"/>
+<img src="https://hostr.co/file/K13PXeNoYLiS/banner.png"/>
