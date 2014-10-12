@@ -144,6 +144,6 @@ PRE:
 
 
 
--(void)giveMeASync;
+-(void)giveMeASync:(void(^)(void)) completion;
 
 @end
