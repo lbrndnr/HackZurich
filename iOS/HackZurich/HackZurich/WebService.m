@@ -432,9 +432,11 @@ true if succeeded false otherwise
     return request;
 }
 
--(void)giveMeASync {
+-(void)giveMeASync:(void(^)(void)) completion {
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"GET" withOperation:SYNC andDataAsString:@""];
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        completion();
+    }];
     
     [task resume];
 }
