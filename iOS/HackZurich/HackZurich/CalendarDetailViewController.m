@@ -62,6 +62,11 @@
     self.locationLabel.numberOfLines = 0;
     self.locationLabel.attributedText = [self attributedStringForLocation:self.event.location];
     [self.view addSubview:self.locationLabel];
+    
+    self.summaryLabel = [UILabel new];
+    self.summaryLabel.numberOfLines = 0;
+    self.summaryLabel.text = self.event.summary;
+    [self.view addSubview:self.summaryLabel];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -98,9 +103,12 @@
     CGSize constraint = CGSizeMake(CGRectGetWidth(bounds)-2.0f*OFFSET, CGFLOAT_MAX);
     CGSize titleLabelSize = [self.titleLabel.attributedText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     self.titleLabel.frame = (CGRect){{OFFSET, CGRectGetMaxY(self.mapView.frame)+OFFSET}, titleLabelSize};
+    CGSize summaryLabelSize = [self.summaryLabel.attributedText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    summaryLabelSize.width = CGRectGetWidth(bounds)-2.0f*OFFSET;
+    self.summaryLabel.frame = (CGRect){{OFFSET, CGRectGetMaxY(self.titleLabel.frame)+OFFSET}, summaryLabelSize};
     CGSize locationLabelSize = [self.locationLabel.attributedText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     locationLabelSize.width = CGRectGetWidth(bounds)-3.0f*OFFSET;
-    self.locationLabel.frame = (CGRect){{2.0f*OFFSET, CGRectGetMaxY(self.titleLabel.frame)+OFFSET}, locationLabelSize};
+    self.locationLabel.frame = (CGRect){{2.0f*OFFSET, CGRectGetMaxY(self.summaryLabel.frame)+OFFSET}, locationLabelSize};
 }
 
 -(NSAttributedString*)attributedStringForLocation:(NSString *)location {
