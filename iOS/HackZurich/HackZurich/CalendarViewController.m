@@ -64,12 +64,6 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     self.selectedFeeds = selectedFeeds;
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self reloadTableView];
-}
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.events.count;
 }
@@ -110,6 +104,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
             if (counter <= 0) {
                 NSMutableArray* newSectionDates = [NSMutableArray new];
                 NSMutableArray* newEvents = [NSMutableArray new];
+                NSMutableSet* eventIDs = [NSMutableSet set];
                 
                 NSMutableArray* allEvents = [NSMutableArray new];
                 for (NSData* calendarData in calendars) {
@@ -124,6 +119,11 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
                 NSInteger lastYear = 0;
                 
                 for (XbICVEvent* event in allEvents) {
+                    if ([eventIDs containsObject:event.UID]) {
+                        continue;
+                    }
+                    [eventIDs addObject:event.UID];
+                    
                     NSDateComponents* components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear fromDate:event.dateStart];
                     NSInteger day = components.day;
                     NSInteger month = components.month;
@@ -162,7 +162,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 -(void)dismissFeedVisibilityViewController:(id)sender {
     self.selectedFeeds = self.visiblityViewController.selectedFeeds;
-    //[self reloadTableView];
+    [self reloadTableView];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
