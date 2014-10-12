@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Laurin Brandner. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "CalendarDetailViewController.h"
 
-#define MAP_HEIGHT 150.0f
+#define RELATIVE_MAP_HEIGHT 0.25f
 #define OFFSET 10.0f
 
 @interface CalendarDetailViewController () <UIScrollViewDelegate>
@@ -17,6 +18,7 @@
 @property (nonatomic) CGSize lastMapViewSize;
 
 -(NSAttributedString*)attributedStringForDescription:(NSString *)description;
+-(NSAttributedString*)attributedStringForLocation:(NSString*)location;
 
 @end
 @implementation CalendarDetailViewController
@@ -44,7 +46,7 @@
     self.scrollView.tintColor = [UIColor colorWithRed:49.0f/255.0f green:157.0f/255.0f blue:71.0f/255.0f alpha:1.0f];
     self.scrollView.delegate = self;
     self.scrollView.alwaysBounceVertical = YES;
-    self.scrollView.contentInset = UIEdgeInsetsMake(-MAP_HEIGHT, 0.0f, 0.0f, 0.0f);
+    self.scrollView.contentInset = UIEdgeInsetsMake(-RELATIVE_MAP_HEIGHT*CGRectGetHeight(self.scrollView.frame), 0.0f, 0.0f, 0.0f);
     self.view = self.scrollView;
     
     self.mapView = [MKMapView new];
@@ -55,14 +57,35 @@
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.attributedText = [self attributedStringForDescription:self.title];
     [self.view addSubview:self.titleLabel];
+    
+    self.locationLabel = [UILabel new];
+    self.locationLabel.numberOfLines = 0;
+    self.locationLabel.attributedText = [self attributedStringForLocation:self.event.location];
+    [self.view addSubview:self.locationLabel];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [UIView animateWithDuration:0.5f delay:0.1f usingSpringWithDamping:0.6f initialSpringVelocity:0.0f options:0 animations:^{
-        self.scrollView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, 0.0f, 0.0f);
-    } completion:nil];
+    if (self.event.location) {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder geocodeAddressString:self.event.location completionHandler:^(NSArray* placemarks, NSError* error) {
+            MKCoordinateRegion region = self.mapView.region;
+            region.span.latitudeDelta = 1.0f;
+            region.span.longitudeDelta = 1.0f;
+            self.mapView.region = region;
+            CLLocationCoordinate2D coordinate = ((CLPlacemark*)placemarks.firstObject).location.coordinate;
+            coordinate.latitude += self.mapView.region.span.latitudeDelta*0.4f;
+            self.mapView.centerCoordinate = coordinate;
+            
+            [UIView animateWithDuration:0.5f delay:0.1f usingSpringWithDamping:0.6f initialSpringVelocity:0.0f options:0 animations:^{
+                self.scrollView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0f, 0.0f, 0.0f);
+            } completion:nil];
+        }];
+    }
+    else {
+        self.mapView.hidden = YES;
+    }
 }
 
 -(void)viewDidLayoutSubviews {
@@ -70,12 +93,25 @@
     
     CGRect bounds = self.view.bounds;
     
-    self.mapView.frame = (CGRect){{0.0f, -CGRectGetHeight(bounds)}, {CGRectGetWidth(bounds), CGRectGetHeight(bounds)+MAP_HEIGHT}};
+    self.mapView.frame = (CGRect){{0.0f, -CGRectGetHeight(bounds)}, {CGRectGetWidth(bounds), CGRectGetHeight(bounds)+RELATIVE_MAP_HEIGHT*CGRectGetHeight(bounds)}};
     self.lastMapViewSize = self.mapView.frame.size;
     
     CGSize constraint = CGSizeMake(CGRectGetWidth(bounds)-2.0f*OFFSET, CGFLOAT_MAX);
     CGSize titleLabelSize = [self.titleLabel.attributedText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     self.titleLabel.frame = (CGRect){{OFFSET, CGRectGetMaxY(self.mapView.frame)+OFFSET}, titleLabelSize};
+    CGSize locationLabelSize = [self.locationLabel.attributedText boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    locationLabelSize.width = CGRectGetWidth(bounds)-3.0f*OFFSET;
+    self.locationLabel.frame = (CGRect){{2.0f*OFFSET, CGRectGetMaxY(self.titleLabel.frame)+OFFSET}, locationLabelSize};
+}
+
+-(NSAttributedString*)attributedStringForLocation:(NSString *)location {
+    location = [location stringByReplacingOccurrencesOfString:@"\\," withString:@","];
+    NSString* string = [NSString stringWithFormat:@"at %@", location];
+    
+    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    [attributedString setAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:22.0f]} range:[string rangeOfString:location]];
+    
+    return attributedString;
 }
 
 -(NSAttributedString*)attributedStringForDescription:(NSString *)description {

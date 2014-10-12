@@ -469,6 +469,7 @@
 		494F510919E8AB3A003DCC1A /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 494F510819E8AB3A003DCC1A /* InputTableViewCell.m */; };
 		4976CF5019E9EBE500EFF772 /* CalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4976CF4F19E9EBE500EFF772 /* CalendarDetailViewController.m */; };
 		4976CF5219E9ECCB00EFF772 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4976CF5119E9ECCB00EFF772 /* MapKit.framework */; };
+		4976CF5419E9FB4100EFF772 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4976CF5319E9FB4100EFF772 /* CoreLocation.framework */; };
 		49F86E7D19E9A83C00D422DB /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -983,6 +984,7 @@
 		4976CF4E19E9EBE500EFF772 /* CalendarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDetailViewController.h; sourceTree = "<group>"; };
 		4976CF4F19E9EBE500EFF772 /* CalendarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDetailViewController.m; sourceTree = "<group>"; };
 		4976CF5119E9ECCB00EFF772 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4976CF5319E9FB4100EFF772 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		49F86E7B19E9A83C00D422DB /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		49F86E7C19E9A83C00D422DB /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -992,6 +994,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4976CF5419E9FB4100EFF772 /* CoreLocation.framework in Frameworks */,
 				4976CF5219E9ECCB00EFF772 /* MapKit.framework in Frameworks */,
 				27F7AF1719E97C0F00251E2E /* libical.a in Frameworks */,
 				27F0B54E19E8A39B00ADCEE1 /* SystemConfiguration.framework in Frameworks */,
@@ -1715,6 +1718,7 @@
 		494F509D19E88BE8003DCC1A = {
 			isa = PBXGroup;
 			children = (
+				4976CF5319E9FB4100EFF772 /* CoreLocation.framework */,
 				4976CF5119E9ECCB00EFF772 /* MapKit.framework */,
 				27F0B54D19E8A39B00ADCEE1 /* SystemConfiguration.framework */,
 				494F50A819E88BE8003DCC1A /* HackZurich */,

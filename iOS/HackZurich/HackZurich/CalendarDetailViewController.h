@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIScrollView* scrollView;
 @property (nonatomic, strong) MKMapView* mapView;
 @property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UILabel* locationLabel;
+@property (nonatomic, strong) UILabel* timeLabel;
 
 -(instancetype)initWithEvent:(XbICVEvent*)event;
 
