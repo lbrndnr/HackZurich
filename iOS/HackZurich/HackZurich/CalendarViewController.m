@@ -160,6 +160,25 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
                 self.sectionDates = newSectionDates;
                 self.events = newEvents;
                 [self.tableView reloadData];
+                
+//                NSIndexPath* indexPathInDaFuture = nil;
+//                for (NSUInteger section = 0; section < self.events.count; section++) {
+//                    BOOL shouldBreak = NO;
+//                    for (NSUInteger row = 0; row < ((NSArray*)self.events[section]).count; row++) {
+//                        XbICVEvent* event = ((NSArray*)self.events[section])[row];
+//                        if ([[NSDate date] compare:event.dateStart] == NSOrderedAscending) {
+//                            indexPathInDaFuture = [NSIndexPath indexPathForRow:row inSection:section];
+//                            shouldBreak = YES;
+//                            break;
+//                        }
+//                    }
+//                    
+//                    if (shouldBreak) {
+//                        break;
+//                    }
+//                }
+//                
+//                [self.tableView scrollToRowAtIndexPath:indexPathInDaFuture atScrollPosition:UITableViewScrollPositionTop animated:NO];
             }
         }];
     }
