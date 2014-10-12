@@ -292,9 +292,10 @@ NSString* const OutputFeedCreaterViewControllerDidFinishEditingNotification = @"
             NSString* text = textField.text;
             BOOL tag = [text hasPrefix:@"#"];
             Rule* newRule = [Rule new];
-            newRule.type = (tag) ? RuleTypeTag : RuleTypeSubstring;
+            newRule._type = (tag) ? RuleTypeTag : RuleTypeSubstring;
             newRule.text = (tag) ? [text substringFromIndex:1] : text;
-            
+            newRule.in_body = true;
+            newRule.in_subject = true;
             NSMutableArray* newRules = self.feed.filter.rules.mutableCopy ?: [NSMutableArray new];
             [newRules addObject:newRule];
             self.feed.filter.rules = (NSArray<Rule>*)newRules;

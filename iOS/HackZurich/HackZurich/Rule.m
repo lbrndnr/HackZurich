@@ -11,7 +11,7 @@
 @implementation Rule
 
 -(NSString<Ignore>*)title {
-    if (self.type == RuleTypeSubstring) {
+    if (self._type == RuleTypeSubstring) {
         return self.text;
     }
     
