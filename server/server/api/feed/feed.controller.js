@@ -106,7 +106,7 @@ exports.update = function (req, res) {
   }
   var a = req.body;
 
-var final_callback = function(filter) {
+  var callback = function (filter) {
     Feed.findById(req.params.id, function (err, feed) {
       if (err) {
         return handleError(res, err);
@@ -114,36 +114,50 @@ var final_callback = function(filter) {
       if (!feed || feed.user.toString() !== req.user._id.toString()) {
         return res.send(404);
       }
-      var updated = _.merge(feed, a);
 
-      if(filter) {
-        console.log(updated);
-        updated.filter = filter._id;
-        console.log(updated);
+      var more_callback = function (savedFilter) {
+        var updated = _.merge(feed, a);
+
+        updated.save(function (err) {
+          if (err) return handleError(res, err);
+          var f = feed.toObject();
+          if (savedFilter) {
+            f.filter = savedFilter;
+          }
+
+          return res.json(200, f);
+        });
+      };
+
+      if (filter) {
+        delete a.filter._id;
+        Filter.findByIdAndUpdate(filter._id, a.filter, function (err, savedFilter) {
+          if (err) {
+            handleError(res, err);
+          }
+          a.filter = filter._id;
+          more_callback(savedFilter);
+        });
+
+
+      } else {
+        more_callback();
       }
-      updated.save(function (err) {
-        if (err) return handleError(res, err);
-
-        return res.json(200, feed);
-      });
     });
 
-};
+  };
 
-  if(a.filter) {
-    res.json(200, "not implemented atm");
-    return;
+  if (a.filter) {
     Filter.findById(a.filter._id, function (err, filter) {
       if (err) {
         return handleError(res, err);
       }
-      final_callback(filter);
+      callback(filter);
 
     });
   } else {
-    final_callback();
+    callback();
   }
-
 
 
 };
