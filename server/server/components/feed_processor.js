@@ -36,30 +36,6 @@ module.exports.filterEvent = function(text, rules) {
 
 };
 
-function aggregateEvents(responses) {
-
-     var events = [];
-
-    responses.forEach(function(response) {
-
-        extractEvents(response.body).forEach(function(e) {
-
-            var filtered = filterEvent(e, rules);
-
-            if(filtered === null) {
-                return true; // continue
-            }
-
-            events.push(filtered);
-
-        });
-
-    });
-
-    return events;
-
-}
-
 function requestParallel(uris) {
 
     var waitgroup = new parallel();
