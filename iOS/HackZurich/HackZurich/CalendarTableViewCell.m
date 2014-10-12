@@ -27,10 +27,8 @@
     if (![_event isEqual:event]) {
         _event = event;
         
-        if(_event.description != nil) {
-        self.textLabel.attributedText = [self attributedStringForDescription:[_event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "]];
+        self.textLabel.attributedText = [self attributedStringForDescription:[_event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "] ?: event.summary];
         self.detailTextLabel.text = [self stringForTimePeriodFromDate:_event.dateStart untilDate:_event.dateEnd];
-        }
     }
 }
 

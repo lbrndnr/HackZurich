@@ -27,7 +27,7 @@
     if (![_event isEqual:event]) {
         _event = event;
         
-        self.title = [event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "];
+        self.title = [event.description stringByReplacingOccurrencesOfString:@"\\n" withString:@" "] ?: event.summary;
     }
 }
 
