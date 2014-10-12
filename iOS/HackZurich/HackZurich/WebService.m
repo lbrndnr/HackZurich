@@ -27,7 +27,7 @@
 
 //SYnc
 
-#define SYNC @"api/sync/syncs"
+#define SYNC @"api/sync/things"
 
 @implementation WebService
 
