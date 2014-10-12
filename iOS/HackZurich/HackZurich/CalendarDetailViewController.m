@@ -104,6 +104,10 @@
 }
 
 -(NSAttributedString*)attributedStringForLocation:(NSString *)location {
+    if (!location) {
+        return nil;
+    }
+    
     location = [location stringByReplacingOccurrencesOfString:@"\\," withString:@","];
     NSString* string = [NSString stringWithFormat:@"at %@", location];
     
@@ -114,6 +118,10 @@
 }
 
 -(NSAttributedString*)attributedStringForDescription:(NSString *)description {
+    if (!description) {
+        return nil;
+    }
+    
     NSMutableString* string = description.mutableCopy;
     NSRange firstHashTagRange = [description rangeOfString:@"#"];
     if (firstHashTagRange.location != NSNotFound && firstHashTagRange.location != 0) {

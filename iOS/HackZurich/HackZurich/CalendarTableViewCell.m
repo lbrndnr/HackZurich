@@ -45,6 +45,10 @@
 }
 
 -(NSAttributedString*)attributedStringForDescription:(NSString *)description {
+    if (!description) {
+        return nil;
+    }
+    
     NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:description];
     NSDictionary* attributes = @{NSForegroundColorAttributeName: [self.tintColor colorWithAlphaComponent:0.7f]};
     NSArray* words = [description componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
