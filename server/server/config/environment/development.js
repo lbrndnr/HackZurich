@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/server-dev'
+    uri: 'mongodb://localhost/calint-dev'
   },
 
   seedDB: true

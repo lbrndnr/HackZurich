@@ -77,16 +77,6 @@ module.exports = function (grunt) {
         ],
         tasks: ['newer:jshint:all', 'karma']
       },
-      injectSass: {
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['injector:sass']
-      },
-      sass: {
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['sass', 'autoprefixer']
-      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -354,7 +344,8 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'package.json',
-            'server/**/*'
+            'server/**/*',
+            'public/**/*'
           ]
         }]
       },
@@ -447,22 +438,6 @@ module.exports = function (grunt) {
       all: localConfig
     },
 
-    // Compiles Sass to CSS
-    sass: {
-      server: {
-        options: {
-          loadPath: [
-            '<%= yeoman.client %>/app',
-            '<%= yeoman.client %>/components'
-          ],
-          compass: false
-        },
-        files: {
-          '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.scss'
-        }
-      }
-    },
-
     injector: {
       options: {
 
@@ -485,25 +460,6 @@ module.exports = function (grunt) {
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
             ]
-        }
-      },
-
-      // Inject component scss into app.scss
-      sass: {
-        options: {
-          transform: function(filePath) {
-            filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
-            return '@import \'' + filePath + '\';';
-          },
-          starttag: '// injector',
-          endtag: '// endinjector'
-        },
-        files: {
-          '<%= yeoman.client %>/app/app.scss': [
-            '<%= yeoman.client %>/{app,components}/**/*.{scss,sass}',
-            '!<%= yeoman.client %>/app/app.{scss,sass}'
-          ]
         }
       },
 

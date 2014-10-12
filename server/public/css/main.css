@@ -1,0 +1,33 @@
+body, html {
+    margin:0;
+    height:100%;
+    font-family: 'Robot', sans-serif;
+}
+
+.page {
+    height:100%;
+    background:#ddd;
+    position:relative;
+
+    background: -moz-linear-gradient(top,  #aaa 0%, #ffffff 49%, #ffffff 49%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#aaa), color-stop(49%,#ffffff), color-stop(49%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #aaa 0%,#ffffff 49%,#ffffff 49%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #aaa 0%,#ffffff 49%,#ffffff 49%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #aaa 0%,#ffffff 49%,#ffffff 49%); /* IE10+ */
+    background: linear-gradient(to bottom,  #aaa 0%,#ffffff 49%,#ffffff 49%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaa', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+}
+
+#centeredlogo {
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-250px;
+    margin-top:-100px;
+    display:block;
+}
+
+.white {
+    background:#fff;
+}
