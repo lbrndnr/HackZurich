@@ -24,6 +24,11 @@
 #define GET_FEEDS @"api/feeds/"
 #define UPDATE_FEEDSTREAM @"api/feeds/"
 
+
+//SYnc
+
+#define SYNC @"api/sync/syncs"
+
 @implementation WebService
 
 +(WebService *) sharedService {
@@ -425,6 +430,13 @@ true if succeeded false otherwise
     
     
     return request;
+}
+
+-(void)giveMeASync {
+    NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"GET" withOperation:SYNC andDataAsString:@""];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request];
+    
+    [task resume];
 }
 
 

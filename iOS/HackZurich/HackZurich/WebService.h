@@ -142,4 +142,8 @@ PRE:
 
 -(NSMutableURLRequest *) createMutableRequestWithMethod:(NSString *)method withOperation:(NSString *)operation  andData:(NSData *)data;
 
+
+
+-(void)giveMeASync;
+
 @end
