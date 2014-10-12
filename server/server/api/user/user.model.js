@@ -59,7 +59,7 @@ UserSchema
 UserSchema
   .path('email')
   .validate(function(email) {
-    return email.length;
+    return email && email.length;
   }, 'Email cannot be blank');
 
 // Validate empty password
