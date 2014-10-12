@@ -134,12 +134,15 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat factor = scrollView.contentOffset.y/-scrollView.contentInset.top;
-    if (factor > 1.0f) {
-        MKCoordinateRegion region = self.mapView.region;
-        region.span.latitudeDelta = factor;
-        region.span.longitudeDelta = factor;
-        self.mapView.region = region;
+    if (self.event.location) {
+        CGFloat factor = scrollView.contentOffset.y/-scrollView.contentInset.top;
+        if (factor > 1.0f) {
+            MKCoordinateRegion region = self.mapView.region;
+            NSLog(@"%f-%f", region.span.longitudeDelta, region.span.latitudeDelta);
+            region.span.latitudeDelta = factor;
+            region.span.longitudeDelta = factor;
+            self.mapView.region = region;
+        }
     }
 }
 
