@@ -62,6 +62,11 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
         }
     }
     self.selectedFeeds = selectedFeeds;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:52.0f/255.0f green:131.0f/255.0f blue:67.0f/255.0f alpha:1.0f];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self  action:@selector(reloadTableView) forControlEvents:UIControlEventValueChanged];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -93,6 +98,8 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 }
 
 -(void)reloadTableView {
+    [self.refreshControl beginRefreshing];
+    
     __block NSInteger counter = self.selectedFeeds.count;
     NSMutableArray* calendars = [NSMutableArray new];
     for (Feed* feed in self.selectedFeeds) {
@@ -142,6 +149,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
                     }
                 }
                 
+                [self.refreshControl endRefreshing];
                 self.sectionDates = newSectionDates;
                 self.events = newEvents;
                 [self.tableView reloadData];
@@ -162,8 +170,9 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 -(void)dismissFeedVisibilityViewController:(id)sender {
     self.selectedFeeds = self.visiblityViewController.selectedFeeds;
-    [self reloadTableView];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self reloadTableView];
+    }];
 }
 
 -(void)downloadCalenderDataWithURL:(NSURL *)URL withCompletion:(void (^)(NSData*))completion {
