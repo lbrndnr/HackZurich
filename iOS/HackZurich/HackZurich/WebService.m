@@ -435,7 +435,9 @@ true if succeeded false otherwise
 -(void)giveMeASync:(void(^)(void)) completion {
     NSMutableURLRequest *request = [self createMutableRequestWithMethod:@"GET" withOperation:SYNC andDataAsString:@""];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        completion();
+        if (completion) {
+            completion();
+        }
     }];
     
     [task resume];

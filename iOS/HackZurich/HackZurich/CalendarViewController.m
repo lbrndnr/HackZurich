@@ -107,6 +107,8 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     
     [self.refreshControl beginRefreshing];
     
+    [[WebService sharedService] giveMeASync:nil];
+    
     __block NSInteger counter = self.selectedFeeds.count;
     NSMutableArray* calendars = [NSMutableArray new];
     for (Feed* feed in self.selectedFeeds) {
