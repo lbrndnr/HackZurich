@@ -9,8 +9,8 @@
 #import "JSONModel.h"
 
 typedef NS_ENUM(int, RuleType) {
-    RuleTypeSubstring,
-    RuleTypeTag
+    RuleTypeTag,
+    RuleTypeSubstring
 };
 
 @interface Rule : JSONModel
