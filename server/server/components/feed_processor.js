@@ -149,7 +149,7 @@ function applyRule(rule, text) {
 
     var lookup = rule.text;
 
-    if(rule.type === 0) {
+    if(rule._type === 0) {
         lookup = '#' + lookup;
     }
 

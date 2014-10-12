@@ -10,7 +10,6 @@ var resolveFilter = function (feed, callback) {
     Filter.findById(feed.filter, function (err, filter) {
       if (err) throw err;
       feed.filter = filter;
-      console.log(filter);
       callback(feed);
     });
   } else {
@@ -21,17 +20,16 @@ var resolveFilter = function (feed, callback) {
 var resolveFilters = function (feeds, callback) {
   Filter.find(function (err, filters) {
     callback(_.map(feeds, function (feed) {
-      if(!feed.filter) return feed;
+      if (!feed.filter) return feed;
       var f = feed.toObject();
       f.filter = _.find(filters, {_id: feed.filter});
-      console.log(f.filter);
       return f;
     }));
   });
 };
 
 // Get list of feeds
-exports.index = function(req, res) {
+exports.index = function (req, res) {
   Feed.find({user: req.user._id}, "-user -__v", function (err, feeds) {
     if (err) return handleError(res, err);
 
@@ -42,9 +40,11 @@ exports.index = function(req, res) {
 };
 
 // Get a single feed
-exports.show = function(req, res) {
+exports.show = function (req, res) {
   Feed.findById(req.params.id, function (err, feed) {
-    if(err) { return handleError(res, err); }
+    if (err) {
+      return handleError(res, err);
+    }
     if (!feed || feed.user.toString() !== req.user._id.toString()) {
       return res.send(404);
     }
@@ -53,28 +53,17 @@ exports.show = function(req, res) {
   });
 };
 // Creates a new feed in the DB.
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var a = _.merge(req.body, {user: req.user._id});
   a.uri = a.uri || "http://";
   delete a._id;
-  delete a.filter._id;
-  var f = a.filter;
 
-  var filter_input_ids = [];
-  var waitnum = f.inputs.length;
-
-  var final_callback = function () {
-    f.inputs = filter_input_ids;
-
-    Filter.create(new Filter(f), function (err, filter) {
+  var final_callback = function (filter) {
+    // create the feed
+    Feed.create(new Feed(a), function (err, feed) {
       if (err) return handleError(res, err);
 
-      a.filter = filter._id;
-      // create the feed
-      Feed.create(new Feed(a), function (err, feed) {
-        if (err) {
-          return handleError(res, err);
-        }
+      if (filter) {
         // link feed in filter
         filter.output = feed._id;
         filter.save(function (err) {
@@ -82,64 +71,97 @@ exports.create = function(req, res) {
             return handleError(res, err);
           }
           // send back the feed with id n stuff
-          resolveFilter(feed, function (feed2) {
-            res.json(201, feed2);
+          resolveFilter(feed, function (feed) {
+            res.json(201, feed);
           });
         });
-      });
+      } else {
+        res.json(201, feed);
+      }
+
     });
   };
 
-  _.each(f.inputs, function (input) {
-    if (!input._id) {
-      delete input._id;
-      console.log(input);
-      Feed.create(new Feed(_.merge(input, {user: req.user._id})), function (err, feed) {
-        if (err) return console.log("filter save error", err);
-        waitnum--;
-        filter_input_ids.push(feed._id);
-        if (waitnum === 0) final_callback();
-      });
-    } else {
-      filter_input_ids.push(input._id);
-      waitnum--;
-      if (waitnum === 0) final_callback();
-    }
-  });
+  if (a.filter) {
+    delete a.filter._id;
+    var f = a.filter;
+    // create the filter
+    Filter.create(new Filter(f), function (err, filter) {
+      if (err) return handleError(res, err);
+
+      a.filter = filter._id;
+      final_callback(filter);
+
+    });
+  } else {
+    final_callback();
+  }
+
 };
 
 // Updates an existing feed in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
+exports.update = function (req, res) {
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  var a = req.body;
 
-  Filter.findById(req.body.filter._id, function(err, filter) {
+var final_callback = function(filter) {
     Feed.findById(req.params.id, function (err, feed) {
-      if (err) { return handleError(res, err); }
+      if (err) {
+        return handleError(res, err);
+      }
       if (!feed || feed.user.toString() !== req.user._id.toString()) {
         return res.send(404);
       }
+      var updated = _.merge(feed, a);
 
-      var updated = _.merge(feed, req.body, {filter:filter._id});
+      if(filter) {
+        console.log(updated);
+        updated.filter = filter._id;
+        console.log(updated);
+      }
       updated.save(function (err) {
-        if (err) { return handleError(res, err); }
+        if (err) return handleError(res, err);
+
         return res.json(200, feed);
       });
     });
-  });
+
+};
+
+  if(a.filter) {
+    res.json(200, "not implemented atm");
+    return;
+    Filter.findById(a.filter._id, function (err, filter) {
+      if (err) {
+        return handleError(res, err);
+      }
+      final_callback(filter);
+
+    });
+  } else {
+    final_callback();
+  }
+
 
 
 };
 
 // Deletes a feed from the DB.
-exports.destroy = function(req, res) {
+exports.destroy = function (req, res) {
   Feed.findById(req.params.id, function (err, feed) {
-    if(err) { return handleError(res, err); }
+    if (err) {
+      return handleError(res, err);
+    }
     if (!feed || feed.user.toString() !== req.user._id.toString()) {
       return res.send(404);
     }
 
-    feed.remove(function(err) {
-      if(err) { return handleError(res, err); }
+    feed.remove(function (err) {
+      if (err) {
+        return handleError(res, err);
+      }
       return res.send(204);
     });
   });

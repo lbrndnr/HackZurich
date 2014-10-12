@@ -9,7 +9,7 @@ var FeedSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User', required:true},
   desc: String,
   uri: {type: String, required:true},
-  filter: {type: Schema.Types.ObjectId, ref: 'Filter'}
+  filter: {type: Schema.Types.ObjectId, required:false} // TODO ref: 'Filter',
 });
 
 module.exports = mongoose.model('Feed', FeedSchema);
