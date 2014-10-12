@@ -144,7 +144,7 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
     __block NSInteger counter = self.selectedFeeds.count;
     NSMutableArray* calendars = [NSMutableArray new];
     for (Feed* feed in self.selectedFeeds) {
-        NSURL* URL = [NSURL URLWithString:feed.uri];
+        NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://hz14.the-admins.ch/ics/%@",feed.filter._id ]];
         [self downloadCalenderDataWithURL:URL withCompletion:^(NSData* data) {
             [calendars addObject:data];
             counter--;
@@ -210,7 +210,10 @@ NSString* const CalendarViewControllerSelectedCalendarUIDsKey = @"CalendarViewCo
 
 -(void)downloadCalenderDataWithURL:(NSURL *)URL withCompletion:(void (^)(NSData*))completion {
     if (completion) {
-        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithURL:URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        [request addValue:[NSString stringWithFormat:@"Bearer %@", [WebService sharedService].currentUser.access_token ] forHTTPHeaderField:@"Authorization"];
+        
+        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(data);
             });

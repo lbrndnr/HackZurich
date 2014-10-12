@@ -18,7 +18,7 @@
 @interface Filter : JSONModel
 @property (strong, nonatomic) NSString *_id;
 @property (strong, nonatomic) NSString *output;
-@property (strong, nonatomic) NSArray<Rule> *rules;
+@property (strong, nonatomic) NSArray<Rule, Optional> *rules;
 @property (strong, nonatomic) NSArray *inputs;
 @end
 
