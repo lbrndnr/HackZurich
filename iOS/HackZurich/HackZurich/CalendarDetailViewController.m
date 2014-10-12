@@ -92,7 +92,6 @@
     [super viewDidLayoutSubviews];
     
     CGRect bounds = self.view.bounds;
-    
     self.mapView.frame = (CGRect){{0.0f, -CGRectGetHeight(bounds)}, {CGRectGetWidth(bounds), CGRectGetHeight(bounds)+RELATIVE_MAP_HEIGHT*CGRectGetHeight(bounds)}};
     self.lastMapViewSize = self.mapView.frame.size;
     
@@ -133,17 +132,16 @@
     return attributedString;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.event.location) {
-        CGFloat factor = scrollView.contentOffset.y/-scrollView.contentInset.top;
-        if (factor > 1.0f) {
-            MKCoordinateRegion region = self.mapView.region;
-            NSLog(@"%f-%f", region.span.longitudeDelta, region.span.latitudeDelta);
-            region.span.latitudeDelta = factor;
-            region.span.longitudeDelta = factor;
-            self.mapView.region = region;
-        }
-    }
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    if (self.event.location) {
+//        CGFloat factor = scrollView.contentOffset.y/-scrollView.contentInset.top;
+//        if (factor > 1.0f) {
+//            MKCoordinateRegion region = self.mapView.region;
+//            region.span.latitudeDelta = factor;
+//            region.span.longitudeDelta = factor;
+//            self.mapView.region = region;
+//        }
+//    }
+//}
 
 @end
